@@ -21,7 +21,7 @@
             <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 bg-white shadow my-5 border border-primary">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 p-4 bg-primary divCover">
-                        <img src="logo-copy.jpg" alt="logo image">
+                        <img class="img-responsive" src="logo-copy.jpg" alt="logo image">
                     </div>
                     <div class="col-lg-6 col-md-6 p-lg-5 p-md-5 px-3 py-4 text-dark">
                         <div id="profileSection">
@@ -86,7 +86,7 @@
                                 <label for="userBio">Biography<span class="text-danger ml-1">*</span></label>
                                 <textarea class="form-control" id="userBio" rows="4" ></textarea>
                              </div>
-                            <button type="button" class="btn btn-outline-primary btn-block text-uppercase mb-3" >Save</button>
+                            <button type="button" class="btn btn-outline-primary btn-block text-uppercase mb-3" onclick="saveProfile()">Save</button>
                             <button type="button" class="btn btn-outline-secondary btn-block text-uppercase" onclick="hideEditProfileForm()">Cancel</button>
                         </div>
                     </div>
@@ -99,7 +99,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
    <!-- Firebase -->
  
 <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -130,7 +131,7 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-        // firebase.analytics();
+        //firebase.analytics();
         firebase.auth.Auth.Persistence.LOCAL;
     </script>
     
