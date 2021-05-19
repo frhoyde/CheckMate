@@ -9,7 +9,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./Resources/CSS/styles.css">
     <!-- Sweet Alert JavaScript -->
- 
+    
     <!-- Nunito Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
     <title>Sign Up </title>
@@ -25,7 +25,7 @@
             <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 bg-white shadow mb-5 border border-primary">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 p-4 bg-primary divCover">
-                        <img src="logo-copy.jpg" alt="logo image">
+                        <img class="img-responsive" src="logo-copy.jpg" alt="logo image">
                     </div>
                     <div class="col-lg-6 col-md-6 p-lg-5 p-md-5 px-3 py-4">
                         <div id="signUpForm">
@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for="userPassword">Password<span class="text-danger ml-1">*</span></label>
                                 <input type="password" class="form-control" id="userPassword" onblur="checkUserPassword()" placeholder="**********">
-                                <small id="userPasswordError" class="form-text text-danger">Your password must be uppercase, lowercase and more than 10 characters.</small>
+                                <small id="userPasswordError" class="form-text text-danger">Your password must be uppercase, lowercase and more than 6 characters.</small>
                             </div>
                             <button type="button" class="btn btn-outline-primary text-uppercase mb-3" onclick="signUp()">Sign Up</button>
                             <p>Already a member? Sign in: <a href="signin.html"><strong class="text-primary text-uppercase showSignInForm">Sign In</strong></a></p>
@@ -57,6 +57,7 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
