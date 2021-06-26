@@ -1,0 +1,415 @@
+--Task1
+ SELECT * FROM Citizen;
+ C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         1 Alice      Dhaka              25 Teacher         Male        50000
+         2 Bob        Dhaka              56 Service         Male        60000
+         3 Charlie    Ctg                71 Retired         Male        10000
+         4 Erin       Ctg                13 Student         Female        500
+         5 Dave       Dhaka              45 Service         Male        40000
+         6 Faythe     Gazipur            54 Doctor          Female      55000
+         7 Grace      Gazipur            65 Musician        Female       5000
+         8 Ivan       Dhaka              56 Engineer        Male        60000
+         9 Frank      Ctg                23 Student         Male         1000
+        10 Micheal    Comilla            32 Teacher         Male        45000
+        11 Niaj       Comilla            51 Farmer          Male        20000
+        12 Heidi      Khulna             15 Student         Female       1500
+        13 Ted        Ctg                25 Business        Male       100000
+        14 Walter     Comilla            52 Doctor          Male        70000
+        15 Victor     Gazipur            53 Teacher         Male        50000
+        16 Judy       Dhaka              35 Musician        Female      50000
+        17 Pat        Khulna             43 Service         Male        50000
+        18 Olivia     Khulna             34 Service         Female      45000
+        19 Trent      Ctg                16 Student         Male          500
+        20 Peggy      Comilla            32 Business        Female     120000
+        21 Wendy      Ctg                25 Musician        Female     100000
+        22 Oscar      Gazipur            14 Student         Male          400
+        23 Mallet     Dhaka              25 Engineer        Male        50000
+
+23 rows selected.
+
+--Task2
+ SELECT C_Name, Age, Occupation FROM Citizen;
+C_NAME            AGE OCCUPATION
+---------- ---------- ---------------
+Alice              25 Teacher
+Bob                56 Service
+Charlie            71 Retired
+Erin               13 Student
+Dave               45 Service
+Faythe             54 Doctor
+Grace              65 Musician
+Ivan               56 Engineer
+Frank              23 Student
+Micheal            32 Teacher
+Niaj               51 Farmer
+Heidi              15 Student
+Ted                25 Business
+Walter             52 Doctor
+Victor             53 Teacher
+Judy               35 Musician
+Pat                43 Service
+Olivia             34 Service
+Trent              16 Student
+Peggy              32 Business
+Wendy              25 Musician
+Oscar              14 Student
+Mallet             25 Engineer
+
+23 rows selected.
+
+--Task3
+ SELECT  C_NAME FROM Citizen WHERE C_HOME = 'Dhaka';
+C_NAME
+----------
+Alice
+Bob
+Dave
+Ivan
+Judy
+Mallet
+
+6 rows selected.
+
+--Task4
+ SELECT * FROM Citizen WHERE SALARY < 90000; 
+
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         1 Alice      Dhaka              25 Teacher         Male        50000
+         2 Bob        Dhaka              56 Service         Male        60000
+         3 Charlie    Ctg                71 Retired         Male        10000
+         4 Erin       Ctg                13 Student         Female        500
+         5 Dave       Dhaka              45 Service         Male        40000
+         6 Faythe     Gazipur            54 Doctor          Female      55000
+         7 Grace      Gazipur            65 Musician        Female       5000
+         8 Ivan       Dhaka              56 Engineer        Male        60000
+         9 Frank      Ctg                23 Student         Male         1000
+        10 Micheal    Comilla            32 Teacher         Male        45000
+        11 Niaj       Comilla            51 Farmer          Male        20000
+        12 Heidi      Khulna             15 Student         Female       1500
+        14 Walter     Comilla            52 Doctor          Male        70000
+        15 Victor     Gazipur            53 Teacher         Male        50000
+        16 Judy       Dhaka              35 Musician        Female      50000
+        17 Pat        Khulna             43 Service         Male        50000
+        18 Olivia     Khulna             34 Service         Female      45000
+        19 Trent      Ctg                16 Student         Male          500
+        22 Oscar      Gazipur            14 Student         Male          400
+        23 Mallet     Dhaka              25 Engineer        Male        50000
+
+20 rows selected.
+
+--Task5.
+SELECT  C_NAME, C_HOME  FROM Citizen WHERE AGE < 45;
+C_NAME     C_HOME
+---------- ----------
+Alice      Dhaka
+Erin       Ctg
+Frank      Ctg
+Micheal    Comilla
+Heidi      Khulna
+Ted        Ctg
+Judy       Dhaka
+Pat        Khulna
+Olivia     Khulna
+Trent      Ctg
+Peggy      Comilla
+Wendy      Ctg
+Oscar      Gazipur
+Mallet     Dhaka
+
+14 rows selected.
+
+--Task6. 
+SELECT * FROM Citizen WHERE GENDER = 'Female';
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         4 Erin       Ctg                13 Student         Female        500
+         6 Faythe     Gazipur            54 Doctor          Female      55000
+         7 Grace      Gazipur            65 Musician        Female       5000
+        12 Heidi      Khulna             15 Student         Female       1500
+        16 Judy       Dhaka              35 Musician        Female      50000
+        18 Olivia     Khulna             34 Service         Female      45000
+        20 Peggy      Comilla            32 Business        Female     120000
+        21 Wendy      Ctg                25 Musician        Female     100000
+
+8 rows selected.
+
+
+7. SELECT * FROM Citizen WHERE OCCUPATION  IN ('Engineer' , 'Doctor' , 'Retired');
+
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         3 Charlie    Ctg                71 Retired         Male        10000
+         6 Faythe     Gazipur            54 Doctor          Female      55000
+         8 Ivan       Dhaka              56 Engineer        Male        60000
+        14 Walter     Comilla            52 Doctor          Male        70000
+        23 Mallet     Dhaka              25 Engineer        Male        50000
+
+--Task8. 
+SELECT C_ID, C_Name, SALARY FROM Citizen WHERE OCCUPATION  IN ('Musician' , 'Business');
+      C_ID C_NAME         SALARY
+---------- ---------- ----------
+         7 Grace            5000
+        13 Ted            100000
+        16 Judy            50000
+        20 Peggy          120000
+        21 Wendy          100000
+
+--Task9. 
+SELECT * FROM Citizen WHERE OCCUPATION = 'Doctor' OR OCCUPATION = 'Teacher';
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         1 Alice      Dhaka              25 Teacher         Male        50000
+         6 Faythe     Gazipur            54 Doctor          Female      55000
+        10 Micheal    Comilla            32 Teacher         Male        45000
+        14 Walter     Comilla            52 Doctor          Male        70000
+        15 Victor     Gazipur            53 Teacher         Male        50000
+
+--Task10.
+ SELECT * FROM Citizen WHERE OCCUPATION = 'Engineer' ORDER BY SALARY ASC;
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+        23 Mallet     Dhaka              25 Engineer        Male        50000
+         8 Ivan       Dhaka              56 Engineer        Male        60000
+
+SELECT * FROM Citizen WHERE OCCUPATION = 'Engineer' ORDER BY SALARY DESC;
+
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         8 Ivan       Dhaka              56 Engineer        Male        60000
+        23 Mallet     Dhaka              25 Engineer        Male        50000
+
+ 
+--Task11.
+ SELECT C_NAME, AGE FROM Citizen ORDER BY AGE ASC, C_NAME DESC;
+
+C_NAME            AGE
+---------- ----------
+Erin               13
+Oscar              14
+Heidi              15
+Trent              16
+Frank              23
+Wendy              25
+Ted                25
+Mallet             25
+Alice              25
+Peggy              32
+Micheal            32
+Olivia             34
+Judy               35
+Pat                43
+Dave               45
+Niaj               51
+Walter             52
+Victor             53
+Faythe             54
+Ivan               56
+Bob                56
+Grace              65
+Charlie            71
+
+23 rows selected.
+
+--Task12.
+ SELECT DISTINCT AGE AS Unique_Age FROM Citizen;
+UNIQUE_AGE
+----------
+        23
+        51
+        52
+        14
+        71
+        15
+        43
+        45
+        34
+        56
+        54
+        65
+        35
+        53
+        13
+        25
+        32
+        16
+
+18 rows selected.
+
+--Task13.
+ UPDATE Citizen SET SALARY = (SALARY * 0.4) + SALARY WHERE OCCUPATION IN ((SELECT DISTINCT OCCUPATION FROM Citizen WHERE NOT OCCUPATION = 'Retired'));
+22 rows updated. 
+
+SELECT SALARY FROM Citizen WHERE OCCUPATION IN((SELECT DISTINCT OCCUPATION FROM Citizen WHERE NOT OCCUPATION = 'Retired'));
+    SALARY
+----------
+     70000
+     63000
+     70000
+     84000
+     56000
+     70000
+     63000
+       700
+      1400
+      2100
+       700
+       560
+     77000
+     98000
+      7000
+     70000
+    140000
+     84000
+     70000
+     28000
+    140000
+    168000
+
+22 rows selected.
+
+--Task14. 
+SELECT * FROM Citizen WHERE GENDER = 'Male' AND SALARY > 40000;
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         1 Alice      Dhaka              25 Teacher         Male        70000
+         2 Bob        Dhaka              56 Service         Male        84000
+         5 Dave       Dhaka              45 Service         Male        56000
+         8 Ivan       Dhaka              56 Engineer        Male        84000
+        10 Micheal    Comilla            32 Teacher         Male        63000
+        13 Ted        Ctg                25 Business        Male       140000
+        14 Walter     Comilla            52 Doctor          Male        98000
+        15 Victor     Gazipur            53 Teacher         Male        70000
+        17 Pat        Khulna             43 Service         Male        70000
+        23 Mallet     Dhaka              25 Engineer        Male        70000
+
+10 rows selected.
+
+--Task15.
+ SELECT * FROM Citizen WHERE SALARY NOT BETWEEN 30000 AND 50000;
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER     SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+         1 Alice      Dhaka              25 Teacher         Male        70000
+         2 Bob        Dhaka              56 Service         Male        84000
+         3 Charlie    Ctg                71 Retired         Male        10000
+         4 Erin       Ctg                13 Student         Female        700
+         5 Dave       Dhaka              45 Service         Male        56000
+         6 Faythe     Gazipur            54 Doctor          Female      77000
+         7 Grace      Gazipur            65 Musician        Female       7000
+         8 Ivan       Dhaka              56 Engineer        Male        84000
+         9 Frank      Ctg                23 Student         Male         1400
+        10 Micheal    Comilla            32 Teacher         Male        63000
+        11 Niaj       Comilla            51 Farmer          Male        28000
+        12 Heidi      Khulna             15 Student         Female       2100
+        13 Ted        Ctg                25 Business        Male       140000
+        14 Walter     Comilla            52 Doctor          Male        98000
+        15 Victor     Gazipur            53 Teacher         Male        70000
+        16 Judy       Dhaka              35 Musician        Female      70000
+        17 Pat        Khulna             43 Service         Male        70000
+        18 Olivia     Khulna             34 Service         Female      63000
+        19 Trent      Ctg                16 Student         Male          700
+        20 Peggy      Comilla            32 Business        Female     168000
+        21 Wendy      Ctg                25 Musician        Female     140000
+        22 Oscar      Gazipur            14 Student         Male          560
+        23 Mallet     Dhaka              25 Engineer        Male        70000
+
+23 rows selected.
+
+--Task16.
+ SELECT SALARY FROM Citizen WHERE AGE NOT BETWEEN 30 AND 55;
+
+    SALARY
+----------
+     70000
+     84000
+     10000
+       700
+      7000
+     84000
+      1400
+      2100
+    140000
+       700
+    140000
+       560
+     70000
+
+13 rows selected.
+
+--Task17.
+  UPDATE Update_Citizen SET C_HOME = 'Chattogram' WHERE C_HOME = 'Ctg';
+
+6 rows updated.
+
+--Task18.
+ DELETE FROM Update_Citizen WHERE C_ID BETWEEN 1 AND 10;
+10 rows deleted.
+ SELECT * FROM Update_Citizen;
+
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER NEW_SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+        11 Niaj       Comilla            51 Farmer          Male        20000
+        12 Heidi      Khulna             15 Student         Female       1500
+        13 Ted        Chattogram         25 Business        Male       100000
+        14 Walter     Comilla            52 Doctor          Male        70000
+        15 Victor     Gazipur            53 Teacher         Male        50000
+        16 Judy       Dhaka              35 Musician        Female      50000
+        17 Pat        Khulna             43 Service         Male        50000
+        18 Olivia     Khulna             34 Service         Female      45000
+        19 Trent      Chattogram         16 Student         Male          500
+        20 Peggy      Comilla            32 Business        Female     120000
+        21 Wendy      Chattogram         25 Musician        Female     100000
+        22 Oscar      Gazipur            14 Student         Male          400
+        23 Mallet     Dhaka              25 Engineer        Male        50000
+
+13 rows selected.
+
+--Task19.
+ UPDATE Updated_Citizen SET AGE = AGE + 10 , SALARY = (0.3 * SALARY) + SALARY;
+ERROR at line 1:
+ORA-00904: "SALARY": invalid identifier
+UPDATE Update_Citizen SET AGE = AGE + 10 , NEW_SALARY = (0.3 * NEW_SALARY) + NEW_SALARY;
+13 rows updated.
+SELECT * FROM Update_Citizen;
+      C_ID C_NAME     C_HOME            AGE OCCUPATION      GENDER NEW_SALARY
+---------- ---------- ---------- ---------- --------------- ------ ----------
+        11 Niaj       Comilla            61 Farmer          Male        26000
+        12 Heidi      Khulna             25 Student         Female       1950
+        13 Ted        Chattogram         35 Business        Male       130000
+        14 Walter     Comilla            62 Doctor          Male        91000
+        15 Victor     Gazipur            63 Teacher         Male        65000
+        16 Judy       Dhaka              45 Musician        Female      65000
+        17 Pat        Khulna             53 Service         Male        65000
+        18 Olivia     Khulna             44 Service         Female      58500
+        19 Trent      Chattogram         26 Student         Male          650
+        20 Peggy      Comilla            42 Business        Female     156000
+        21 Wendy      Chattogram         35 Musician        Female     130000
+        22 Oscar      Gazipur            24 Student         Male          520
+        23 Mallet     Dhaka              35 Engineer        Male        65000
+
+13 rows selected.
+
+--Task20. 
+SELECT C_ID, C_NAME, SALARY, NEW_SALARY FROM CITIZEN, UPDATE_CITIZEN WHERE CITIZEN.C_ID = UPDATE_CITIZEN.C_ID;
+ERROR at line 1:
+ORA-00918: column ambiguously defined
+
+SELECT CITIZEN.C_ID, C_NAME, SALARY, NEW_SALARY FROM CITIZEN, UPDATED_CITIZEN WHERE CITIZEN.C_ID = UPDATED_CITIZEN.C_ID;
+      C_ID C_NAME         SALARY NEW_SALARY
+---------- ---------- ---------- ----------
+        11 Niaj            28000      26000
+        12 Heidi            2100       1950
+        13 Ted            140000     130000
+        14 Walter          98000      91000
+        15 Victor          70000      65000
+        16 Judy            70000      65000
+        17 Pat             70000      65000
+        18 Olivia          63000      58500
+        19 Trent             700        650
+        20 Peggy          168000     156000
+        21 Wendy          140000     130000
+        22 Oscar             560        520
+        23 Mallet          70000      65000
+
+13 rows selected.
