@@ -36,45 +36,61 @@ function signUp() {
   var userFullName = document.getElementById("userFullName").value;
   var userEmail = document.getElementById("userEmail").value;
   var userPassword = document.getElementById("userPassword").value;
+  var userFullNameFormate = /^([A-Za-z.\s_-])/;
+  var userEmailFormate =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+
+  var checkUserFullNameValid = userFullName.match(userFullNameFormate);
+  var checkUserEmailValid = userEmail.match(userEmailFormate);
+  var checkUserPasswordValid = userPassword.match(userPasswordFormate);
 
   //*****sign up user*****
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(userEmail, userPassword)
-    .then((cred) => {
-      console.log(cred);
-      var user = firebase.auth().currentUser;
-      console.log(user);
-      var uid;
-      if (user != null) {
-        uid = user.uid;
-      }
-      var firebaseRef = firebase.database().ref();
-      var userData = {
-        userFullName: userFullName,
-        userEmail: userEmail,
-        userPassword: userPassword,
-        userFb: "https://www.facebook.com/",
-        userTw: "https://twitter.com/",
-        userBio: "User biography",
-      };
-      firebaseRef.child(uid).set(userData);
-      swal(
-        "Your Account Created",
-        "Your account was created successfully, you can log in now.",
-        "success"
-      ).then((value) => {
-        setTimeout(function () {
-          window.location.replace("profile.html");
-        }, 1000);
+  if (checkUserFullNameValid == null) {
+    return checkUserFullName();
+  } else if (checkUserEmailValid == null) {
+    return checkUserEmail();
+  } else if (checkUserPasswordValid == null) {
+    return checkUserPassword();
+  } else {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(userEmail, userPassword)
+      .then((cred) => {
+        console.log(cred);
+        var user = firebase.auth().currentUser;
+        console.log(user);
+        var uid;
+        if (user != null) {
+          uid = user.uid;
+        }
+        var firebaseRef = firebase.database().ref();
+        var userData = {
+          userFullName: userFullName,
+          userEmail: userEmail,
+          userPassword: userPassword,
+          userFb: "https://www.facebook.com/",
+          userTw: "https://twitter.com/",
+          userBio: "User biography",
+        };
+        firebaseRef.child(uid).set(userData);
+        swal(
+          "Your Account Created",
+          "Your account was created successfully, you can log in now.",
+          "success"
+        ).then((value) => {
+          setTimeout(function () {
+            window.location.replace("profile.html");
+          }, 1000);
+        });
+      })
+      .catch((error) => {
+        //Handle errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        swal(errorCode, errorMessage, "warning");
       });
-    })
-    .catch((error) => {
-      //Handle errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      swal(errorCode, errorMessage, "warning");
-    });
+  }
 }
 
 // ******* Full Name Validation ********
@@ -126,7 +142,7 @@ function checkUserEmail() {
 // ****** Password Validation ******
 function checkUserPassword() {
   var userPassword = document.getElementById("userPassword");
-  var userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
+  var userPasswordFormate = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
   var flag;
   if (userPassword.value.match(userPasswordFormate)) {
     flag = false;
@@ -147,22 +163,30 @@ function signIn() {
   var userSIPassword = document.getElementById("userSIPassword").value;
 
   //sign in user
-  firebase
-    .auth()
-    .signInWithEmailAndPassword(userSIEmail, userSIPassword)
-    .then((cred) => {
-      swal("Successful", "Successfully signed in", "success").then((value) => {
-        setTimeout(function () {
-          window.location.replace("home.html");
-        }, 1000);
+  if (userSIEmail == "") {
+    return checkUserSIEmail();
+  } else if (userSIPassword == "") {
+    return checkUserSIPassword();
+  } else {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(userSIEmail, userSIPassword)
+      .then((cred) => {
+        swal("Successful", "Successfully signed in", "success").then(
+          (value) => {
+            setTimeout(function () {
+              window.location.replace("home.html");
+            }, 1000);
+          }
+        );
+      })
+      .catch((error) => {
+        //Handle errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        swal(errorCode, errorMessage, "warning");
       });
-    })
-    .catch((error) => {
-      //Handle errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      swal(errorCode, errorMessage, "warning");
-    });
+  }
 }
 
 // ****** Sign In Email Validation ******
@@ -186,7 +210,7 @@ function checkUserSIEmail() {
 // ***** Sign In Password Validation ******
 function checkUserSIPassword() {
   var userSIPassword = document.getElementById("userSIPassword");
-  var userSIPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
+  var userSIPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   var flag;
   if (userSIPassword.value.match(userSIPasswordFormate)) {
     flag = false;
@@ -231,27 +255,33 @@ function saveProfile() {
   let userTwitter = document.getElementById("userTwitter").value;
   let userBio = document.getElementById("userBio").value;
 
-  let user = firebase.auth().currentUser;
-  let uid;
-  if (user != null) {
-    uid = user.uid;
+  if (userFullName == "") {
+    return checkUserFullName();
+  } else if (userSurname == "") {
+    return checkUserSurname();
+  } else {
+    let user = firebase.auth().currentUser;
+    let uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    var firebaseRef = firebase.database().ref();
+    var userData = {
+      userFullName: userFullName,
+      userSurname: userSurname,
+      userFb: userFacebook,
+      userTw: userTwitter,
+      userBio: userBio,
+    };
+    firebaseRef.child(uid).update(userData);
+    swal("Update Successfully", "Profile Updated", "success").then((value) => {
+      setTimeout(function () {
+        // document.getElementById("profileSection").style.display = "block";
+        // document.getElementById("editProfileForm").style.display = "none";
+        window.location.replace("home.html");
+      }, 1000);
+    });
   }
-  var firebaseRef = firebase.database().ref();
-  var userData = {
-    userFullName: userFullName,
-    userSurname: userSurname,
-    userFb: userFacebook,
-    userTw: userTwitter,
-    userBio: userBio,
-  };
-  firebaseRef.child(uid).update(userData);
-  swal("Update Successfully", "Profile Updated", "success").then((value) => {
-    setTimeout(function () {
-      // document.getElementById("profileSection").style.display = "block";
-      // document.getElementById("editProfileForm").style.display = "none";
-      window.location.replace("home.html");
-    }, 1000);
-  });
 }
 
 /****** Working For Sign Out ******/
