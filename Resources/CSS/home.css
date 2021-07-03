@@ -86,7 +86,6 @@ body {
   font: 16px/1.5 "Lato", sans-serif;
 }
 
-
 /* HEADER STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .page-header {
@@ -101,8 +100,6 @@ body {
   color: var(--page-header-txtColor);
   background: var(--page-header-bgColor);
 }
-
-
 
 .page-header nav {
   display: flex;
@@ -189,7 +186,6 @@ body {
   fill: var(--blue);
 }
 
-
 /* PAGE CONTENT STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .page-content {
@@ -221,7 +217,7 @@ body {
   font-size: 1.5rem;
   padding-left: 15px;
   background: var(--page-content-blockColor);
-  color: var(--white);
+  color: var(--page-content-txtColor);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
 }
@@ -252,12 +248,44 @@ body {
   margin: 0 10px 0 20px;
 }
 
+.search-and-user .admin-profile .add-button button {
+  cursor: pointer;
+  outline: none;
+}
+
+.search-and-user .admin-profile button {
+  position: relative;
+  z-index: 3;
+  background: transparent;
+  color: var(--blue);
+  font-weight: bold;
+  font-size: 12px;
+  border-color: #1172c4;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 22px;
+  padding: 9px 9px;
+  transition: all 0.2s linear;
+}
+.search-and-user .admin-profile .add-button a {
+  text-decoration: none;
+}
+.search-and-user .admin-profile .add-button:hover {
+  color: white;
+  background: #1172c4;
+  border-color: var(--white);
+  transition: all 0.2s linear;
+}
+.search-and-user .add-button:active {
+  border-radius: 22px;
+}
+
 .search-and-user .admin-profile svg {
   width: 30px;
   height: 30px;
 }
 
-.search-and-user .admin-profile .notifications {
+.search-and-user .admin-profile .user-notifications {
   position: relative;
 }
 
@@ -294,7 +322,6 @@ body {
 .page-content .grid > article:last-child {
   grid-column: 1 / -1;
 }
-
 
 /* MQ RULES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -390,7 +417,6 @@ body {
   }
 }
 
-
 /* BODY CLASSES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .mob-menu-opened .toggle-mob-menu svg {
@@ -431,7 +457,6 @@ body {
     width: calc(100% - 40px);
   }
 }
-
 
 /* SWITCH STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -501,7 +526,6 @@ body {
   transform: translateY(-50%) rotate(-72deg);
 }
 
-
 /* LIGHT MODE STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .light-mode {
@@ -567,15 +591,15 @@ body {
   font-weight: 500;
   color: var(--secondary-color);
   border-bottom: 1px solid #ddd;
-  transition: .4s ease-in;
+  transition: 0.4s ease-in;
   padding: 20px 30px;
   cursor: pointer;
 }
 
-#opt-1:checked + label,
-#opt-2:checked + label,
-#opt-3:checked + label,
-#opt-4:checked + label {
+#showAll:checked + label,
+#showImportant:checked + label,
+#showInprogress:checked + label,
+#showComplete:checked + label {
   color: var(--checkbox-color);
   border-bottom: 2px solid var(--checkbox-color);
 }
@@ -614,14 +638,14 @@ label .label-text {
 }
 
 label .label-text:before {
-  content: '';
+  content: "";
   position: absolute;
   width: 14px;
   height: 14px;
   border: 1px solid #ddd;
   border-radius: 2px;
   left: -24px;
-  transition: .2s ease;
+  transition: 0.2s ease;
 }
 
 .task-item:checked + label .label-text:before {
@@ -673,7 +697,8 @@ label .label-text:before {
     overflow-y: auto;
   }
 
-  .right-bar, .page-content2 {
+  .right-bar,
+  .page-content2 {
     width: 100%;
     display: block;
   }
@@ -696,7 +721,6 @@ label .label-text:before {
   }
 }
 
-
 /* FOOTER
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .page-footer {
@@ -709,4 +733,85 @@ label .label-text:before {
 
 .page-footer a {
   margin-left: 4px;
+}
+
+/* ADD TASKS FORM 
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.addTaskPopup {
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.addTask-formPopup {
+  display: none;
+  position: fixed;
+  left: 55%;
+  top: 15%;
+  transform: translate(-50%, 5%);
+  border: 3px solid #999999;
+  z-index: 9;
+}
+
+.addTask-formContainer {
+  max-width: 600px;
+  padding: 30px;
+  background-color: var(--white);
+}
+.addTask-formContainer input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 20px 0;
+  border: none;
+  background: #eee;
+}
+.addTask-formContainer input[type="text"]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+.addTask-formPopup .addTask-formContainer button {
+  cursor: pointer;
+  outline: none;
+
+  background: transparent;
+  color: var(--blue);
+  font-weight: bold;
+  font-size: 12px;
+  border-color: #1172c4;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 22px;
+  padding: 9px 9px;
+  transition: all 0.2s linear;
+  /*  padding: 12px 20px;
+  border: none;
+  background-color: #8ebf42;
+  color: #fff;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 15px;
+  opacity: 0.8;
+  */
+}
+
+.addTask-formPopup .addTask-formContainer .addTask-btn:hover {
+  color: white;
+  background: #1172c4;
+  border-color: var(--white);
+  transition: all 0.2s linear;
+}
+.addTask-formPopup .addTask-formContainer .addTask-btn:active {
+  border-radius: 22px;
+}
+
+.addTask-formPopup .addTask-formContainer .addTask-btn-cancel {
+  color: var(--red);
+  background-color: var(--white);
+  border-color: var(--red);
+}
+.addTask-formPopup .addTask-formContainer .addTask-btn-cancel:hover {
+  color: var(--white);
+  background: var(--red);
+  border-color: var(--white);
+  transition: all 0.2s linear;
 }

@@ -1,36 +1,3 @@
-//****Listen for auth status changes****
-firebase.auth().onAuthStateChanged(function (user) {
-  console.log(user);
-  if (user) {
-    // User is signed in.
-    console.log("user signed in");
-    let user = firebase.auth().currentUser;
-    let uid;
-    if (user != null) {
-      uid = user.uid;
-    }
-    let firebaseRefKey = firebase.database().ref().child(uid);
-    firebaseRefKey.on("value", (dataSnapShot) => {
-      document.getElementById("userPfFullName").innerHTML =
-        dataSnapShot.val().userFullName;
-      document.getElementById("userPfSurname").innerHTML =
-        dataSnapShot.val().userSurname;
-      document
-        .getElementById("userPfFb")
-        .setAttribute("href", dataSnapShot.val().userFb);
-      document
-        .getElementById("userPfTw")
-        .setAttribute("href", dataSnapShot.val().userTw);
-      document
-        .getElementById("userPfBio")
-        .setAttribute("href", dataSnapShot.val().userBio);
-    });
-  } else {
-    console.log("not signed in");
-    // No user is signed in.
-  }
-});
-
 function signUp() {
   //get user info
   var userFullName = document.getElementById("userFullName").value;
@@ -64,7 +31,7 @@ function signUp() {
         if (user != null) {
           uid = user.uid;
         }
-        var firebaseRef = firebase.database().ref();
+        var firebaseRef = firebase.database().ref("users/");
         var userData = {
           userFullName: userFullName,
           userEmail: userEmail,
@@ -229,13 +196,11 @@ function showEditProfileForm() {
   document.getElementById("profileSection").style.display = "none";
   document.getElementById("editProfileForm").style.display = "block";
   var userPfFullName = document.getElementById("userPfFullName").innerHTML;
-  var userPfSurname = document.getElementById("userPfSurname").innerHTML;
   var userPfFb = document.getElementById("userPfFb").getAttribute("href");
   var userPfTw = document.getElementById("userPfTw").getAttribute("href");
   //var userPfGp = document.getElementById("userPfGp").getAttribute("href");
   var userPfBio = document.getElementById("userPfBio").innerHTML;
   document.getElementById("userFullName").value = userPfFullName;
-  document.getElementById("userSurname").value = userPfSurname;
   document.getElementById("userFacebook").value = userPfFb;
   document.getElementById("userTwitter").value = userPfTw;
   document.getElementById("userBio").value = userPfBio;
@@ -265,7 +230,7 @@ function saveProfile() {
     if (user != null) {
       uid = user.uid;
     }
-    var firebaseRef = firebase.database().ref();
+    var firebaseRef = firebase.database().ref("users/");
     var userData = {
       userFullName: userFullName,
       userSurname: userSurname,
@@ -283,6 +248,37 @@ function saveProfile() {
     });
   }
 }
+
+//****Listen for auth status changes****
+firebase.auth().onAuthStateChanged(function (user) {
+  console.log(user);
+  if (user) {
+    // User is signed in.
+    console.log("user signed in");
+    let user = firebase.auth().currentUser;
+    let uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    let firebaseRefKey = firebase.database().ref("users/").child(uid);
+    firebaseRefKey.on("value", (dataSnapShot) => {
+      document.getElementById("userPfFullName").innerHTML =
+        dataSnapShot.val().userFullName;
+      document
+        .getElementById("userPfFb")
+        .setAttribute("href", dataSnapShot.val().userFb);
+      document
+        .getElementById("userPfTw")
+        .setAttribute("href", dataSnapShot.val().userTw);
+      document
+        .getElementById("userPfBio")
+        .setAttribute("href", dataSnapShot.val().userBio);
+    });
+  } else {
+    console.log("not signed in");
+    // No user is signed in.
+  }
+});
 
 /****** Working For Sign Out ******/
 function signOut() {

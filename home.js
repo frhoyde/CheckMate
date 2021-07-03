@@ -63,3 +63,12 @@ switchInput.addEventListener("input", function () {
     localStorage.setItem("dark-mode", "true");
   }
 });
+
+/****** Add task form ******/
+function openAddForm() {
+  document.getElementById("popupForm").style.display = "block";
+}
+
+function closeAddForm() {
+  document.getElementById("popupForm").style.display = "none";
+}
