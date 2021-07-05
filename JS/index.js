@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 function signUp() {
   //get user info
   var userFullName = document.getElementById("userFullName").value;
@@ -12,7 +13,7 @@ function signUp() {
   var checkUserEmailValid = userEmail.match(userEmailFormate);
   var checkUserPasswordValid = userPassword.match(userPasswordFormate);
   
-  import bcrypt from 'bcrypt'
+  
   const saltRounds = 10;
   //*****sign up user*****
   if (checkUserFullNameValid == null) {
