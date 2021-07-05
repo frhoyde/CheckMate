@@ -47,7 +47,7 @@ function signUp() {
           "success"
         ).then((value) => {
           setTimeout(function () {
-            window.location.replace("profile.html");
+            window.location.replace("/HTML/profile.html");
           }, 1000);
         });
       })
@@ -142,7 +142,7 @@ function signIn() {
         swal("Successful", "Successfully signed in", "success").then(
           (value) => {
             setTimeout(function () {
-              window.location.replace("home.html");
+              window.location.replace("/HTML/home.html");
             }, 1000);
           }
         );
@@ -243,7 +243,7 @@ function saveProfile() {
       setTimeout(function () {
         // document.getElementById("profileSection").style.display = "block";
         // document.getElementById("editProfileForm").style.display = "none";
-        window.location.replace("home.html");
+        window.location.replace("/HTML/home.html");
       }, 1000);
     });
   }
@@ -289,7 +289,7 @@ function signOut() {
       // Sign-out successful.
       swal("Signed Out!", "You are signed out").then((value) => {
         setTimeout(function () {
-          window.location.replace("signin.html");
+          window.location.replace("/HTML/signin.html");
         }, 1000);
       });
       //console.log("user signed out");
