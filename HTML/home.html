@@ -2,7 +2,9 @@
 <html>
 
 <head>
+  
   <link rel="stylesheet" href="/Resources/CSS/home.css">
+
 </head>
 
 <body>
@@ -89,12 +91,13 @@
     </symbol>
   </svg>
   <header class="page-header">
-    <nav>
-      <a href="Checkmate" aria-label="forecastr logo" class="logo">
-        <img src="/Resources/img/logo_resized.png" alt="logo">
+    <nav id="navigation">
+      <a href="Checkmate" aria-label="forecastr logo" class="logo" >
+        <img src="/Resources/img/logo_resized.png" alt="logo" class="logo-png" >
         <!-- <svg width="140" height="49">
           <use xlink:href="logo_resized.png"></use>
         </svg> -->
+        <span>Checkmate</span>
       </a>
       <button class="toggle-mob-menu" aria-expanded="false" aria-label="open menu">
         <svg width="20" height="20" aria-hidden="true">
@@ -225,7 +228,7 @@
   <section class="page-content">
     <section class="search-and-user">
       <form>
-        <input type="search" placeholder="Search Pages...">
+        <input type="search" placeholder="Search Task...">
         <button type="submit" aria-label="submit form">
           <svg aria-hidden="true">
             <use xlink:href="#search"></use>
@@ -237,9 +240,16 @@
           <button type="submit" onclick="openAddForm()" class="add-button">Add</button>
           <div class="addTaskPopup">
             <div class="addTask-formPopup" id="popupForm">
+            
               <form class="addTask-formContainer">
                 <h2>Add New Tasks</h2>
+                
                 <input type="text" id="new-task" placeholder="Add tasks..." />
+                <div class="deadline">
+                  <label for="deadline"> Deadline: </label>
+                  <input id="input_date" type="date"/>
+                </div>
+                <input type="text" id="description" class="description" placeholder="Description..."/>             
                 <button type="submit" class="addTask-btn" onclick="add_task()">Add</button>
                 <button type="button" class="addTask-btn-cancel" onclick="closeAddForm()">Close</button>
               </form>
@@ -247,7 +257,7 @@
           </div>
 
         </div>
-        <span class="greeting">User</span>
+        <span class="greeting">    </span>
         <div class="user-notifications">
           <span class="badge">1</span>
           <svg>
@@ -259,7 +269,7 @@
 
     <section class="grid">
       <div class="page-content2">
-        <div class="page-content2-header">Today Tasks</div>
+        <div class="page-content2-header">Today's Tasks</div>
         <div class="content-categories">
           <div class="label-wrapper">
             <input class="nav-item" name="nav" type="radio" id="showAll">
@@ -356,7 +366,7 @@
 
     </section>
     <footer class="page-footer">
-      <span>made by Tanjila-Poushi</span>
+      <span>made by Team Checkmate</span>
 
     </footer>
   </section>

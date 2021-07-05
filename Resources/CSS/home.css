@@ -108,13 +108,29 @@ body {
 }
 
 .page-header .logo {
-  display: block;
-  margin: 0 15px;
+  display: block ;
+  margin: 0 10px ;
+  /*position: relative;*/
 }
 
-.page-header .logo svg {
-  max-width: 120px;
-  fill: var(--white);
+.page-header .logo span{
+  text-align: center ;
+  margin-bottom:auto ;
+  margin-top: -30px ;
+  font-size:1.5vw ;
+  display:inline-block ; 
+  bottom: 20% ;
+  top: auto ;
+  /*position:absolute;*/
+  resize:none ;
+  overflow: hidden ;
+  text-overflow: clip ;
+  white-space: nowrap ;
+ 
+}
+
+.page-header .logo .logo-png {
+  border-radius: 40% ;
 }
 
 .page-header .toggle-mob-menu {
@@ -189,13 +205,14 @@ body {
 /* PAGE CONTENT STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .page-content {
-  position: relative;
+  position: relative; 
   left: var(--page-header-width);
   width: calc(100% - var(--page-header-width));
   min-height: 100vh;
   padding: 30px;
   color: var(--page-content-txtColor);
   background: var(--page-content-bgColor);
+  
 }
 
 .search-and-user {
@@ -213,8 +230,8 @@ body {
 
 .search-and-user [type="search"] {
   width: 100%;
-  height: 50px;
-  font-size: 1.5rem;
+  height: 30px;
+  font-size: 1.2rem;
   padding-left: 15px;
   background: var(--page-content-blockColor);
   color: var(--page-content-txtColor);
@@ -227,8 +244,8 @@ body {
 }
 
 .search-and-user form svg {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   fill: var(--page-content-txtColor);
 }
 
@@ -248,9 +265,48 @@ body {
   margin: 0 10px 0 20px;
 }
 
-.search-and-user .admin-profile .add-button button {
+.search-and-user .admin-profile .add-task .add-button button {
   cursor: pointer;
   outline: none;
+  position: relative;
+}
+
+.search-and-user .admin-profile .add-task .addTaskPopup .addTask-formPopup{
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  border-radius: var(--border-radius);
+}
+
+.search-and-user .admin-profile .add-task .addTask-formContainer{
+  border-radius: 20%;
+}
+
+.search-and-user .admin-profile .dealine{
+  padding: 10%;
+  border-color: #1d2636;
+  border-block-color:var(--page-header-bgColor);
+  border-style:outset;
+}
+
+.search-and-user .admin-profile .add-task .addTask-formPopup .addTask-formContainer{
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+.description{
+  width: auto;
+  text-indent: 0%;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: break-word;
+  resize: none; 
+  height: 62px;
+  
 }
 
 .search-and-user .admin-profile button {
@@ -342,6 +398,7 @@ body {
 
   .page-header .logo {
     margin: 0;
+    border-radius: 50%;
   }
 
   .page-header .logo svg {
@@ -411,11 +468,7 @@ body {
   }
 }
 
-@media screen and (max-width: 400px) {
-  .page-content .grid > article {
-    grid-column: 1 / -1;
-  }
-}
+
 
 /* BODY CLASSES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -567,12 +620,13 @@ body {
   flex-direction: column;
   flex: 1;
   padding: 40px 20px 0 20px;
+  width:max-content;
 }
 
 .page-content2-header {
   font-size: 26px;
   color: var(--main-color);
-  margin-top: 30px;
+  margin-top: -30px;
 }
 
 .content-categories {
@@ -592,7 +646,7 @@ body {
   color: var(--secondary-color);
   border-bottom: 1px solid #ddd;
   transition: 0.4s ease-in;
-  padding: 20px 30px;
+  padding: 20px 50px;
   cursor: pointer;
 }
 
@@ -682,8 +736,10 @@ label .label-text:before {
 
 .upcoming {
   border-bottom: 1px solid #ddd;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   margin-bottom: 30px;
+  font-size: 20px;
+  margin-top: 40px;
 }
 
 @media screen and (max-width: 900px) {
@@ -815,3 +871,5 @@ label .label-text:before {
   border-color: var(--white);
   transition: all 0.2s linear;
 }
+
+
