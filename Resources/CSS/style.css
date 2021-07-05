@@ -1,0 +1,82 @@
+#navbarSupportedContent {
+    position: absolute;
+    right: 30px;
+}
+
+#navHero{
+    padding-left: 20px;
+}
+
+header {
+    height: 900px;
+    background-image: url(img/laptop-336373_1920.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+
+}
+
+.headerDiv {
+
+    padding-top: 15px;
+    color: white;
+}
+
+
+#description {
+    margin: 0 auto;
+
+}
+
+.desCards {
+    padding-top: 10em;
+    text-align: center;
+}
+
+.desIcon {
+
+    width:100%;
+}
+
+.desIcon  i {
+    font-size: 5em;
+    padding: 20px 0;
+    width: 100%;
+
+}
+
+.review-section {
+    margin-top:5em;
+}
+.review-section .carousel-item {
+    position: relative;
+}
+.review-section img {
+    width:auto;
+    height: 400px;
+}
+.review-section .review-content {
+    position : absolute;
+    top: 45%;
+    left: 0;
+    z-index: 9999;
+    width: 50%;
+    color: #fff;
+    transform: translatex(50%);
+    font-size: 1.5em;
+}
+
+.contact{
+    margin-top:50px;
+    margin-bottom: 50px;
+}
+
+footer {
+    background-color: #1c1f23;
+    color: #b6effb;
+    padding: 4em 0;
+}
+
+footer i {
+    color : #fff;
+    font-size:5em;
+}
