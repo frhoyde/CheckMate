@@ -11,7 +11,8 @@ function signUp() {
   var checkUserFullNameValid = userFullName.match(userFullNameFormate);
   var checkUserEmailValid = userEmail.match(userEmailFormate);
   var checkUserPasswordValid = userPassword.match(userPasswordFormate);
-
+  
+  const bcrypt = require('bcrypt');
   //*****sign up user*****
   if (checkUserFullNameValid == null) {
     return checkUserFullName();
@@ -32,6 +33,8 @@ function signUp() {
           uid = user.uid;
         }
         var firebaseRef = firebase.database().ref("users/");
+        const salt = bcrypt.genSalt();
+        this.userPassword = bcrypt.hash(userPassword, salt);
         var userData = {
           userFullName: userFullName,
           userEmail: userEmail,
@@ -59,6 +62,7 @@ function signUp() {
       });
   }
 }
+
 
 // ******* Full Name Validation ********
 function checkUserFullName() {
