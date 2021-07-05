@@ -77,14 +77,6 @@
                                     <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                                 </svg>Notification
                             </a>
-                            <a href="#billing" data-toggle="tab" class="nav-item nav-link has-icon nav-link-faded">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round" class="feather feather-credit-card mr-2">
-                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                    <line x1="1" y1="10" x2="23" y2="10"></line>
-                                </svg>Billing
-                            </a>
                         </nav>
                     </div>
                 </div>
@@ -130,15 +122,7 @@
                                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                                     </svg></a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#billing" data-toggle="tab" class="nav-link has-icon"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-credit-card">
-                                        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                        <line x1="1" y1="10" x2="23" y2="10"></line>
-                                    </svg></a>
-                            </li>
+
                         </ul>
                     </div>
                     <div class="card-body tab-content">
@@ -148,34 +132,35 @@
                             <form>
                                 <div class="form-group">
                                     <label for="fullName">Full Name</label>
-                                    <input type="text" class="form-control" id="fullName"
-                                        aria-describedby="fullNameHelp" placeholder="Enter your fullname"
-                                        value="Kenneth Valdez">
-                                    <small id="fullNameHelp" class="form-text text-muted">Your name may appear around
-                                        here
-                                        where you are mentioned. You can change or remove it at any time.</small>
+                                    <div id="fullname-div"><input type="text" class="form-control" id="fullName"
+                                            aria-describedby="fullNameHelp"></div>
+                                    <small id="fullNameHelp" class="form-text text-muted">You can change or remove it at
+                                        any time.</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="bio">Your Bio</label>
                                     <textarea class="form-control autosize" id="bio"
-                                        placeholder="Write something about you"
-                                        style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 62px;">A front-end developer that focus more on user interface design, a web interface wizard, a connector of awesomeness.</textarea>
+                                        style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 62px;"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="url">URL</label>
-                                    <input type="text" class="form-control" id="url"
-                                        placeholder="Enter your website address" value="http://benije.ke/pozzivkij">
+                                    <label for="fb-url">Facebook</label>
+                                    <input type="text" class="form-control" id="fb-url"
+                                        placeholder="Enter your website address" value="https://www.facebook.com/">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tw-url">Twitter</label>
+                                    <input type="text" class="form-control" id="tw-url"
+                                        placeholder="Enter your website address" value="https://www.twitter.com/">
                                 </div>
                                 <div class="form-group">
                                     <label for="location">Location</label>
                                     <input type="text" class="form-control" id="location"
-                                        placeholder="Enter your location" value="Bay Area, San Francisco, CA">
+                                        placeholder="Enter your location">
                                 </div>
                                 <div class="form-group small text-muted">
                                     All of the fields on this page are optional and can be deleted at any time, and by
                                     filling them out, you're giving us consent to share this data wherever your user
-                                    profile
-                                    appears.
+                                    profile appears.
                                 </div>
                                 <button type="button" class="btn btn-primary">Update Profile</button>
                                 <button type="reset" class="btn btn-light">Reset Changes</button>
@@ -187,19 +172,16 @@
                             <form>
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username"
-                                        aria-describedby="usernameHelp" placeholder="Enter your username"
-                                        value="kennethvaldez">
+                                    <div id="username-div"><input type="text" class="form-control" id="username"
+                                            aria-describedby="usernameHelp"></div>
                                     <small id="usernameHelp" class="form-text text-muted">After changing your username,
-                                        your
-                                        old username becomes available for anyone else to claim.</small>
+                                        your old username becomes available for anyone else to claim.</small>
                                 </div>
                                 <hr>
                                 <div class="form-group">
                                     <label class="d-block text-danger">Delete Account</label>
                                     <p class="text-muted font-size-sm">Once you delete your account, there is no going
-                                        back.
-                                        Please be certain.</p>
+                                        back. Please be certain.</p>
                                 </div>
                                 <button class="btn btn-danger" type="button">Delete Account</button>
                             </form>
@@ -221,8 +203,8 @@
                                     <label class="d-block">Two Factor Authentication</label>
                                     <button class="btn btn-info" type="button">Enable two-factor authentication</button>
                                     <p class="small text-muted mt-2">Two-factor authentication adds an additional layer
-                                        of
-                                        security to your account by requiring more than just a password to log in.</p>
+                                        of security to your account by requiring more than just a password to log in.
+                                    </p>
                                 </div>
                             </form>
                         </div>
@@ -243,70 +225,43 @@
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="customCheck2"
                                             checked="">
-                                        <label class="custom-control-label" for="customCheck2">Email a digest summary of
-                                            vulnerability</label>
+                                        <label class="custom-control-label" for="customCheck2">Email when an important
+                                            task is not completed within deadline</label>
                                     </div>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <label class="d-block">SMS Notifications</label>
+                                    <label class="d-block">System Notifications</label>
                                     <ul class="list-group list-group-sm">
                                         <li class="list-group-item has-icon">
-                                            Comments
+                                            Task
                                             <p class="custom-control custom-switch">
                                                 <input class="custom-control-input" id="customSwitch1" type="checkbox"
                                                     checked>
                                                 <label class="custom-control-label font-italic"
-                                                    for="customSwitch1">Feature one</label>
+                                                    for="customSwitch1">Notify me about unfinished tasks</label>
                                             </p>
-                                        </li>
-                                        <li class="list-group-item has-icon">
-                                            Updates From People
-                                            <div class="custom-control custom-control-nolabel custom-switch ml-auto">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                                                <label class="custom-control-label" for="customSwitch2"></label>
-                                            </div>
                                         </li>
                                         <li class="list-group-item has-icon">
                                             Reminders
                                             <div class="custom-control custom-control-nolabel custom-switch ml-auto">
                                                 <input type="checkbox" class="custom-control-input" id="customSwitch3"
                                                     checked="">
-                                                <label class="custom-control-label" for="customSwitch3"></label>
+                                                <label class="custom-control-label font-italic" for="customSwitch3">Get
+                                                    a reminder
+                                                    on in-progress tasks</label>
                                             </div>
                                         </li>
                                         <li class="list-group-item has-icon">
-                                            Events
+                                            Updates From Us
                                             <div class="custom-control custom-control-nolabel custom-switch ml-auto">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch4"
-                                                    checked="">
-                                                <label class="custom-control-label" for="customSwitch4"></label>
+                                                <input type="checkbox" class="custom-control-input" id="customSwitch2">
+                                                <label class="custom-control-label font-italic"
+                                                    for="customSwitch2">Notify me about
+                                                    new features and updates</label>
                                             </div>
                                         </li>
-                                        <li class="list-group-item has-icon">
-                                            Pages You Follow
-                                            <div class="custom-control custom-control-nolabel custom-switch ml-auto">
-                                                <input type="checkbox" class="custom-control-input" id="customSwitch5">
-                                                <label class="custom-control-label" for="customSwitch5"></label>
-                                            </div>
-                                        </li>
+
                                     </ul>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="tab-pane" id="billing">
-                            <h6>BILLING SETTINGS</h6>
-                            <hr>
-                            <form>
-                                <div class="form-group">
-                                    <label class="d-block mb-0">Payment Method</label>
-                                    <div class="small text-muted mb-3">You have not added a payment method</div>
-                                    <button class="btn btn-info" type="button">Add Payment Method</button>
-                                </div>
-                                <div class="form-group mb-0">
-                                    <label class="d-block">Payment History</label>
-                                    <div class="border border-gray-500 bg-gray-200 p-3 text-center font-size-sm">You
-                                        have
-                                        not made any payment.</div>
                                 </div>
                             </form>
                         </div>
@@ -316,6 +271,19 @@
         </div>
 
     </div>
+    <!-- Firebase -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+    <!-- Add Firebase products that you want to use -->
+
     <!--         ===Bootstrap JS CDN===          -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
