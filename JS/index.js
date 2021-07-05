@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+
 function signUp() {
   //get user info
   var userFullName = document.getElementById("userFullName").value;
@@ -14,7 +14,6 @@ function signUp() {
   var checkUserPasswordValid = userPassword.match(userPasswordFormate);
   
   
-  const saltRounds = 10;
   //*****sign up user*****
   if (checkUserFullNameValid == null) {
     return checkUserFullName();
@@ -36,11 +35,6 @@ function signUp() {
         }
         var firebaseRef = firebase.database().ref("users/");
         
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(password, salt, function(err, hash) {
-                this.userPassword = hash;
-            });
-        });
         var userData = {
           userFullName: userFullName,
           userEmail: userEmail,
