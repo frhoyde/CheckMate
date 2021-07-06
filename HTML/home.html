@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  
+
   <link rel="stylesheet" href="/Resources/CSS/home.css">
 
 </head>
@@ -92,8 +92,8 @@
   </svg>
   <header class="page-header">
     <nav id="navigation">
-      <a href="Checkmate" aria-label="forecastr logo" class="logo" >
-        <img src="/Resources/img/logo_resized.png" alt="logo" class="logo-png" >
+      <a href="Checkmate" aria-label="forecastr logo" class="logo">
+        <img src="/Resources/img/logo_resized.png" alt="logo" class="logo-png">
         <!-- <svg width="140" height="49">
           <use xlink:href="logo_resized.png"></use>
         </svg> -->
@@ -240,16 +240,16 @@
           <button type="submit" onclick="openAddForm()" class="add-button">Add</button>
           <div class="addTaskPopup">
             <div class="addTask-formPopup" id="popupForm">
-            
+
               <form class="addTask-formContainer">
                 <h2>Add New Tasks</h2>
-                
+
                 <input type="text" id="new-task" placeholder="Add tasks..." />
                 <div class="deadline">
                   <label for="deadline"> Deadline: </label>
-                  <input id="input_date" type="date"/>
+                  <input id="input_date" type="date" />
                 </div>
-                <input type="text" id="description" class="description" placeholder="Description..."/>             
+                <input type="text" id="description" class="description" placeholder="Description..." />
                 <button type="submit" class="addTask-btn" onclick="add_task()">Add</button>
                 <button type="button" class="addTask-btn-cancel" onclick="closeAddForm()">Close</button>
               </form>
@@ -257,7 +257,7 @@
           </div>
 
         </div>
-        <span class="greeting">    </span>
+        <span class="greeting"> </span>
         <div class="user-notifications">
           <span class="badge">1</span>
           <svg>
@@ -290,44 +290,44 @@
         </div>
         <div class="tasks-wrapper">
           <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-1" checked>
+            <input class="task-item" name="task" type="checkbox" id="item-1">
             <label for="item-1">
-              <span class="label-text">Dashboard Design Implementation</span>
+              <span class="label-text" id="task1"></span>
             </label>
             <span class="tag approved">Approved</span>
           </div>
           <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-2" checked>
+            <input class="task-item" name="task" type="checkbox" id="item-2">
             <label for="item-2">
-              <span class="label-text">Create a userflow</span>
+              <span class="label-text" id="task2"></span>
             </label>
             <span class="tag progress">In Progress</span>
           </div>
           <div class="task">
             <input class="task-item" name="task" type="checkbox" id="item-3">
             <label for="item-3">
-              <span class="label-text">Application Implementation</span>
+              <span class="label-text" id="task3"></span>
             </label>
             <span class="tag review">In Review</span>
           </div>
           <div class="task">
             <input class="task-item" name="task" type="checkbox" id="item-4">
             <label for="item-4">
-              <span class="label-text">Create a Dashboard Design</span>
+              <span class="label-text" id="task4"></span>
             </label>
             <span class="tag progress">In Progress</span>
           </div>
           <div class="task">
             <input class="task-item" name="task" type="checkbox" id="item-5">
             <label for="item-5">
-              <span class="label-text">Create a Web Application Design</span>
+              <span class="label-text" id="task5"></span>
             </label>
             <span class="tag approved">Approved</span>
           </div>
           <div class="task">
             <input class="task-item" name="task" type="checkbox" id="item-6">
             <label for="item-6">
-              <span class="label-text">Interactive Design</span>
+              <span class="label-text" id="task6"></span>
             </label>
             <span class="tag review">In Review</span>
           </div>
