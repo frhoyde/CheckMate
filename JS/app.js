@@ -72,13 +72,15 @@ function show_task_from_database() {
       firebaseRef.once("value", (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           var childkey = childSnapshot.key;
+          //console.log(childSnapshot.val());
           taskArray.push(childSnapshot.val());
         });
         var task = "task";
 
-        for (let i = 1; i < taskArray.length; i++) {
+        for (let i = 1; i <= taskArray.length; i++) {
           var taskID = task.concat(i.toString());
-          document.getElementById(taskID).innerHTML = taskArray[i].title;
+          document.getElementById(taskID).innerHTML =
+            taskArray[i - 1].title + " " + taskArray[i - 1].date;
         }
       });
     }
@@ -116,8 +118,6 @@ function logOut() {
       setTimeout(function () {
         window.location.replace("signin.html");
       }, 1000);
-
-      //console.log("user logged out");
     })
     .catch((error) => {
       //An error happened.
