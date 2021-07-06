@@ -1,4 +1,5 @@
 // Your web app's Firebase configuration
+
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
   apiKey: "AIzaSyBzFIsDwS53ueZZ9X79V06CvATUbde5XyI",
@@ -25,8 +26,8 @@ firebase.auth().onAuthStateChanged(function (user) {
   console.log(user.uid);
   if (user) {
     // User is signed in.
-    console.log("user signed in");
     user = firebase.auth().currentUser;
+    console.log(user.email + " signed in");
     let uid;
     if (user != null) {
       uid = user.uid;
@@ -54,9 +55,36 @@ function add_task() {
 
   if (new_task.value.length != 0) {
     add_task_to_database();
-    //create_unfinished_task();
   }
 }
+
+function show_task_from_database() {
+  var taskArray = [];
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    var firebaseRef = firebase
+      .database()
+      .ref("users/" + user.uid + "/unfinished_task/")
+      .orderByChild("date");
+    if (user) {
+      user = firebase.auth().currentUser;
+      // Retrieve new posts as they are added to our database
+      firebaseRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          var childkey = childSnapshot.key;
+          taskArray.push(childSnapshot.val());
+        });
+        var task = "task";
+
+        for (let i = 1; i < taskArray.length; i++) {
+          var taskID = task.concat(i.toString());
+          document.getElementById(taskID).innerHTML = taskArray[i].title;
+        }
+      });
+    }
+  });
+}
+show_task_from_database();
 
 function add_task_to_database() {
   // our boxes have data and we take database
@@ -68,6 +96,8 @@ function add_task_to_database() {
       var task = {
         title: new_task.value,
         key: key,
+        description: description.value,
+        date: input_date.value,
       };
       var updates = {};
       updates["users/" + user.uid + "/unfinished_task/" + key] = task;
