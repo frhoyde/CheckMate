@@ -20,34 +20,28 @@ $(document).ready(function () {
   });
 });
 
-// firebaseRef.once("value").then(function (snapshot) {
-//   console.log(snapshot.val());
-//   //display on pre tag
-//   //preObject.innerHTML = snapshot.val();
-// });
+function show_user_info() {
+  firebase.auth().onAuthStateChanged(function (user) {
+    console.log(user.uid);
+    var firebaseRef = firebase.database().ref("users/" + user.uid);
+    if (user) {
+      user = firebase.auth().currentUser;
+      firebaseRef.once("value", (snapshot) => {
+        const userData = snapshot.val();
+        //console.log(userData);
+        document.getElementById("fullname-div").innerHTML =
+          userData.userFullName + " " + userData.userSurname;
+        //document.getElementById("fullname").style.display = "none";
 
-firebase.auth().onAuthStateChanged(function (user) {
-  console.log(user.uid);
-  var firebaseRef = firebase.database().ref("users/" + user.uid);
-  if (user) {
-    user = firebase.auth().currentUser;
-    firebaseRef.once("value", (snapshot) => {
-      const userData = snapshot.val();
-      console.log(userData);
-      console.log(userData.userSurname);
-      document.getElementById("fullname-div").innerHTML =
-        userData.userFullName + " " + userData.userSurname;
-      //document.getElementById("fullname").style.display = "none";
+        document.getElementById("bio").innerHTML = userData.userBio;
+        document.getElementById("fb-url").innerHTML = userData.userFb;
+        document.getElementById("tw-url").innerHTML = userData.userTw;
 
-      document.getElementById("bio").innerHTML = userData.userBio;
-      document.getElementById("fb-url").innerHTML = userData.userFb;
-      document.getElementById("tw-url").innerHTML = userData.userTw;
+        document.getElementById("username-div").innerHTML =
+          userData.userFullName;
+      });
+    }
+  });
+}
 
-      document.getElementById("username-div").innerHTML = userData.userFullName;
-
-      // key + value from your firbase database
-      //display on pre tag
-      //preObject.innerHTML = snapshot.val();
-    });
-  }
-});
+show_user_info();
