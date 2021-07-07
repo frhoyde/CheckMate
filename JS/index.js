@@ -1,9 +1,10 @@
-
 function signUp() {
   //get user info
   var userFullName = document.getElementById("userFullName").value;
   var userEmail = document.getElementById("userEmail").value;
   var userPassword = document.getElementById("userPassword").value;
+  var confirmPassword = document.getElementById("confirm-userPassword").value;
+
   var userFullNameFormate = /^([A-Za-z.\s_-])/;
   var userEmailFormate =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -12,8 +13,9 @@ function signUp() {
   var checkUserFullNameValid = userFullName.match(userFullNameFormate);
   var checkUserEmailValid = userEmail.match(userEmailFormate);
   var checkUserPasswordValid = userPassword.match(userPasswordFormate);
-  
-  
+  var checkConfirmUserPasswordValid =
+    userPassword == confirmPassword ? true : null;
+
   //*****sign up user*****
   if (checkUserFullNameValid == null) {
     return checkUserFullName();
@@ -21,6 +23,8 @@ function signUp() {
     return checkUserEmail();
   } else if (checkUserPasswordValid == null) {
     return checkUserPassword();
+  } else if (checkConfirmUserPasswordValid == null) {
+    return passwordValidation();
   } else {
     firebase
       .auth()
@@ -61,7 +65,6 @@ function signUp() {
       });
   }
 }
-
 
 // ******* Full Name Validation ********
 function checkUserFullName() {
@@ -123,6 +126,22 @@ function checkUserPassword() {
     document.getElementById("userPasswordError").style.display = "block";
   } else {
     document.getElementById("userPasswordError").style.display = "none";
+  }
+}
+// ******Confirm Password Validation ******
+function passwordValidation() {
+  var userPassword = document.getElementById("userPassword");
+  var confirmPassword = document.getElementById("confirm-userPassword");
+  var flag;
+  if (userPassword.value == confirmPassword.value) {
+    flag = false;
+  } else {
+    flag = true;
+  }
+
+  if (flag) {
+    document.getElementById("confirm-userPasswordError").innerHTML =
+      "Confirm Password do not match";
   }
 }
 
@@ -303,5 +322,3 @@ function signOut() {
       swal(errorMessage, "warning");
     });
 }
-
-
