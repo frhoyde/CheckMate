@@ -116,7 +116,7 @@ function logOut() {
     .then(function () {
       // Sign-out successful.
       setTimeout(function () {
-        window.location.replace("signin.html");
+        window.location.replace("index.html");
       }, 1000);
     })
     .catch((error) => {
