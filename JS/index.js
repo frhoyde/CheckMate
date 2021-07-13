@@ -39,6 +39,7 @@ function signUp() {
         }
         var firebaseRef = firebase.database().ref("users/");
         var userData = {
+          userUid: uid,
           userFullName: userFullName,
           userEmail: userEmail,
           userPassword: userPassword,
@@ -75,6 +76,9 @@ function checkUserFullName() {
   }
   if (flag) {
     document.getElementById("userFullNameError").style.display = "block";
+    document
+      .getElementById("userFullNameError")
+      .setAttribute("class", "text-danger");
   } else {
     document.getElementById("userFullNameError").style.display = "none";
   }
@@ -89,6 +93,9 @@ function checkUserSurname() {
   }
   if (flag) {
     document.getElementById("userSurnameError").style.display = "block";
+    document
+      .getElementById("userSurnameError")
+      .setAttribute("class", "text-danger");
   } else {
     document.getElementById("userSurnameError").style.display = "none";
   }
@@ -107,6 +114,9 @@ function checkUserEmail() {
   }
   if (flag) {
     document.getElementById("userEmailError").style.display = "block";
+    document
+      .getElementById("userEmailError")
+      .setAttribute("class", "text-danger");
   } else {
     document.getElementById("userEmailError").style.display = "none";
   }
@@ -124,6 +134,9 @@ function checkUserPassword() {
   }
   if (flag) {
     document.getElementById("userPasswordError").style.display = "block";
+    document
+      .getElementById("userPasswordError")
+      .setAttribute("class", "text-danger");
   } else {
     document.getElementById("userPasswordError").style.display = "none";
   }
@@ -140,6 +153,9 @@ function passwordValidation() {
   }
 
   if (flag) {
+    document
+      .getElementById("confirm-userPasswordError")
+      .setAttribute("class", "text-danger");
     document.getElementById("confirm-userPasswordError").innerHTML =
       "Confirm Password do not match";
   }
@@ -191,6 +207,9 @@ function checkUserSIEmail() {
   }
   if (flag) {
     document.getElementById("userSIEmailError").style.display = "block";
+    document
+      .getElementById("userSIEmailError")
+      .setAttribute("class", "text-danger");
   } else {
     document.getElementById("userSIEmailError").style.display = "none";
   }
@@ -208,6 +227,9 @@ function checkUserSIPassword() {
   }
   if (flag) {
     document.getElementById("userSIPasswordError").style.display = "block";
+    document
+      .getElementById("userSIPasswordError")
+      .setAttribute("class", "text-danger");
   } else {
     document.getElementById("userSIPasswordError").style.display = "none";
   }
@@ -254,6 +276,7 @@ function saveProfile() {
     }
     var firebaseRef = firebase.database().ref("users/");
     var userData = {
+      userUid: uid,
       userFullName: userFullName,
       userSurname: userSurname,
       userFb: userFacebook,
