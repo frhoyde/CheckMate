@@ -108,29 +108,28 @@ body {
 }
 
 .page-header .logo {
-  display: block ;
-  margin: 0 10px ;
+  display: block;
+  margin: 0 10px;
   /*position: relative;*/
 }
 
-.page-header .logo span{
-  text-align: center ;
-  margin-bottom:auto ;
-  margin-top: -30px ;
-  font-size:1.5vw ;
-  display:inline-block ; 
-  bottom: 20% ;
-  top: auto ;
+.page-header .logo span {
+  text-align: center;
+  margin-bottom: auto;
+  margin-top: -30px;
+  font-size: 1.5vw;
+  display: inline-block;
+  bottom: 20%;
+  top: auto;
   /*position:absolute;*/
-  resize:none ;
-  overflow: hidden ;
-  text-overflow: clip ;
-  white-space: nowrap ;
- 
+  resize: none;
+  overflow: hidden;
+  text-overflow: clip;
+  white-space: nowrap;
 }
 
 .page-header .logo .logo-png {
-  border-radius: 40% ;
+  border-radius: 40%;
 }
 
 .page-header .toggle-mob-menu {
@@ -205,14 +204,13 @@ body {
 /* PAGE CONTENT STYLES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .page-content {
-  position: relative; 
+  position: relative;
   left: var(--page-header-width);
   width: calc(100% - var(--page-header-width));
   min-height: 100vh;
   padding: 30px;
   color: var(--page-content-txtColor);
   background: var(--page-content-bgColor);
-  
 }
 
 .search-and-user {
@@ -271,7 +269,7 @@ body {
   position: relative;
 }
 
-.search-and-user .admin-profile .add-task .addTaskPopup .addTask-formPopup{
+.search-and-user .admin-profile .add-task .addTaskPopup .addTask-formPopup {
   display: none;
   position: fixed;
   bottom: 0;
@@ -281,32 +279,35 @@ body {
   border-radius: var(--border-radius);
 }
 
-.search-and-user .admin-profile .add-task .addTask-formContainer{
+.search-and-user .admin-profile .add-task .addTask-formContainer {
   border-radius: 20%;
 }
 
-.search-and-user .admin-profile .dealine{
+.search-and-user .admin-profile .dealine {
   padding: 10%;
   border-color: #1d2636;
-  border-block-color:var(--page-header-bgColor);
-  border-style:outset;
+  border-block-color: var(--page-header-bgColor);
+  border-style: outset;
 }
 
-.search-and-user .admin-profile .add-task .addTask-formPopup .addTask-formContainer{
+.search-and-user
+  .admin-profile
+  .add-task
+  .addTask-formPopup
+  .addTask-formContainer {
   max-width: 300px;
   padding: 10px;
   background-color: white;
 }
 
-.description{
+.description {
   width: auto;
   text-indent: 0%;
   text-align: left;
   vertical-align: top;
   overflow-wrap: break-word;
-  resize: none; 
+  resize: none;
   height: 62px;
-  
 }
 
 .search-and-user .admin-profile button {
@@ -468,8 +469,6 @@ body {
   }
 }
 
-
-
 /* BODY CLASSES
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .mob-menu-opened .toggle-mob-menu svg {
@@ -620,7 +619,7 @@ body {
   flex-direction: column;
   flex: 1;
   padding: 40px 20px 0 20px;
-  width:max-content;
+  width: max-content;
 }
 
 .page-content2-header {
@@ -658,6 +657,10 @@ body {
   border-bottom: 2px solid var(--checkbox-color);
 }
 
+.completed-container {
+  display: none;
+}
+
 .task-item {
   display: none;
 }
@@ -670,7 +673,7 @@ body {
   padding-right: 8px;
 }
 
-.task {
+.task_container {
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -680,14 +683,34 @@ body {
   font-size: 13px;
   font-weight: 500;
 }
-.task:hover {
+.task_container:hover {
   transform: translatex(2px);
 }
-.task label {
+
+div.important-container {
+  flex: 1;
+  padding: 2%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#task_delete_button:hover {
+  color: var(--red);
+}
+#task_edit_button:hover,
+#task_done_button:hover {
+  color: var(--button-color);
+}
+
+#task_tool > button:not(:last-child) {
+  margin-right: 7px;
+}
+
+.task_container label {
   cursor: pointer;
 }
 
-label .label-text {
+#task_title {
   position: relative;
 }
 
@@ -871,5 +894,3 @@ label .label-text:before {
   border-color: var(--white);
   transition: all 0.2s linear;
 }
-
-
