@@ -208,8 +208,7 @@
         var _ = this;
         if (typeof format.toValue === 'function' && typeof format.toDisplay === 'function')
             return format;
-        // IE treats \0 as a string end in inputs (truncating the value),
-        // so it's a bad format delimiter, anyway
+        
         var separators = format.replace(_.initials.validParts, '\0').split('\0'),
             parts = format.match(_.initials.validParts);
         if (!separators || !separators.length || !parts || parts.length === 0){

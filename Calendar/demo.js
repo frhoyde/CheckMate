@@ -2,7 +2,8 @@ var defaultTheme = getRandom(4);
 
 var today = new Date();
 
-var events = [ {
+var events = [
+   {
     id: "imwyx6S",
     name: "Event #3",
     description: "Lorem ipsum dolor sit amet.",
@@ -67,13 +68,17 @@ function getWeeksInMonth(a, b) {
     return c;
 }
 
+
+
 week_date = getWeeksInMonth(today.getMonth(), today.getFullYear())[2];
 
 $(document).ready(function() {
     $("#demoEvoCalendar").evoCalendar({
         format: "MM dd, yyyy",
         titleFormat: "MM",
-        calendarEvents: [{
+        calendarEvents: [
+          {
+
             id: "d8jai7s",
             name: "Author's Birthday",
             description: "Author's note: Thank you for using EvoCalendar! :)",
@@ -99,7 +104,7 @@ $(document).ready(function() {
             name: "Event #2",
             date: today,
             type: "event"
-        }]
+        },]
     });
     $("[data-set-theme]").click(function(b) {
         a(b.target);
