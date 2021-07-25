@@ -117,6 +117,10 @@ function create_unfinished_task() {
           date.setAttribute("contenteditable", false);
           date.innerHTML = task_date;
 
+          tag = document.createElement("span");
+          tag.setAttribute("class", "tag review"); //for now review tag
+          tag.innerHTML = "important";
+
           // TASK TOOLS
           task_tool = document.createElement("div");
           task_tool.setAttribute("id", "task_tool");
@@ -154,6 +158,7 @@ function create_unfinished_task() {
           unfinished_task_container.append(task_container);
           task_container.append(task_data);
           task_data.append(title);
+          task_data.append(tag);
           task_data.append(date);
 
           task_container.append(task_tool);
@@ -201,12 +206,13 @@ function create_finished_task() {
         task_container = document.createElement("div");
         task_container.setAttribute("class", "task_container");
         task_container.setAttribute("data-key", task_key);
+        task_container.setAttribute("user-uid", user.uid);
 
         // TASK DATA
         task_data = document.createElement("div");
         task_data.setAttribute("id", "task_data");
 
-        title = document.createElement("p");
+        title = document.createElement("span");
         title.setAttribute("id", "task_title");
         title.setAttribute("contenteditable", false);
         title.innerHTML = task_title;
@@ -215,6 +221,10 @@ function create_finished_task() {
         date.setAttribute("id", "task_date");
         date.setAttribute("contenteditable", false);
         date.innerHTML = task_date;
+
+        tag = document.createElement("span");
+        tag.setAttribute("class", "tag completed");
+        tag.innerHTML = "completed";
 
         // TASK TOOLS
         task_tool = document.createElement("div");
@@ -233,6 +243,7 @@ function create_finished_task() {
         finished_task_container.append(task_container);
         task_container.append(task_data);
         task_data.append(title);
+        task_data.append(tag);
         task_data.append(date);
 
         task_container.append(task_tool);

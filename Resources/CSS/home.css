@@ -687,8 +687,12 @@ body {
   transform: translatex(2px);
 }
 
-div.important-container {
-  flex: 1;
+div.important-container,
+.completed-container {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 2vh;
+  max-height: 35vh;
   padding: 2%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -706,7 +710,8 @@ div.important-container {
   margin-right: 7px;
 }
 
-.task_container label {
+.task_container #task_title,
+#task_date {
   cursor: pointer;
 }
 
@@ -739,8 +744,9 @@ label .label-text:before {
   font-size: 10px;
   padding: 4px 8px;
   border-radius: 20px;
+  margin-left: 10px;
 }
-.tag.approved {
+.tag.completed {
   background-color: var(--tag-color-one);
   color: var(--tag-color-text-one);
 }
