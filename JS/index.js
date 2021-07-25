@@ -1,3 +1,4 @@
+const functions = require("firebase-functions");
 function signUp() {
   //get user info
   var userFullName = document.getElementById("userFullName").value;

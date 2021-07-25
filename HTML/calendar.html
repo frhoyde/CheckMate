@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Calendar API Quickstart</title>
+    <meta charset="utf-8" />
+
+    <!--Adding ui-->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" type="text/css" href="/Calendar/calendar.css" />
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap"
+      rel="stylesheet"
+    />
+    <!--Adding ui-->
+  </head>
+  <body>
+
+    <div class="signin-out-button">
+      <!--Add buttons to initiate auth sequence and sign out-->
+    <button id="authorize_button" >Sign In with google account</button>
+    <button id="signout_button" >Sign Out</button>
+
+    </div>
+
+    
+    <!--Adding ui-->
+    <section id="demos">
+      <div class="section-content">
+          <div class="console-log">
+              <div class="log-content">
+                  <div class="--noshadow" id="demoEvoCalendar"></div>
+              </div>
+          </div>
+          <div class="action-buttons">
+              <button class="btn-action" id="addBtn">ADD EVENT</button>
+              <button class="btn-action" id="removeBtn" disabled>REMOVE EVENT</button>
+          </div>
+      </div>
+  </section>
+    
+    <!--Adding ui-->
+    
+
+    
+
+    <pre id="content" style="white-space: pre-wrap"></pre>
+
+    <script src="/JS/calendar.js"></script>
+
+    <script
+      async
+      defer
+      src="https://apis.google.com/js/api.js"
+      onload="this.onload=function(){};handleClientLoad()"
+      onreadystatechange="if (this.readyState === 'complete') this.onload()"
+    ></script>
+
+
+    <!-- jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+    <script src="/Calendar/calendar.js"></script>
+    <script src="/Calendar/demo.js"></script>
+    <script>
+      // initialize your calendar, once the page's DOM is ready
+      $(document).ready(function() {
+          $('#calendar').evoCalendar({
+              settingName: settingValue
+          })
+      })
+      </script>
+
+  </body>
+</html>
