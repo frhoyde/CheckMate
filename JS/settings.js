@@ -12,7 +12,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-/******hide and show tablinks */
+/******hide and show tablinks and for jQuery add link to html body*/
 $(document).ready(function () {
   $("#myTab a").click(function (e) {
     e.preventDefault();

@@ -4,11 +4,12 @@
 <head>
 
   <link rel="stylesheet" href="/Resources/CSS/home.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 </head>
 
-<body>
-  <svg style="display:none;">
+<body onload="create_unfinished_task(), create_finished_task()">
+  <svg style=" display:none;">
     <!-- <symbol id="logo" viewBox="0 0 140 59">
 
     </symbol> -->
@@ -112,7 +113,6 @@
               class="bi bi-ui-checks-grid">
               <use xlink:href="#alltasks"></use>
             </svg>
-            <i class="bi bi-ui-checks-grid"></i>
             <span>All Tasks</span>
           </a>
         </li>
@@ -137,7 +137,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell">
               <use xlink:href="#notifications"></use>
             </svg>
-            <i class="bi bi-bell"></i>
             <span>Notifications</span>
           </a>
         </li>
@@ -147,7 +146,6 @@
               class="bi bi-calendar-check">
               <use xlink:href="#calendar"></use>
             </svg>
-            <i class="bi bi-calendar-check"></i>
             <span>Calendar</span>
           </a>
         </li>
@@ -157,7 +155,6 @@
               class="bi bi-journal-arrow-down">
               <use xlink:href="#archive"></use>
             </svg>
-            <i class="bi bi-journal-arrow-down"></i>
             <span>Archive</span>
           </a>
         </li>
@@ -166,7 +163,6 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash">
               <use xlink:href="#trash"></use>
             </svg>
-            <i class="bi bi-trash"></i>
             <span>Trash</span>
           </a>
         </li>
@@ -193,7 +189,6 @@
               class="bi bi-box-arrow-left" viewBox="0 0 16 16">
               <use xlink:href="#logout"></use>
             </svg>
-            <i class="bi bi-box-arrow-left"></i>
             <span><button type="submit" onclick="logOut()">Log Out</button></span>
           </a>
         </li>
@@ -203,7 +198,6 @@
               class="bi bi-question-circle">
               <use xlink:href="#help"></use>
             </svg>
-            <i class="bi bi-question-circle"></i>
             <span>Help and About</span>
           </a>
         </li>
@@ -272,88 +266,54 @@
         <div class="page-content2-header">Today's Tasks</div>
         <div class="content-categories">
           <div class="label-wrapper">
-            <input class="nav-item" name="nav" type="radio" id="showAll">
+            <input class="nav-item" name="nav" type="radio" id="showAll" value="all-container">
             <label class="category" for="showAll">All</label>
           </div>
           <div class="label-wrapper">
-            <input class="nav-item" name="nav" type="radio" id="showImportant" checked>
+            <input class="nav-item" name="nav" type="radio" id="showImportant" checked value="important-container">
             <label class="category" for="showImportant">Important</label>
           </div>
           <div class="label-wrapper">
-            <input class="nav-item" name="nav" type="radio" id="showInprogress">
+            <input class="nav-item" name="nav" type="radio" id="showInprogress" value="progress-container">
             <label class="category" for="showInprogress">In-progress</label>
           </div>
           <div class="label-wrapper">
-            <input class="nav-item" name="nav" type="radio" id="showComplete">
+            <input class="nav-item" name="nav" type="radio" id="showComplete" value="completed-container">
             <label class="category" for="showComplete">Completed</label>
           </div>
         </div>
         <div class="tasks-wrapper">
-          <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-1" checked>
-            <label for="item-1">
-              <span class="label-text" id="task1"></span>
-            </label>
-            <span class="tag approved">Approved</span>
+          <div class="important-container">
+
+
           </div>
-          <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-2">
-            <label for="item-2">
-              <span class="label-text" id="task2"></span>
-            </label>
-            <span class="tag progress">In Progress</span>
+          <div class="completed-container">
+
           </div>
-          <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-3">
-            <label for="item-3">
-              <span class="label-text" id="task3"></span>
-            </label>
-            <span class="tag review">In Review</span>
-          </div>
-          <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-4">
-            <label for="item-4">
-              <span class="label-text" id="task4"></span>
-            </label>
-            <span class="tag progress">In Progress</span>
-          </div>
-          <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-5">
-            <label for="item-5">
-              <span class="label-text" id="task5"></span>
-            </label>
-            <span class="tag approved">Approved</span>
-          </div>
-          <div class="task">
-            <input class="task-item" name="task" type="checkbox" id="item-6">
-            <label for="item-6">
-              <span class="label-text" id="task6"></span>
-            </label>
-            <span class="tag review">In Review</span>
-          </div>
+
           <div class="header upcoming">Upcoming Tasks</div>
-          <div class="task">
+          <div class="task_container">
             <input class="task-item" name="task" type="checkbox" id="item-7">
             <label for="item-7">
               <span class="label-text">Dashboard Design Implementation</span>
             </label>
             <span class="tag waiting">Waiting</span>
           </div>
-          <div class="task">
+          <div class="task_container">
             <input class="task-item" name="task" type="checkbox" id="item-8">
             <label for="item-8">
               <span class="label-text">Create a userflow</span>
             </label>
             <span class="tag waiting">Waiting</span>
           </div>
-          <div class="task">
+          <div class="task_container">
             <input class="task-item" name="task" type="checkbox" id="item-9">
             <label for="item-9">
               <span class="label-text">Application Implementation</span>
             </label>
             <span class="tag waiting">Waiting</span>
           </div>
-          <div class="task">
+          <div class="task_container">
             <input class="task-item" name="task" type="checkbox" id="item-10">
             <label for="item-10">
               <span class="label-text">Create a Dashboard Design</span>
@@ -385,6 +345,9 @@
   <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
 
   <!-- Add Firebase products that you want to use -->
+
+  <!--         ===JS CDN===          -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
   <!-- Custom JavaScript -->
   <script src="/JS/home.js"></script>
