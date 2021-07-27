@@ -31,6 +31,9 @@
       <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" >Sign In with google account</button>
     <button id="signout_button" >Sign Out</button>
+    <a href="home.html">
+      <button id="homeFromCal"  >Home</button>
+    </a>
 
     </div>
 
@@ -57,6 +60,21 @@
 
     <pre id="content" style="white-space: pre-wrap"></pre>
 
+    <!-- Firebase -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+
     <script src="/JS/calendar.js"></script>
 
     <script
@@ -70,7 +88,7 @@
 
     <!-- jQuery -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-    <script src="/Calendar/calendar.js"></script>
+    <script src="/Calendar/calendar.js"></script> 
     <script src="/Calendar/demo.js"></script>
     <script>
       // initialize your calendar, once the page's DOM is ready
@@ -80,6 +98,8 @@
           })
       })
       </script>
+
+
 
   </body>
 </html>

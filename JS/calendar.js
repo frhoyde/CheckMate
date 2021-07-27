@@ -166,10 +166,7 @@ gapi.client.calendar.events
       appendPre("No upcoming events found.");
     }
   });
+  
 }
 
 
-var eventToPass = {
-    name: summary ,
-    date: when
-};
