@@ -974,22 +974,43 @@ button.btn-action.active {
 	margin-right: 0;
 }
 
-button.signin-out-button{
+
+#authorize_button{
   font-family: "Source Sans Pro", monospace;
 	color: #755eb5;
 	border: none;
 	background-color: #fff;
 	border-radius: 8px;
-	padding: 20px 30px;
+	padding: 5px 10px;
 	font-size: 18px;
 	cursor: pointer;
 	border: 2px solid #fff;
   margin-right: 10px;
-	
-	
 }
 
-.signin-out-button{
-	margin: 20px 0 30px 0;
-	text-align: center;
+#signout_button{
+  font-family: "Source Sans Pro", monospace;
+	color: #755eb5;
+	border: none;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 5px 10px;
+	font-size: 18px;
+	cursor: pointer;
+	border: 2px solid #fff;
+  margin-right: 10px;
+  
+}
+#homeFromCal{
+  font-family: "Source Sans Pro", monospace;
+	color: #755eb5;
+	border: none;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 5px 10px;
+	font-size: 18px;
+	cursor: pointer;
+	border: 2px solid #fff;
+  margin-right: 20px;
+  
 }

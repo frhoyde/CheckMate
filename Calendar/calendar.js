@@ -23,7 +23,7 @@
                 eventHeaderFormat: 'MM d, yyyy',
                 firstDayOfWeek: 0,
                 language: 'en',
-                todayHighlight: false,
+                todayHighlight: true,
                 sidebarDisplayDefault: true,
                 sidebarToggler: true,
                 eventDisplayDefault: true,
@@ -1033,7 +1033,10 @@
                 ret = _[i].evoCalendar[opt].apply(_[i].evoCalendar, args);
             if (typeof ret != 'undefined') return ret;
         }
+        console.log(opt);
         return _;
     };
+
+    
 
 }));
