@@ -114,14 +114,14 @@ body {
 }
 
 .page-header .logo span {
-  text-align: center ;
-  margin-bottom: auto ;
-  margin-top: -30px !important;
-  font-size: 1.5vw ;
-  display: inline-block ;
-  bottom: 20% ;
-  top: auto ;
-  /*position:absolute;*/
+  text-align: center;
+  margin-bottom: auto;
+  margin-top: -30px;
+  font-size: 1.5vw;
+  display: inline-block;
+  bottom: 20%;
+  top: auto;
+  vertical-align: bottom !important;
   resize: none;
   overflow: hidden;
   text-overflow: clip;
