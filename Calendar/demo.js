@@ -250,10 +250,6 @@ $(document).ready(function () {
       }); 
       //console.log(calendarEvents);
 
-
-
-      
-
         // calendarEvents : [
         //   {
         //         id: taskArray[i].key,
