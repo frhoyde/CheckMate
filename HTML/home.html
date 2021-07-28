@@ -8,7 +8,8 @@
 
 </head>
 
-<body onload="create_unfinished_task(), create_finished_task()">
+<body
+  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task()">
   <svg style=" display:none;">
     <!-- <symbol id="logo" viewBox="0 0 140 59">
 
@@ -230,9 +231,165 @@
         </button>
       </form>
       <div class="admin-profile">
-        <div class=add-task”>
+        <div class="add-task">
+
           <button type="submit" onclick="openAddForm()" class="add-button">Add</button>
-          <div class="addTaskPopup">
+
+          <div class="modal-content" id="popupForm">
+            <div class="modal-header">
+              <h5 class="modal-title">New Task</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <i class="ti-close"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form autocomplete="off">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Task title</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Tags</label>
+                  <div class="col-sm-9">
+                    <select class="js-example-basic-single" multiple>
+                      <option value="Theme Support">Theme Support</option>
+                      <option value="Freelance">Freelance</option>
+                      <option selected value="Social">Social</option>
+                      <option selected value="Friends">Friends</option>
+                      <option value="Coding">Coding</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row row-sm">
+                  <label class="col-sm-3 col-form-label">Deadline</label>
+                  <div class="col-sm-5">
+                    <input type="text" class="form-control create-event-datepicker" placeholder="Date">
+                  </div>
+                  <div class="col-sm-4">
+                    <input type="text" class="form-control create-event-demo" placeholder="Time">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Participate</label>
+                  <div class="col-sm-9">
+                    <div class="avatar-group">
+                      <figure class="avatar avatar-sm">
+                        <img src="../../assets/media/image/user/women_avatar3.jpg" class="rounded-circle" alt="image">
+                      </figure>
+                      <figure class="avatar avatar-sm">
+                        <span class="avatar-title bg-danger rounded-circle">S</span>
+                      </figure>
+                      <figure class="avatar avatar-sm">
+                        <img src="../../assets/media/image/user/women_avatar5.jpg" class="rounded-circle" alt="image">
+                      </figure>
+                    </div>
+                    <button type="button" class="btn btn-outline-light btn-sm btn-floating" title="Add User"
+                      data-toggle="dropdown">
+                      <i class="ti-plus"></i>
+                    </button>
+                    <div class="dropdown-menu p-0">
+                      <div class="p-3">
+                        <h6 class="text-uppercase font-size-11 mb-3">Add User</h6>
+                        <div class="input-group input-group-sm">
+                          <input type="text" class="form-control" placeholder="Search User"
+                            aria-describedby="button-addon2">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-light" type="button" id="button-addon2">
+                              <i class="ti-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <ul class="list-group list-group-flush mt-2">
+                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
+                            <div class="mr-2">
+                              <figure class="avatar avatar-sm">
+                                <span class="avatar-title bg-primary rounded-circle">V</span>
+                              </figure>
+                            </div>
+                            <div>
+                              <h6 class="mb-0">Valentine Maton</h6>
+                            </div>
+                            <div class="dropdown ml-auto">
+                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="plus"></i>
+                              </a>
+                            </div>
+                          </li>
+                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
+                            <div class="mr-2">
+                              <figure class="avatar avatar-sm">
+                                <img src="../../assets/media/image/user/women_avatar3.jpg" class="rounded-circle"
+                                  alt="image">
+                              </figure>
+                            </div>
+                            <div>
+                              <h6 class="mb-0">Valentine Maton</h6>
+                            </div>
+                            <div class="dropdown ml-auto">
+                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="plus"></i>
+                              </a>
+                            </div>
+                          </li>
+                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
+                            <div class="mr-2">
+                              <figure class="avatar avatar-sm">
+                                <img src="../../assets/media/image/user/women_avatar2.jpg" class="rounded-circle"
+                                  alt="image">
+                              </figure>
+                            </div>
+                            <div>
+                              <h6 class="mb-0">Valentine Maton</h6>
+                            </div>
+                            <div class="dropdown ml-auto">
+                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm ml-3"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="plus"></i>
+                              </a>
+                            </div>
+                          </li>
+                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
+                            <div class="mr-2">
+                              <figure class="avatar avatar-sm">
+                                <img src="../../assets/media/image/user/man_avatar2.jpg" class="rounded-circle"
+                                  alt="image">
+                              </figure>
+                            </div>
+                            <div>
+                              <h6 class="mb-0">Valentine Maton</h6>
+                            </div>
+                            <div class="dropdown ml-auto">
+                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm ml-3"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i data-feather="plus"></i>
+                              </a>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label">Description</label>
+                  <div class="col-sm-9">
+                    <textarea class="form-control" rows="6"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3"></label>
+                  <div class="col-sm-9">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- <div class="addTaskPopup">
             <div class="addTask-formPopup" id="popupForm">
 
               <form class="addTask-formContainer">
@@ -248,7 +405,7 @@
                 <button type="button" class="addTask-btn-cancel" onclick="closeAddForm()">Close</button>
               </form>
             </div>
-          </div>
+          </div> -->
 
         </div>
         <span class="greeting"> </span>
@@ -285,43 +442,45 @@
         <div class="tasks-wrapper">
           <div class="important-container">
 
-
           </div>
           <div class="completed-container">
 
           </div>
+        </div>
 
-          <div class="header upcoming">Upcoming Tasks</div>
-          <div class="task_container">
-            <input class="task-item" name="task" type="checkbox" id="item-7">
-            <label for="item-7">
-              <span class="label-text">Dashboard Design Implementation</span>
-            </label>
-            <span class="tag waiting">Waiting</span>
+        <div class="header upcoming">Upcoming Tasks</div>
+
+        <div class="content-categories">
+          <div class="label-wrapper">
+            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showAll-upcoming"
+              value="up-all-container">
+            <label class="category" for="showAll-upcoming">All</label>
           </div>
-          <div class="task_container">
-            <input class="task-item" name="task" type="checkbox" id="item-8">
-            <label for="item-8">
-              <span class="label-text">Create a userflow</span>
-            </label>
-            <span class="tag waiting">Waiting</span>
+          <div class="label-wrapper">
+            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showImportant-upcoming" checked
+              value="upcomingImportant-container">
+            <label class="category" for="showImportant-upcoming">Important</label>
           </div>
-          <div class="task_container">
-            <input class="task-item" name="task" type="checkbox" id="item-9">
-            <label for="item-9">
-              <span class="label-text">Application Implementation</span>
-            </label>
-            <span class="tag waiting">Waiting</span>
+          <div class="label-wrapper">
+            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showInprogress-upcoming"
+              value="up-progress-container">
+            <label class="category" for="showInprogress-upcoming">In-progress</label>
           </div>
-          <div class="task_container">
-            <input class="task-item" name="task" type="checkbox" id="item-10">
-            <label for="item-10">
-              <span class="label-text">Create a Dashboard Design</span>
-            </label>
-            <span class="tag waiting">Waiting</span>
+          <div class="label-wrapper">
+            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showComplete-upcoming"
+              value="upcomingCompleted-container">
+            <label class="category" for="showComplete-upcoming">Completed</label>
           </div>
         </div>
-      </div>
+        <div class="tasks-wrapper-up">
+          <div class="upcomingImportant-container">
+
+
+          </div>
+          <div class="upcomingCompleted-container">
+
+          </div>
+        </div>
 
 
     </section>

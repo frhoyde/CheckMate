@@ -72,3 +72,21 @@ function openAddForm() {
 function closeAddForm() {
   document.getElementById("popupForm").style.display = "none";
 }
+
+/****Today's task radio button nav ****/
+var currentState = $(".important-container");
+$("input[type=radio][name=nav]").on("change", function () {
+  currentState.hide();
+  currentState = $("." + $("input[type='radio'][name=nav]:checked").val());
+  currentState.show();
+});
+
+/****Upcoming task radio button nav ****/
+var currentStateForUpcoming = $(".upcomingImportant-container");
+$("input[type=radio][name=nav-upcoming]").on("change", function () {
+  currentStateForUpcoming.hide();
+  currentStateForUpcoming = $(
+    "." + $("input[type='radio'][name=nav-upcoming]:checked").val()
+  );
+  currentStateForUpcoming.show();
+});

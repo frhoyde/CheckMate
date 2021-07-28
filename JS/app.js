@@ -49,14 +49,6 @@ function getUserData(uid) {
     });
 }
 
-/****Today's task radio button nav ****/
-var currentState = $(".important-container");
-$("input[type='radio']").on("change", function () {
-  currentState.hide();
-  currentState = $("." + $("input[type='radio']:checked").val());
-  currentState.show();
-});
-
 function add_task() {
   new_task = document.getElementById("new-task");
   //console.log(new_task.value.length);
@@ -66,26 +58,33 @@ function add_task() {
   }
 }
 
+var today = new Date();
+console.log(today);
+
 function create_unfinished_task() {
   unfinished_task_container = document.getElementsByClassName(
     "important-container"
   )[0];
   unfinished_task_container.innerHTML = "";
   var taskArray = [];
+  task_listUl = document.createElement("ul");
+  task_listUl.setAttribute("class", "task-list");
 
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/unfinished_task/")
-      .orderByChild("date");
+      .ref("users/" + user.uid + "/unfinished_task/");
     if (user) {
       user = firebase.auth().currentUser;
       // Retrieve new tasks as they are added to our database
       firebaseRef.once("value", (snapshot) => {
         snapshot.forEach((childSnapshot) => {
           var childkey = childSnapshot.key;
-          //console.log(childSnapshot.val());
-          taskArray.push(childSnapshot.val());
+          var date_given = new Date(childSnapshot.val().date);
+
+          /*** Checking if task is for today or not ***/
+          if (today.getDate() == date_given.getDate())
+            taskArray.push(childSnapshot.val());
         });
         for (var i, i = 0; i < taskArray.length; i++) {
           task_date = taskArray[i].date;
@@ -93,10 +92,9 @@ function create_unfinished_task() {
           task_title = taskArray[i].title;
           console.log(task_title);
 
-          task_container = document.createElement("div");
-          task_container.setAttribute("class", "task_container");
-          task_container.setAttribute("data-key", task_key);
-          task_container.setAttribute("user-uid", user.uid);
+          task_list = document.createElement("li");
+
+          task_container = create_task_container(task_key, user.uid);
 
           // TASK DATA
           task_data = document.createElement("div");
@@ -107,10 +105,7 @@ function create_unfinished_task() {
           // label_for_checkbox = document.createElement("label");
           // label_for_checkbox.setAttribute("for", "task_done_button");
 
-          title = document.createElement("span");
-          title.setAttribute("id", "task_title");
-          title.setAttribute("contenteditable", false);
-          title.innerHTML = task_title;
+          title = create_title(task_title);
 
           date = document.createElement("p");
           date.setAttribute("id", "task_date");
@@ -155,7 +150,10 @@ function create_unfinished_task() {
           fa_delete = document.createElement("i");
           fa_delete.setAttribute("class", "bi bi-trash-fill");
 
-          unfinished_task_container.append(task_container);
+          unfinished_task_container.append(task_listUl);
+          task_listUl.append(task_list);
+          task_list.append(task_container);
+
           task_container.append(task_data);
           task_data.append(title);
           task_data.append(tag);
@@ -174,9 +172,8 @@ function create_unfinished_task() {
     }
   });
 }
-//show_task_from_database();
 
-//Create Unfinished tasks
+//Create finished tasks
 function create_finished_task() {
   finished_task_container = document.getElementsByClassName(
     "completed-container"
@@ -194,8 +191,11 @@ function create_finished_task() {
     firebaseRef.once("value", (snapshot) => {
       snapshot.forEach((childSnapshot) => {
         var childkey = childSnapshot.key;
-        //console.log(childSnapshot.val());
-        finished_task_array.push(childSnapshot.val());
+        var date_given = new Date(childSnapshot.val().date);
+
+        /*** Checking if task is for today or not ***/
+        if (today.getDate() == date_given.getDate())
+          finished_task_array.push(childSnapshot.val());
       });
 
       for (var i, i = 0; i < finished_task_array.length; i++) {
@@ -203,19 +203,13 @@ function create_finished_task() {
         task_key = finished_task_array[i].key;
         task_title = finished_task_array[i].title;
 
-        task_container = document.createElement("div");
-        task_container.setAttribute("class", "task_container");
-        task_container.setAttribute("data-key", task_key);
-        task_container.setAttribute("user-uid", user.uid);
+        task_container = create_task_container(task_key, user.uid);
 
         // TASK DATA
         task_data = document.createElement("div");
         task_data.setAttribute("id", "task_data");
 
-        title = document.createElement("span");
-        title.setAttribute("id", "task_title");
-        title.setAttribute("contenteditable", false);
-        title.innerHTML = task_title;
+        title = create_title(task_title);
 
         date = document.createElement("p");
         date.setAttribute("id", "task_date");
@@ -254,19 +248,50 @@ function create_finished_task() {
   });
 }
 
+//Create Task_container
+
+function create_task_container(task_key, userUid) {
+  task_container = document.createElement("div");
+  task_container.setAttribute("class", "task_container");
+  task_container.setAttribute("data-key", task_key);
+  task_container.setAttribute("user-uid", userUid);
+  return task_container;
+}
+
+//Create Task Title
+
+function create_title(task_title) {
+  title = document.createElement("span");
+  title.setAttribute("id", "task_title");
+  title.setAttribute("contenteditable", false);
+  title.innerHTML = task_title;
+  return title;
+}
+
 //Task-done button func
 function task_done(task, task_tool) {
-  finished_task_container = document.getElementsByClassName(
-    "completed-container"
-  )[0];
-  task.removeChild(task_tool);
-  finished_task_container.append(task);
+  var date_given = new Date(task.childNodes[0].childNodes[2].innerHTML);
+
+  /*** Checking if task is for today or not ***/
+  if (today.getDate() == date_given.getDate()) {
+    finished_task_container = document.getElementsByClassName(
+      "completed-container"
+    )[0];
+    task.removeChild(task_tool);
+    finished_task_container.append(task);
+  } else {
+    finished_upTask_container = document.getElementsByClassName(
+      "upcomingCompleted-container"
+    )[0];
+    task.removeChild(task_tool);
+    finished_upTask_container.append(task);
+  }
 
   var user_uid = task.getAttribute("user-uid");
   var key = task.getAttribute("data-key");
   var task_obj = {
     title: task.childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[1].innerHTML,
+    date: task.childNodes[0].childNodes[2].innerHTML,
     key: key,
   };
 
@@ -276,7 +301,8 @@ function task_done(task, task_tool) {
 
   // delete our task from unfinished
   task_delete(task);
-  create_finished_task();
+  if (today.getDate() == date_given.getDate()) create_finished_task();
+  else create_upcoming_finished_task();
 }
 
 function task_edit(task, edit_button) {
@@ -291,7 +317,7 @@ function task_edit(task, edit_button) {
   title.setAttribute("id", "title_editing");
   title.focus();
 
-  date = task.childNodes[0].childNodes[1];
+  date = task.childNodes[0].childNodes[2];
   date.setAttribute("contenteditable", true);
   date.setAttribute("id", "date_editing");
 }
@@ -309,7 +335,7 @@ function finish_edit(task, edit_button) {
   title.setAttribute("contenteditable", false);
   title.setAttribute("id", "task_title");
 
-  date = task.childNodes[0].childNodes[1];
+  date = task.childNodes[0].childNodes[2];
   date.setAttribute("contenteditable", false);
   date.setAttribute("id", "task_date");
 
@@ -318,12 +344,12 @@ function finish_edit(task, edit_button) {
   var key = task.getAttribute("data-key");
   var task_obj = {
     title: task.childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[1].innerHTML,
+    date: task.childNodes[0].childNodes[2].innerHTML,
     key: key,
   };
 
   var updates = {};
-  updates["users/" + user_uid + "/finished_task/" + key] = task_obj;
+  updates["users/" + user_uid + "/unfinished_task/" + key] = task_obj;
   firebaseRef.update(updates);
 }
 
@@ -351,6 +377,193 @@ function task_finished_delete(task) {
   task.remove();
 }
 
+function create_upcoming_unfinished_task() {
+  unfinished_upTask_container = document.getElementsByClassName(
+    "upcomingImportant-container"
+  )[0];
+  unfinished_upTask_container.innerHTML = "";
+  var taskArrayUpcoming = [];
+  upcomingTask_listUl = document.createElement("ul");
+  upcomingTask_listUl.setAttribute("class", "task-list");
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    var firebaseRef = firebase
+      .database()
+      .ref("users/" + user.uid + "/unfinished_task/");
+    if (user) {
+      user = firebase.auth().currentUser;
+      // Retrieve new tasks as they are added to our database
+      firebaseRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          var childkey = childSnapshot.key;
+          var date_given = new Date(childSnapshot.val().date);
+
+          /*** Checking if task is for today or not ***/
+          if (today.getDate() != date_given.getDate())
+            taskArrayUpcoming.push(childSnapshot.val());
+        });
+        for (var i, i = 0; i < taskArrayUpcoming.length; i++) {
+          task_date = taskArrayUpcoming[i].date;
+          task_key = taskArrayUpcoming[i].key;
+          task_title = taskArrayUpcoming[i].title;
+          console.log(task_title);
+
+          task_list = document.createElement("li");
+
+          task_container = create_task_container(task_key, user.uid);
+
+          // TASK DATA
+          task_data = document.createElement("div");
+          task_data.setAttribute("id", "task_data");
+
+          //TASK DONE CHECKBOX
+
+          // label_for_checkbox = document.createElement("label");
+          // label_for_checkbox.setAttribute("for", "task_done_button");
+
+          title = create_title(task_title);
+
+          date = document.createElement("p");
+          date.setAttribute("id", "task_date");
+          date.setAttribute("contenteditable", false);
+          date.innerHTML = task_date;
+
+          tag = document.createElement("span");
+          tag.setAttribute("class", "tag review"); //for now review tag
+          tag.innerHTML = "important";
+
+          // TASK TOOLS
+          task_tool = document.createElement("div");
+          task_tool.setAttribute("id", "task_tool");
+
+          task_done_button = document.createElement("button");
+          task_done_button.setAttribute("id", "task_done_button");
+          task_done_button.setAttribute(
+            "onclick",
+            "task_done(this.parentElement.parentElement, this.parentElement)"
+          );
+          task_done_button.innerHTML = "done";
+          fa_done = document.createElement("i");
+          fa_done.setAttribute("class", "bi bi-check-lg");
+
+          task_edit_button = document.createElement("button");
+          task_edit_button.setAttribute("id", "task_edit_button");
+          task_edit_button.setAttribute(
+            "onclick",
+            "task_edit(this.parentElement.parentElement, this)"
+          );
+          task_edit_button.innerHTML = "edit";
+          fa_edit = document.createElement("i");
+          fa_edit.setAttribute("class", "bi bi-pencil");
+
+          task_delete_button = document.createElement("button");
+          task_delete_button.setAttribute("id", "task_delete_button");
+          task_delete_button.setAttribute(
+            "onclick",
+            "task_delete(this.parentElement.parentElement)"
+          );
+          task_delete_button.innerHTML = "delete";
+          fa_delete = document.createElement("i");
+          fa_delete.setAttribute("class", "bi bi-trash-fill");
+
+          unfinished_upTask_container.append(upcomingTask_listUl);
+          upcomingTask_listUl.append(task_list);
+          task_list.append(task_container);
+
+          task_container.append(task_data);
+          task_data.append(title);
+          task_data.append(tag);
+          task_data.append(date);
+
+          task_container.append(task_tool);
+
+          task_tool.append(task_done_button);
+          task_done_button.append(fa_done);
+          task_tool.append(task_edit_button);
+          task_edit_button.append(fa_edit);
+          task_tool.append(task_delete_button);
+          task_delete_button.append(fa_delete);
+        }
+      });
+    }
+  });
+}
+
+//Create finished tasks
+function create_upcoming_finished_task() {
+  finished_upTask_container = document.getElementsByClassName(
+    "upcomingCompleted-container"
+  )[0];
+  finished_upTask_container.innerHTML = "";
+
+  finished_upcomingTask_array = [];
+  firebase.auth().onAuthStateChanged(function (user) {
+    var firebaseRef = firebase
+      .database()
+      .ref("users/" + user.uid + "/finished_task/");
+
+    user = firebase.auth().currentUser;
+    // Retrieve new tasks as they are added to our database
+    firebaseRef.once("value", (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        var childkey = childSnapshot.key;
+        var date_given = new Date(childSnapshot.val().date);
+
+        /*** Checking if task is for today or not ***/
+        if (today.getDate() != date_given.getDate())
+          finished_upcomingTask_array.push(childSnapshot.val());
+      });
+
+      for (var i, i = 0; i < finished_upcomingTask_array.length; i++) {
+        task_date = finished_upcomingTask_array[i].date;
+        task_key = finished_upcomingTask_array[i].key;
+        task_title = finished_upcomingTask_array[i].title;
+
+        task_container = create_task_container(task_key, user.uid);
+
+        // TASK DATA
+        task_data = document.createElement("div");
+        task_data.setAttribute("id", "task_data");
+
+        title = create_title(task_title);
+
+        date = document.createElement("p");
+        date.setAttribute("id", "task_date");
+        date.setAttribute("contenteditable", false);
+        date.innerHTML = task_date;
+
+        tag = document.createElement("span");
+        tag.setAttribute("class", "tag completed");
+        tag.innerHTML = "completed";
+
+        // TASK TOOLS
+        task_tool = document.createElement("div");
+        task_tool.setAttribute("id", "task_tool");
+
+        task_delete_button = document.createElement("button");
+        task_delete_button.setAttribute("id", "task_delete_button");
+        task_delete_button.setAttribute(
+          "onclick",
+          "task_finished_delete(this.parentElement.parentElement)"
+        );
+        task_delete_button.innerHTML = "delete";
+        fa_delete = document.createElement("i");
+        fa_delete.setAttribute("class", "bi bi-trash-fill");
+
+        finished_upTask_container.append(task_container);
+        task_container.append(task_data);
+        task_data.append(title);
+        task_data.append(tag);
+        task_data.append(date);
+
+        task_container.append(task_tool);
+        task_tool.append(task_delete_button);
+        task_delete_button.append(fa_delete);
+      }
+    });
+  });
+}
+
 function add_task_to_database() {
   // our boxes have data and we take database
   firebase.auth().onAuthStateChanged(function (user) {
@@ -368,6 +581,7 @@ function add_task_to_database() {
       updates["users/" + user.uid + "/unfinished_task/" + key] = task;
       firebaseRef.update(updates);
       create_unfinished_task();
+      create_upcoming_unfinished_task();
     }
   });
 }
