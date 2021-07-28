@@ -2,12 +2,12 @@
 
 // Client ID and API key from the Developer Console
 var CLIENT_ID =
-"778401257741-6a75o3ij228620vchcjjovh3muh3hu6s.apps.googleusercontent.com";
+  "778401257741-6a75o3ij228620vchcjjovh3muh3hu6s.apps.googleusercontent.com";
 var API_KEY = "AIzaSyBzFIsDwS53ueZZ9X79V06CvATUbde5XyI";
 
 // Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = [
-"https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
 ];
 
 // Authorization scopes required by the API; multiple scopes can be
@@ -18,142 +18,156 @@ var authorizeButton = document.getElementById("authorize_button");
 var signoutButton = document.getElementById("signout_button");
 
 /**
-*  On load, called to load the auth2 library and API client library.
-*/
+ *  On load, called to load the auth2 library and API client library.
+ */
 function handleClientLoad() {
-gapi.load("client:auth2", initClient);
+  gapi.load("client:auth2", initClient);
 }
 
 /**
-*  Initializes the API client library and sets up sign-in state
-*  listeners.
-*/
+ *  Initializes the API client library and sets up sign-in state
+ *  listeners.
+ */
 function initClient() {
-gapi.client
-  .init({
-    apiKey: API_KEY,
-    clientId: CLIENT_ID,
-    discoveryDocs: DISCOVERY_DOCS,
-    scope: SCOPES,
-  })
-  .then(
-    function () {
-      // Listen for sign-in state changes.
-      gapi.auth2
-        .getAuthInstance()
-        .isSignedIn.listen(updateSigninStatus);
+  gapi.client
+    .init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: DISCOVERY_DOCS,
+      scope: SCOPES,
+    })
+    .then(
+      function () {
+        // Listen for sign-in state changes.
+        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-      // Handle the initial sign-in state.
-      updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-      authorizeButton.onclick = handleAuthClick;
-      signoutButton.onclick = handleSignoutClick;
-    },
-    function (error) {
-      appendPre(JSON.stringify(error, null, 2));
-    }
-  );
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        authorizeButton.onclick = handleAuthClick;
+        signoutButton.onclick = handleSignoutClick;
+      },
+      function (error) {
+        appendPre(JSON.stringify(error, null, 2));
+      }
+    );
 }
 
 /**
-*  Called when the signed in status changes, to update the UI
-*  appropriately. After a sign-in, the API is called.
-*/
+ *  Called when the signed in status changes, to update the UI
+ *  appropriately. After a sign-in, the API is called.
+ */
 function updateSigninStatus(isSignedIn) {
-if (isSignedIn) {
-  authorizeButton.style.display = "none";
-  signoutButton.style.display = "block";
-  listUpcomingEvents();
-} else {
-  authorizeButton.style.display = "block";
-  signoutButton.style.display = "none";
-}
+  if (isSignedIn) {
+    authorizeButton.style.display = "none";
+    signoutButton.style.display = "block";
+    listUpcomingEvents();
+  } else {
+    authorizeButton.style.display = "block";
+    signoutButton.style.display = "none";
+  }
 }
 
 /**
-*  Sign in the user upon button click.
-*/
+ *  Sign in the user upon button click.
+ */
 function handleAuthClick(event) {
-gapi.auth2.getAuthInstance().signIn();
+  gapi.auth2.getAuthInstance().signIn();
 }
 
 /**
-*  Sign out the user upon button click.
-*/
+ *  Sign out the user upon button click.
+ */
 function handleSignoutClick(event) {
-gapi.auth2.getAuthInstance().signOut();
+  gapi.auth2.getAuthInstance().signOut();
 }
 
 /**
-* Append a pre element to the body containing the given message
-* as its text node. Used to display the results of the API call.
-*
-* @param {string} message Text to be placed in pre element.
-*/
+ * Append a pre element to the body containing the given message
+ * as its text node. Used to display the results of the API call.
+ *
+ * @param {string} message Text to be placed in pre element.
+ */
 function appendPre(message) {
-var pre = document.getElementById("content");
-var textContent = document.createTextNode(message + "\n");
-pre.appendChild(textContent);
+  var pre = document.getElementById("content");
+  var textContent = document.createTextNode(message + "\n");
+  pre.appendChild(textContent);
 }
 
 var google_events = [];
 
 function listUpcomingEvents() {
   gapi.client.calendar.events
-  .list({
-    calendarId: "primary",
-    timeMin: new Date().toISOString(),
-    showDeleted: false,
-    singleEvents: true,
-    maxResults: 10,
-    orderBy: "startTime",
-  })
-  .then(function (response) {
-    var events = response.result.items;
-    
-    //appendPre("Upcoming events:");
+    .list({
+      calendarId: "primary",
+      timeMin: new Date().toISOString(),
+      showDeleted: false,
+      singleEvents: true,
+      maxResults: 10,
+      orderBy: "startTime",
+    })
+    .then(function (response) {
+      var events = response.result.items;
 
-    if (events.length > 0) {
-      
-      
-      
-      for (var i, i = 0; i < events.length; i++) {
-       
+      //appendPre("Upcoming events:");
 
-        var temp_event = events[i];
-        console.log(events[i]);
-        var when = temp_event.start.dateTime;
-        if (!when) {
-          when = temp_event.start.date;
+      if (events.length > 0) {
+        // for (var i, i = 0; i < taskArray.length; i++) {
+        //   task_date = taskArray[i].date;
+        //   task_key = taskArray[i].key;
+        //   task_title = taskArray[i].title;
+        //   task_description = taskArray[i].description;
+
+        //   var new_event = {
+        //     id: taskArray[i].key,
+        //     name: taskArray[i].title,
+        //     description: taskArray[i].description,
+        //     date: taskArray[i].date,
+        //     type: "event",
+        //     everyYear: !0,
+        //   };
+
+        //   event_array.push(new_event);
+        // }
+        for (var i, i = 0; i < events.length; i++) {
+          //  task_date2 = events[i].start.data;
+          // task_key2 = events[i].id;
+          // task_title2 = events[i].summary;
+          // task_description2 = events[i].summary;
+
+          var temp_event = events[i];
+          console.log(events[i]);
+          var when = temp_event.start.dateTime;
+          if (!when) {
+            when = temp_event.start.date;
+          }
+          console.log(when);
+
+          var new_event2 = {
+            id: events[i].id,
+            name: events[i].summary,
+            description: events[i].summary,
+            date: when,
+            type: "event",
+            everyYear: !0,
+          };
+
+          google_events.push(new_event2);
         }
-        console.log(when);
-
-        var new_event2 = {
-              id: events[i].id,
-              name: events[i].summary,
-              description: events[i].summary,
-              date: when,
-              type: "event",
-              everyYear: !0,
-            };
-        
-        google_events.push(new_event2);
-
-            
+        console.log(google_events);
+        appendPre(temp_event.summary + " (" + when + ")");
+      } else {
+        appendPre("No upcoming events found.");
       }
-      console.log(google_events);
-      //appendPre(temp_event.summary + " (" + when + ")");
-    } else {
-      //appendPre("No upcoming events found.");
-    }
- });
+    });
+  //  $("#demoEvoCalendar").evoCalendar({
+  //   format: "MM dd, yyyy",
+  //   titleFormat: "MM",
+  //   calendarEvents: google_events,
 
- 
+  // });
 }
 
-
-
-
-// google api js
+// /*google api js*/
 
 var firebaseConfig = {
   apiKey: "AIzaSyBzFIsDwS53ueZZ9X79V06CvATUbde5XyI",
@@ -169,13 +183,10 @@ firebase.initializeApp(firebaseConfig);
 
 var taskArray = [];
 
-
 var defaultTheme = getRandom(4);
 
 var today = new Date();
 console.log(today);
-
-
 
 var active_events = [];
 
@@ -223,10 +234,8 @@ $(document).ready(function () {
         taskArray.push(childSnapshot.val());
       });
       var event_array = [];
-      
-      for (var i, i = 0; i < taskArray.length; i++) {
-        
 
+      for (var i, i = 0; i < taskArray.length; i++) {
         var new_event = {
           id: taskArray[i].key,
           name: taskArray[i].title,
@@ -236,72 +245,68 @@ $(document).ready(function () {
           everyYear: !0,
         };
 
-        
-
         event_array.push(new_event);
       }
       //console.log(new_event);
-      
+
       $("#demoEvoCalendar").evoCalendar({
         format: "MM dd, yyyy",
         titleFormat: "MM",
         calendarEvents: $.merge(event_array, google_events),
-        
-      }); 
+      });
       //console.log(calendarEvents);
 
-        // calendarEvents : [
-        //   {
-        //         id: taskArray[i].key,
-        //         name: taskArray[i].title,
-        //         description: taskArray[i].description,
-        //         date: taskArray[i].date,
-        //         type: "birthday",
-        //         everyYear: !0,
-        //       },
+      // calendarEvents : [
+      //   {
+      //         id: taskArray[i].key,
+      //         name: taskArray[i].title,
+      //         description: taskArray[i].description,
+      //         date: taskArray[i].date,
+      //         type: "birthday",
+      //         everyYear: !0,
+      //       },
 
-        // ],
+      // ],
 
-        // calendarEvents: [
+      // calendarEvents: [
 
-        //   {
-        //     id: "sKn89hi",
-        //     name: "1-Week Coding Bootcamp",
-        //     description: "Lorem ipsum dolor sit amet.",
-        //     badge: "5-day event",
-        //     date: [
-        //       today.getMonth() +
-        //         1 +
-        //         "/" +
-        //         week_date.start +
-        //         "/" +
-        //         today.getFullYear(),
-        //       today.getMonth() +
-        //         1 +
-        //         "/" +
-        //         week_date.end +
-        //         "/" +
-        //         today.getFullYear(),
-        //     ],
-        //     type: "event",
-        //     everyYear: !0,
-        //   },
-        //   {
-        //     id: "in8bha4",
-        //     name: "Holiday #2",
-        //     description:
-        //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        //     date: today,
-        //     type: "holiday",
-        //   },
-        //   {
-        //     id: "in8bha4",
-        //     name: "Event #2",
-        //     date: today,
-        //     type: "event",
-        //   },
-        // ],   
-      
+      //   {
+      //     id: "sKn89hi",
+      //     name: "1-Week Coding Bootcamp",
+      //     description: "Lorem ipsum dolor sit amet.",
+      //     badge: "5-day event",
+      //     date: [
+      //       today.getMonth() +
+      //         1 +
+      //         "/" +
+      //         week_date.start +
+      //         "/" +
+      //         today.getFullYear(),
+      //       today.getMonth() +
+      //         1 +
+      //         "/" +
+      //         week_date.end +
+      //         "/" +
+      //         today.getFullYear(),
+      //     ],
+      //     type: "event",
+      //     everyYear: !0,
+      //   },
+      //   {
+      //     id: "in8bha4",
+      //     name: "Holiday #2",
+      //     description:
+      //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      //     date: today,
+      //     type: "holiday",
+      //   },
+      //   {
+      //     id: "in8bha4",
+      //     name: "Event #2",
+      //     date: today,
+      //     type: "event",
+      //   },
+      // ],
 
       $("[data-set-theme]").click(function (b) {
         a(b.target);
