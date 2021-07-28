@@ -114,14 +114,14 @@ body {
 }
 
 .page-header .logo span {
-  text-align: center ;
-  margin-bottom: auto ;
-  margin-top: -30px !important;
-  font-size: 1.5vw ;
-  display: inline-block ;
-  bottom: 20% ;
-  top: auto ;
-  /*position:absolute;*/
+  text-align: center;
+  margin-bottom: auto;
+  margin-top: -30px;
+  font-size: 1.5vw;
+  display: inline-block;
+  bottom: 20%;
+  top: auto;
+  vertical-align: bottom !important;
   resize: none;
   overflow: hidden;
   text-overflow: clip;
@@ -658,8 +658,12 @@ body {
   border-bottom: 2px solid var(--checkbox-color);
 }
 
-.completed-container {
-  display: none;
+#showAll-upcoming:checked + label,
+#showImportant-upcoming:checked + label,
+#showInprogress-upcoming:checked + label,
+#showComplete-upcoming:checked + label {
+  color: var(--checkbox-color);
+  border-bottom: 2px solid var(--checkbox-color);
 }
 
 .task-item {
@@ -667,9 +671,15 @@ body {
 }
 
 .tasks-wrapper {
+  flex: 1;
+  height: fit-content;
+  padding-right: 8px;
+}
+
+.tasks-wrapper-up {
   padding: 30px 0;
   flex: 1;
-  overflow-y: auto;
+
   height: 100%;
   padding-right: 8px;
 }
@@ -690,6 +700,22 @@ body {
 
 div.important-container,
 .completed-container {
+  position: relative;
+  box-sizing: border-box;
+  min-height: auto;
+  max-height: 35vh;
+  padding: 2%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.completed-container,
+.upcomingCompleted-container {
+  display: none;
+}
+
+div.upcomingImportant-container,
+.upcomingCompleted-container {
   position: relative;
   box-sizing: border-box;
   min-height: 2vh;
@@ -765,11 +791,9 @@ label .label-text:before {
 }
 
 .upcoming {
-  border-bottom: 1px solid #ddd;
   padding-bottom: 20px;
-  margin-bottom: 30px;
   font-size: 20px;
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 @media screen and (max-width: 900px) {
@@ -837,6 +861,11 @@ label .label-text:before {
   transform: translate(-50%, 5%);
   border: 3px solid #999999;
   z-index: 9;
+}
+
+.add-task .modal-content {
+  display: none;
+  position: relative;
 }
 
 .addTask-formContainer {
