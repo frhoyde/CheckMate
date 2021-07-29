@@ -5,6 +5,17 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/Resources/CSS/home.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <!-- Clockpicker -->
+
+  <!-- Datepicker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ab-datepicker@latest/css/datepicker.css" type="text/css" />
+
+  <!-- <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css" /> -->
+
+  <!-- select2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
+
+
 
 </head>
 
@@ -233,13 +244,17 @@
       <div class="admin-profile">
         <div class="add-task">
 
-          <button type="submit" onclick="openAddForm()" class="add-button">Add</button>
+          <!-- <button type="submit" onclick="openAddForm()" class="add-button">Add</button> -->
 
+          <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#newTaskModal"
+            onclick="openAddForm()">
+            New Task
+          </button>
           <div class="modal-content" id="popupForm">
             <div class="modal-header">
               <h5 class="modal-title">New Task</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <i class="ti-close"></i>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddForm()">
+                <i class=" bi bi-x-lg"></i>
               </button>
             </div>
             <div class="modal-body">
@@ -247,143 +262,41 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Task title</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" id="new-task">
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Tags</label>
-                  <div class="col-sm-9">
-                    <select class="js-example-basic-single" multiple>
-                      <option value="Theme Support">Theme Support</option>
-                      <option value="Freelance">Freelance</option>
-                      <option selected value="Social">Social</option>
-                      <option selected value="Friends">Friends</option>
-                      <option value="Coding">Coding</option>
+                  <div class="col-sm-9" id="tag-option">
+
+                    <select class="form-control select2" id="select_tag" name="data[]" multiple="multiple"
+                      style="width: 100%;">
+                      <option value="Important">Important</option>
+                      <option value="In-Progress">In-Progress</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-group row row-sm">
                   <label class="col-sm-3 col-form-label">Deadline</label>
                   <div class="col-sm-5">
-                    <input type="text" class="form-control create-event-datepicker" placeholder="Date">
+                    <input type="date" id="input_date" class="form-control create-event-datepicker datepicker"
+                      placeholder="Date">
                   </div>
                   <div class="col-sm-4">
                     <input type="text" class="form-control create-event-demo" placeholder="Time">
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Participate</label>
-                  <div class="col-sm-9">
-                    <div class="avatar-group">
-                      <figure class="avatar avatar-sm">
-                        <img src="../../assets/media/image/user/women_avatar3.jpg" class="rounded-circle" alt="image">
-                      </figure>
-                      <figure class="avatar avatar-sm">
-                        <span class="avatar-title bg-danger rounded-circle">S</span>
-                      </figure>
-                      <figure class="avatar avatar-sm">
-                        <img src="../../assets/media/image/user/women_avatar5.jpg" class="rounded-circle" alt="image">
-                      </figure>
-                    </div>
-                    <button type="button" class="btn btn-outline-light btn-sm btn-floating" title="Add User"
-                      data-toggle="dropdown">
-                      <i class="ti-plus"></i>
-                    </button>
-                    <div class="dropdown-menu p-0">
-                      <div class="p-3">
-                        <h6 class="text-uppercase font-size-11 mb-3">Add User</h6>
-                        <div class="input-group input-group-sm">
-                          <input type="text" class="form-control" placeholder="Search User"
-                            aria-describedby="button-addon2">
-                          <div class="input-group-append">
-                            <button class="btn btn-outline-light" type="button" id="button-addon2">
-                              <i class="ti-search"></i>
-                            </button>
-                          </div>
-                        </div>
-                        <ul class="list-group list-group-flush mt-2">
-                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
-                            <div class="mr-2">
-                              <figure class="avatar avatar-sm">
-                                <span class="avatar-title bg-primary rounded-circle">V</span>
-                              </figure>
-                            </div>
-                            <div>
-                              <h6 class="mb-0">Valentine Maton</h6>
-                            </div>
-                            <div class="dropdown ml-auto">
-                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i data-feather="plus"></i>
-                              </a>
-                            </div>
-                          </li>
-                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
-                            <div class="mr-2">
-                              <figure class="avatar avatar-sm">
-                                <img src="../../assets/media/image/user/women_avatar3.jpg" class="rounded-circle"
-                                  alt="image">
-                              </figure>
-                            </div>
-                            <div>
-                              <h6 class="mb-0">Valentine Maton</h6>
-                            </div>
-                            <div class="dropdown ml-auto">
-                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i data-feather="plus"></i>
-                              </a>
-                            </div>
-                          </li>
-                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
-                            <div class="mr-2">
-                              <figure class="avatar avatar-sm">
-                                <img src="../../assets/media/image/user/women_avatar2.jpg" class="rounded-circle"
-                                  alt="image">
-                              </figure>
-                            </div>
-                            <div>
-                              <h6 class="mb-0">Valentine Maton</h6>
-                            </div>
-                            <div class="dropdown ml-auto">
-                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm ml-3"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i data-feather="plus"></i>
-                              </a>
-                            </div>
-                          </li>
-                          <li class="list-group-item d-flex align-items-center pl-0 pr-0">
-                            <div class="mr-2">
-                              <figure class="avatar avatar-sm">
-                                <img src="../../assets/media/image/user/man_avatar2.jpg" class="rounded-circle"
-                                  alt="image">
-                              </figure>
-                            </div>
-                            <div>
-                              <h6 class="mb-0">Valentine Maton</h6>
-                            </div>
-                            <div class="dropdown ml-auto">
-                              <a href="#" data-toggle="dropdown" class="btn btn-outline-light btn-sm ml-3"
-                                aria-haspopup="true" aria-expanded="false">
-                                <i data-feather="plus"></i>
-                              </a>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Description</label>
                   <div class="col-sm-9">
-                    <textarea class="form-control" rows="6"></textarea>
+                    <textarea class="form-control" id="description" rows="6"></textarea>
                   </div>
                 </div>
                 <div class="form-group row">
                   <label class="col-sm-3"></label>
-                  <div class="col-sm-9">
-                    <button type="submit" class="btn btn-primary">Create</button>
+                  <div class="col-sm-9" id="create_btn_div">
+                    <button type="submit" class="btn btn-primary" id="create_btn" onclick="add_task()">Create</button>
                   </div>
                 </div>
               </form>
@@ -410,7 +323,6 @@
         </div>
         <span class="greeting"> </span>
         <div class="user-notifications">
-          <span class="badge">1</span>
           <svg>
             <use xlink:href="#user"></use>
           </svg>
@@ -507,6 +419,11 @@
 
   <!--         ===JS CDN===          -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+  <!-- Select2 plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
 
   <!-- Custom JavaScript -->
   <script src="/JS/home.js"></script>
