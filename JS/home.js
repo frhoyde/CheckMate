@@ -90,3 +90,33 @@ $("input[type=radio][name=nav-upcoming]").on("change", function () {
   );
   currentStateForUpcoming.show();
 });
+
+$(".select2").select2({
+  tags: true,
+  maximumSelectionLength: 10,
+  tokenSeparators: [",", " "],
+  placeholder: "Select or type keywords",
+  //minimumInputLength: 1,
+  //ajax: {
+  //   url: "you url to data",
+  //   dataType: 'json',
+  //  quietMillis: 250,
+  //  data: function (term, page) {
+  //     return {
+  //         q: term, // search term
+  //    };
+  //  },
+  //  results: function (data, page) {
+  //  return { results: data.items };
+  //   },
+  //   cache: true
+  // }
+});
+
+$(".select2").on("select2:select", function (e) {
+  var select_val = $(e.currentTarget).val();
+  console.log(select_val);
+});
+
+// var tag_opt = $("#select_tag").find(":selected");
+// console.log(tag_opt);
