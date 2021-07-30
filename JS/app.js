@@ -51,9 +51,15 @@ function getUserData(uid) {
 
 function add_task() {
   new_task = document.getElementById("new-task");
-  //console.log(new_task.value.length);
+  date = document.getElementById("input_date");
+  time = document.getElementById("input_time");
+  console.log(time.value);
 
-  if (new_task.value.length != 0) {
+  if (
+    new_task.value.length != 0 &&
+    date.value.length != 0 &&
+    time.value.length != 0
+  ) {
     add_task_to_database();
   }
 }
@@ -576,6 +582,7 @@ function add_task_to_database() {
         key: key,
         description: description.value,
         date: input_date.value,
+        time: input_time.value,
       };
       var updates = {};
       updates["users/" + user.uid + "/unfinished_task/" + key] = task;
