@@ -5,17 +5,11 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/Resources/CSS/home.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-  <!-- Clockpicker -->
-
-  <!-- Datepicker -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ab-datepicker@latest/css/datepicker.css" type="text/css" />
 
   <!-- <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css" /> -->
 
   <!-- select2 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
-
-
 
 </head>
 
@@ -246,7 +240,7 @@
 
           <!-- <button type="submit" onclick="openAddForm()" class="add-button">Add</button> -->
 
-          <button class="btn btn-secondary btn-block" data-toggle="modal" data-target="#newTaskModal"
+          <button class="btn btn-primary" id="add-button" data-toggle="modal" data-target="#newTaskModal"
             onclick="openAddForm()">
             New Task
           </button>
@@ -262,7 +256,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Task title</label>
                   <div class="col-sm-9">
-                    <input type="text" class="form-control" id="new-task">
+                    <input type="text" class="form-control" id="new-task" required>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -280,10 +274,11 @@
                   <label class="col-sm-3 col-form-label">Deadline</label>
                   <div class="col-sm-5">
                     <input type="date" id="input_date" class="form-control create-event-datepicker datepicker"
-                      placeholder="Date">
+                      placeholder="Date" required>
                   </div>
-                  <div class="col-sm-4">
-                    <input type="text" class="form-control create-event-demo" placeholder="Time">
+                  <div class="col-sm-4 clock">
+                    <input type="time" id="input_time" class="form-control create-event-demo" placeholder="Time"
+                      required>
                   </div>
                 </div>
 

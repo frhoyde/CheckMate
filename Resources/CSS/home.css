@@ -265,7 +265,7 @@ body {
   margin: 0 10px 0 20px;
 }
 
-.search-and-user .admin-profile .add-task .add-button button {
+.search-and-user .admin-profile .add-task #add-button {
   cursor: pointer;
   outline: none;
   position: relative;
@@ -329,13 +329,13 @@ body {
 .search-and-user .admin-profile .add-button a {
   text-decoration: none;
 }
-.search-and-user .admin-profile .add-button:hover {
+.search-and-user .admin-profile #add-button:hover {
   color: white;
   background: #1172c4;
   border-color: var(--white);
   transition: all 0.2s linear;
 }
-.search-and-user .add-button:active {
+.search-and-user #add-button:active {
   border-radius: 22px;
 }
 
@@ -995,17 +995,13 @@ form {
   font-size: inherit;
   line-height: 1.5;
 }
-.form-control,
-.swal-modal input.swal-content__input,
-.custom-select {
+.form-control {
   font-size: 0.875rem;
   border-color: #e1e1e1;
   border-radius: 0.5rem;
 }
 
-.form-control:focus,
-.swal-modal input.swal-content__input:focus,
-.custom-select:focus {
+.form-control:focus {
   box-shadow: none;
   border-color: rgba(0, 129, 255, 0.8);
 }
@@ -1022,4 +1018,14 @@ form {
 
 .form-control-sm {
   font-size: 0.8rem;
+}
+
+/* For time input in New Task */
+
+[type="time"] {
+  background: transparent 97% 50% no-repeat !important;
+}
+
+input[type="time"]::-webkit-datetime-edit-fields-wrapper {
+  display: flex;
 }
