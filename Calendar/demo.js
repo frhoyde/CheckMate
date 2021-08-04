@@ -154,7 +154,7 @@ function listUpcomingEvents() {
           google_events.push(new_event2);
         }
         console.log(google_events);
-        appendPre(temp_event.summary + " (" + when + ")");
+        appendPre("");
       } else {
         appendPre("No upcoming events found.");
       }
