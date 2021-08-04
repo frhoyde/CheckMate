@@ -74,8 +74,7 @@ function create_unfinished_task() {
   unfinished_task_container.innerHTML = "";
   var taskArray = [];
   task_listUl = document.createElement("ul");
-  task_listUl.setAttribute("class", "task-list");
-
+  task_listUl.setAttribute("class", "task-list drag-list");
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
@@ -96,9 +95,12 @@ function create_unfinished_task() {
           task_date = taskArray[i].date;
           task_key = taskArray[i].key;
           task_title = taskArray[i].title;
+          task_time = taskArray[i].time;
           console.log(task_title);
 
           task_list = document.createElement("li");
+          task_list.setAttribute("class", "drag-item");
+          task_list.setAttribute("draggable", "true");
 
           task_container = create_task_container(task_key, user.uid);
 
@@ -117,6 +119,11 @@ function create_unfinished_task() {
           date.setAttribute("id", "task_date");
           date.setAttribute("contenteditable", false);
           date.innerHTML = task_date;
+
+          time = document.createElement("p");
+          time.setAttribute("id", "task_time");
+          time.setAttribute("contenteditable", false);
+          time.innerHTML = task_time;
 
           tag = document.createElement("span");
           tag.setAttribute("class", "tag review"); //for now review tag
@@ -163,8 +170,7 @@ function create_unfinished_task() {
           task_container.append(task_data);
           task_data.append(title);
           task_data.append(tag);
-          task_data.append(date);
-
+          task_data.append(time);
           task_container.append(task_tool);
 
           task_tool.append(task_done_button);
@@ -208,6 +214,7 @@ function create_finished_task() {
         task_date = finished_task_array[i].date;
         task_key = finished_task_array[i].key;
         task_title = finished_task_array[i].title;
+        task_time = taskArray[i].time;
 
         task_container = create_task_container(task_key, user.uid);
 
@@ -221,6 +228,11 @@ function create_finished_task() {
         date.setAttribute("id", "task_date");
         date.setAttribute("contenteditable", false);
         date.innerHTML = task_date;
+
+        time = document.createElement("p");
+        time.setAttribute("id", "task_time");
+        time.setAttribute("contenteditable", false);
+        time.innerHTML = task_time;
 
         tag = document.createElement("span");
         tag.setAttribute("class", "tag completed");
@@ -295,6 +307,7 @@ function task_done(task, task_tool) {
 
   var user_uid = task.getAttribute("user-uid");
   var key = task.getAttribute("data-key");
+  console.log(task);
   var task_obj = {
     title: task.childNodes[0].childNodes[0].innerHTML,
     date: task.childNodes[0].childNodes[2].innerHTML,
@@ -365,6 +378,17 @@ function task_delete(task) {
   task_to_remove = firebase
     .database()
     .ref("users/" + user_uid + "/unfinished_task/" + key);
+
+  var task_obj = {
+    title: task.childNodes[0].childNodes[0].innerHTML,
+    time: task.childNodes[0].childNodes[2].innerHTML,
+    key: key,
+  };
+
+  var updates = {};
+  updates["users/" + user_uid + "/Trash/" + key] = task_obj;
+  firebaseRef.update(updates);
+
   task_to_remove.remove();
 
   // remove from html view or whateversss
@@ -377,6 +401,16 @@ function task_finished_delete(task) {
   task_to_remove = firebase
     .database()
     .ref("users/" + user_uid + "/finished_task/" + key);
+
+  var task_obj = {
+    title: task.childNodes[0].childNodes[0].innerHTML,
+    date: task.childNodes[0].childNodes[2].innerHTML,
+    key: key,
+  };
+
+  var updates = {};
+  updates["users/" + user_uid + "/Trash/" + key] = task_obj;
+  firebaseRef.update(updates);
   task_to_remove.remove();
 
   // remove from html view or whateversss
@@ -524,6 +558,7 @@ function create_upcoming_finished_task() {
         task_date = finished_upcomingTask_array[i].date;
         task_key = finished_upcomingTask_array[i].key;
         task_title = finished_upcomingTask_array[i].title;
+        task_time = finished_upcomingTask_array[i].time;
 
         task_container = create_task_container(task_key, user.uid);
 
@@ -537,6 +572,11 @@ function create_upcoming_finished_task() {
         date.setAttribute("id", "task_date");
         date.setAttribute("contenteditable", false);
         date.innerHTML = task_date;
+
+        time = document.createElement("p");
+        time.setAttribute("id", "task_time");
+        time.setAttribute("contenteditable", false);
+        time.innerHTML = task_time;
 
         tag = document.createElement("span");
         tag.setAttribute("class", "tag completed");
