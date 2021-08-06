@@ -123,7 +123,7 @@ function showAllTrash() {
           three_dot_unarchive = document.createElement("button");
 
           three_dot_unarchive.setAttribute("class", "dropdown-unarchive");
-          three_dot_unarchive.innerHTML = "unarchive";
+          three_dot_unarchive.innerHTML = "restore";
 
           three_dot_unarchive_icon = document.createElement("i");
           three_dot_unarchive_icon.setAttribute(
@@ -134,13 +134,14 @@ function showAllTrash() {
             "onclick",
             "task_restore(this.parentElement.parentElement.parentElement)"
           );
+          
 
-          three_dot_edit = document.createElement("button");
-          three_dot_edit.setAttribute("class", "dropdown-edit");
-          three_dot_edit.innerHTML = "edit";
+          // three_dot_edit = document.createElement("button");
+          // three_dot_edit.setAttribute("class", "dropdown-edit");
+          // three_dot_edit.innerHTML = "edit";
 
-          three_dot_edit_icon = document.createElement("i");
-          three_dot_edit_icon.setAttribute("class", "bi bi-pencil");
+          // three_dot_edit_icon = document.createElement("i");
+          // three_dot_edit_icon.setAttribute("class", "bi bi-pencil");
 
           three_dot_delete = document.createElement("button");
           three_dot_delete.setAttribute("class", "dropdown-delete");
@@ -154,12 +155,12 @@ function showAllTrash() {
             "task_delete(this.parentElement.parentElement.parentElement.previousSibling)"
           );
 
-          three_dot_done = document.createElement("button");
-          three_dot_done.setAttribute("class", "dropdown-done");
-          three_dot_done.innerHTML = "done";
+          // three_dot_done = document.createElement("button");
+          // three_dot_done.setAttribute("class", "dropdown-done");
+          // three_dot_done.innerHTML = "done";
 
-          three_dot_done_icon = document.createElement("i");
-          three_dot_done_icon.setAttribute("class", "bi bi-check-lg");
+          // three_dot_done_icon = document.createElement("i");
+          // three_dot_done_icon.setAttribute("class", "bi bi-check-lg");
 
           description_div = document.createElement("div");
           description_div.setAttribute("class", "widget-49-meeting-item");
@@ -185,15 +186,15 @@ function showAllTrash() {
           //three_dot_button.append(three_dot_button_icon);
           three_dot_button.append(three_dot_dropdown);
           three_dot_dropdown.append(three_dot_unarchive);
-          three_dot_dropdown.append(three_dot_edit);
+          //three_dot_dropdown.append(three_dot_edit);
           three_dot_dropdown.append(three_dot_delete);
 
-          three_dot_dropdown.append(three_dot_done);
+          //three_dot_dropdown.append(three_dot_done);
 
           three_dot_unarchive.append(three_dot_unarchive_icon);
-          three_dot_edit.append(three_dot_edit_icon);
+          //three_dot_edit.append(three_dot_edit_icon);
           three_dot_delete.append(three_dot_delete_icon);
-          three_dot_done.append(three_dot_done_icon);
+          //three_dot_done.append(three_dot_done_icon);
 
           main_text.append(description_div);
           description_div.append(description);
