@@ -49,6 +49,21 @@ function getUserData(uid) {
     });
 }
 
+/*** copy to Trash in Firebase *****/
+function copyTask(oldRef, newRef) {
+  oldRef
+    .once("value")
+    .then((snap) => {
+      return newRef.update(snap.val());
+    })
+    .then(() => {
+      console.log("Copy Done!");
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+}
+
 function add_task() {
   new_task = document.getElementById("new-task");
   date = document.getElementById("input_date");
@@ -74,11 +89,16 @@ function create_unfinished_task() {
   unfinished_task_container.innerHTML = "";
   var taskArray = [];
   task_listUl = document.createElement("ul");
-  task_listUl.setAttribute("class", "task-list drag-list");
+  task_listUl.setAttribute("class", "task-list");
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
       .ref("users/" + user.uid + "/unfinished_task/");
+
+    var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
+
+    copyTask(firebaseRef, allTask);
+
     if (user) {
       user = firebase.auth().currentUser;
       // Retrieve new tasks as they are added to our database
@@ -97,6 +117,127 @@ function create_unfinished_task() {
           task_title = taskArray[i].title;
           task_time = taskArray[i].time;
           console.log(task_title);
+
+          task_list = document.createElement("li");
+          task_list.setAttribute("class", "draggable");
+          task_list.setAttribute("draggable", "true");
+
+          task_container = create_task_container(task_key, user.uid);
+
+          // TASK DATA
+          task_data = document.createElement("div");
+          task_data.setAttribute("id", "task_data");
+
+          //TASK DONE CHECKBOX
+
+          // label_for_checkbox = document.createElement("label");
+          // label_for_checkbox.setAttribute("for", "task_done_button");
+
+          title = create_title(task_title);
+
+          date = document.createElement("p");
+          date.setAttribute("id", "task_date");
+          date.setAttribute("contenteditable", false);
+          date.setAttribute("style", "display:none;");
+          date.innerHTML = task_date;
+
+          time = document.createElement("p");
+          time.setAttribute("id", "task_time");
+          time.setAttribute("contenteditable", false);
+          time.innerHTML = task_time;
+
+          tag = document.createElement("span");
+          tag.setAttribute("class", "tag review"); //for now review tag
+          tag.innerHTML = "important";
+
+          // TASK TOOLS
+          task_tool = document.createElement("div");
+          task_tool.setAttribute("id", "task_tool");
+
+          task_done_button = document.createElement("button");
+          task_done_button.setAttribute("id", "task_done_button");
+          task_done_button.setAttribute(
+            "onclick",
+            "task_done(this.parentElement.parentElement.parentElement, this.parentElement)"
+          );
+          task_done_button.innerHTML = "done";
+          fa_done = document.createElement("i");
+          fa_done.setAttribute("class", "bi bi-check-lg");
+
+          task_edit_button = document.createElement("button");
+          task_edit_button.setAttribute("id", "task_edit_button");
+          task_edit_button.setAttribute(
+            "onclick",
+            "task_edit(this.parentElement.parentElement, this)"
+          );
+          task_edit_button.innerHTML = "edit";
+          fa_edit = document.createElement("i");
+          fa_edit.setAttribute("class", "bi bi-pencil");
+
+          task_delete_button = document.createElement("button");
+          task_delete_button.setAttribute("id", "task_delete_button");
+          task_delete_button.setAttribute(
+            "onclick",
+            "task_delete(this.parentElement.parentElement)"
+          );
+          task_delete_button.innerHTML = "delete";
+          fa_delete = document.createElement("i");
+          fa_delete.setAttribute("class", "bi bi-trash-fill");
+
+          unfinished_task_container.append(task_listUl);
+          task_listUl.append(task_list);
+          addEventsDragAndDrop(task_list);
+          task_list.append(task_container);
+
+          task_container.append(task_data);
+          task_data.append(title);
+          task_data.append(tag);
+          task_data.append(time);
+          task_data.append(date);
+          task_container.append(task_tool);
+
+          task_tool.append(task_done_button);
+          task_done_button.append(fa_done);
+          task_tool.append(task_edit_button);
+          task_edit_button.append(fa_edit);
+          task_tool.append(task_delete_button);
+          task_delete_button.append(fa_delete);
+        }
+      });
+    }
+  });
+}
+
+/**ALLTask Container */
+function create_all_task() {
+  all_task_container = document.getElementsByClassName("all-container")[0];
+  all_task_container.innerHTML = "";
+  var all_taskArray = [];
+  all_task_listUl = document.createElement("ul");
+  all_task_listUl.setAttribute("class", "task-list drag-list");
+  firebase.auth().onAuthStateChanged(function (user) {
+    var firebaseRef = firebase
+      .database()
+      .ref("users/" + user.uid + "/all_task/");
+
+    if (user) {
+      user = firebase.auth().currentUser;
+      // Retrieve new tasks as they are added to our database
+      firebaseRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          var childkey = childSnapshot.key;
+          var date_given = new Date(childSnapshot.val().date);
+
+          /*** Checking if task is for today or not ***/
+          if (today.getDate() == date_given.getDate())
+            all_taskArray.push(childSnapshot.val());
+        });
+        for (var i, i = 0; i < all_taskArray.length; i++) {
+          task_date = all_taskArray[i].date;
+          task_key = all_taskArray[i].key;
+          task_title = all_taskArray[i].title;
+          task_time = all_taskArray[i].time;
+          //console.log(all_taskArray[i]);
 
           task_list = document.createElement("li");
           task_list.setAttribute("class", "drag-item");
@@ -118,6 +259,7 @@ function create_unfinished_task() {
           date = document.createElement("p");
           date.setAttribute("id", "task_date");
           date.setAttribute("contenteditable", false);
+          date.setAttribute("style", "display:none;");
           date.innerHTML = task_date;
 
           time = document.createElement("p");
@@ -163,14 +305,16 @@ function create_unfinished_task() {
           fa_delete = document.createElement("i");
           fa_delete.setAttribute("class", "bi bi-trash-fill");
 
-          unfinished_task_container.append(task_listUl);
-          task_listUl.append(task_list);
+          all_task_container.append(all_task_listUl);
+          all_task_listUl.append(task_list);
+          addEventsDragAndDrop(task_list);
           task_list.append(task_container);
 
           task_container.append(task_data);
           task_data.append(title);
           task_data.append(tag);
           task_data.append(time);
+          task_data.append(date);
           task_container.append(task_tool);
 
           task_tool.append(task_done_button);
@@ -191,12 +335,18 @@ function create_finished_task() {
     "completed-container"
   )[0];
   finished_task_container.innerHTML = "";
+  finished_task_listUl = document.createElement("ul");
+  finished_task_listUl.setAttribute("class", "task-list drag-list");
 
   finished_task_array = [];
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
       .ref("users/" + user.uid + "/finished_task/");
+
+    var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
+
+    copyTask(firebaseRef, allTask);
 
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
@@ -216,6 +366,10 @@ function create_finished_task() {
         task_title = finished_task_array[i].title;
         task_time = taskArray[i].time;
 
+        task_list = document.createElement("li");
+        task_list.setAttribute("class", "draggable");
+        task_list.setAttribute("draggable", "true");
+
         task_container = create_task_container(task_key, user.uid);
 
         // TASK DATA
@@ -228,6 +382,7 @@ function create_finished_task() {
         date.setAttribute("id", "task_date");
         date.setAttribute("contenteditable", false);
         date.innerHTML = task_date;
+        date.setAttribute("style", "display:none;");
 
         time = document.createElement("p");
         time.setAttribute("id", "task_time");
@@ -252,7 +407,10 @@ function create_finished_task() {
         fa_delete = document.createElement("i");
         fa_delete.setAttribute("class", "bi bi-trash-fill");
 
-        finished_task_container.append(task_container);
+        finished_task_container.append(finished_task_listUl);
+        finished_task_listUl.append(task_list);
+        task_list.append(task_container);
+        addEventsDragAndDrop(task_list);
         task_container.append(task_data);
         task_data.append(title);
         task_data.append(tag);
@@ -288,20 +446,25 @@ function create_title(task_title) {
 
 //Task-done button func
 function task_done(task, task_tool) {
-  var date_given = new Date(task.childNodes[0].childNodes[2].innerHTML);
+  console.log(task.childNodes[0].childNodes[0].childNodes[3].innerHTML);
+  var date_given = new Date(
+    task.childNodes[0].childNodes[0].childNodes[3].innerHTML
+  );
+  console.log(today.getDate());
 
   /*** Checking if task is for today or not ***/
   if (today.getDate() == date_given.getDate()) {
     finished_task_container = document.getElementsByClassName(
       "completed-container"
     )[0];
-    task.removeChild(task_tool);
+    console.log("hiii");
+    task.childNodes[0].removeChild(task_tool);
     finished_task_container.append(task);
   } else {
     finished_upTask_container = document.getElementsByClassName(
       "upcomingCompleted-container"
     )[0];
-    task.removeChild(task_tool);
+    task.childNodes[0].removeChild(task_tool);
     finished_upTask_container.append(task);
   }
 
@@ -309,8 +472,9 @@ function task_done(task, task_tool) {
   var key = task.getAttribute("data-key");
   console.log(task);
   var task_obj = {
-    title: task.childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[2].innerHTML,
+    title: task.childNodes[0].childNodes[0].childNodes[0].innerHTML,
+    date: task.childNodes[0].childNodes[0].childNodes[3].innerHTML,
+    time: task.childNodes[0].childNodes[0].childNodes[2].innerHTML,
     key: key,
   };
 
@@ -381,7 +545,7 @@ function task_delete(task) {
 
   var task_obj = {
     title: task.childNodes[0].childNodes[0].innerHTML,
-    time: task.childNodes[0].childNodes[2].innerHTML,
+    date: task.childNodes[0].childNodes[2].innerHTML,
     key: key,
   };
 
@@ -449,17 +613,14 @@ function create_upcoming_unfinished_task() {
           console.log(task_title);
 
           task_list = document.createElement("li");
+          task_list.setAttribute("class", "draggable");
+          task_list.setAttribute("draggable", "true");
 
           task_container = create_task_container(task_key, user.uid);
 
           // TASK DATA
           task_data = document.createElement("div");
           task_data.setAttribute("id", "task_data");
-
-          //TASK DONE CHECKBOX
-
-          // label_for_checkbox = document.createElement("label");
-          // label_for_checkbox.setAttribute("for", "task_done_button");
 
           title = create_title(task_title);
 
@@ -508,6 +669,7 @@ function create_upcoming_unfinished_task() {
 
           unfinished_upTask_container.append(upcomingTask_listUl);
           upcomingTask_listUl.append(task_list);
+          addEventsDragAndDrop(task_list);
           task_list.append(task_container);
 
           task_container.append(task_data);
@@ -537,6 +699,10 @@ function create_upcoming_finished_task() {
   finished_upTask_container.innerHTML = "";
 
   finished_upcomingTask_array = [];
+
+  upcomingFinishedTask_listUl = document.createElement("ul");
+  upcomingFinishedTask_listUl.setAttribute("class", "task-list");
+
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
@@ -559,6 +725,10 @@ function create_upcoming_finished_task() {
         task_key = finished_upcomingTask_array[i].key;
         task_title = finished_upcomingTask_array[i].title;
         task_time = finished_upcomingTask_array[i].time;
+
+        task_list = document.createElement("li");
+        task_list.setAttribute("class", "draggable");
+        task_list.setAttribute("draggable", "true");
 
         task_container = create_task_container(task_key, user.uid);
 
@@ -596,7 +766,11 @@ function create_upcoming_finished_task() {
         fa_delete = document.createElement("i");
         fa_delete.setAttribute("class", "bi bi-trash-fill");
 
-        finished_upTask_container.append(task_container);
+        finished_upTask_container.append(upcomingFinishedTask_listUl);
+        upcomingFinishedTask_listUl.append(task_list);
+        addEventsDragAndDrop(task_list);
+        task_list.append(task_container);
+
         task_container.append(task_data);
         task_data.append(title);
         task_data.append(tag);
@@ -650,3 +824,57 @@ function logOut() {
       window.alert(errorMessage);
     });
 }
+
+/******************** Drag and Drop ****************/
+var remove = document.querySelector(".draggable");
+function dragStart(e) {
+  this.style.opacity = "0.4";
+  dragSrcEl = this;
+  e.dataTransfer.effectAllowed = "move";
+  e.dataTransfer.setData("text/html", this.innerHTML);
+}
+
+function dragEnter(e) {
+  this.classList.add("over");
+}
+
+function dragLeave(e) {
+  e.stopPropagation();
+  this.classList.remove("over");
+}
+
+function dragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+  return false;
+}
+
+function dragDrop(e) {
+  if (dragSrcEl != this) {
+    dragSrcEl.innerHTML = this.innerHTML;
+    this.innerHTML = e.dataTransfer.getData("text/html");
+  }
+  return false;
+}
+
+function dragEnd(e) {
+  var listItens = document.querySelectorAll(".draggable");
+  [].forEach.call(listItens, function (item) {
+    item.classList.remove("over");
+  });
+  this.style.opacity = "1";
+}
+
+function addEventsDragAndDrop(el) {
+  el.addEventListener("dragstart", dragStart, false);
+  el.addEventListener("dragenter", dragEnter, false);
+  el.addEventListener("dragover", dragOver, false);
+  el.addEventListener("dragleave", dragLeave, false);
+  el.addEventListener("drop", dragDrop, false);
+  el.addEventListener("dragend", dragEnd, false);
+}
+
+var listItens = document.querySelectorAll(".draggable");
+[].forEach.call(listItens, function (item) {
+  addEventsDragAndDrop(item);
+});

@@ -699,7 +699,8 @@ body {
 }
 
 div.important-container,
-.completed-container {
+.completed-container,
+.all-container {
   position: relative;
   box-sizing: border-box;
   min-height: auto;
@@ -709,6 +710,7 @@ div.important-container,
   overflow-x: hidden;
 }
 
+.all-container,
 .completed-container,
 .upcomingCompleted-container {
   display: none;
@@ -1028,4 +1030,20 @@ form {
 
 input[type="time"]::-webkit-datetime-edit-fields-wrapper {
   display: flex;
+}
+
+/* For Drag and Drop in Task */
+
+ul.draggable {
+  will-change: transform;
+}
+
+ul.draggable:hover,
+ul.draggable:after {
+  opacity: 1;
+  transform: translate(0);
+}
+
+.over {
+  transform: scale(1.1, 1.1);
 }
