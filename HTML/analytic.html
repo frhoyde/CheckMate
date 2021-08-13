@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/Resources/CSS/analytics.css">
+    <link rel="stylesheet" href="/Resources/CSS/progress.css">
+
+
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <!-- Nunito Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+
+     <!-- for donut -->
+
+     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
+    <!-- for donut -->
+    <title>Progress</title>
+    </head>
+
+    <body onload="countAllTask();">
+        <div class="container">
+            <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/HTML/home.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Progress</li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        
+           
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+
+                    <!-- four cards -->
+                    <div class="col-xs-12 text-center">
+                        <h2>Summary</h2>
+                      </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card text-white bg-c-green  order-card" >
+                                <div class="card-body">
+                                    <h5 class="card-title">All Tasks</h5>
+                                    <div class="card-text" value="show_count_all_task" id="show_all"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card text-white bg-c-blue  order-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Completed Tasks</h5>
+                                    <p class="card-text" value="show_count_finished_task" id="show_fin"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card text-white bg-c-yellow  order-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Unfinised Tasks</h5>
+                                    <p class="card-text"  value="show_count_finished_task" id="show_unfin"></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card text-white bg-c-pink  order-card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Trash</h5>
+                                    <p class="card-text" value="show_count_trash_task" id="show_trash"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- four cards -->
+
+                </div>
+              </div>
+              <div class="card mt-3">
+                  <!-- donut -->
+                <div class="col-xs-12 text-center">
+                    <h2>Overview</h2>
+                  </div>
+                
+                  <div id="donut-chart" value="show_donut">
+                    <div class="card-body" style="height: 400px">
+                        <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                            <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                            </div>
+                        </div> <canvas id="chart-line" width="75%" height="75%" class="chartjs-render-monitor" style="display: block; width: 299px; height: 200px;"></canvas>
+                    </div>
+                  </div>
+                  <!-- donut -->
+              </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row gutters-sm">
+                    <div class="col-sm-6 mb-3">
+                        <div class="card h-100">
+                          <div class="card-body">
+                            <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">highlights</i>Today's Task</h6>
+                            <p class="m-b-0">Completed Task:  <span >351</span></p>
+                            <p class="m-b-0">Unfinised Task:  <span >351</span></p>
+                            <small>Ratio</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <div class="col-sm-6 mb-3">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h5 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">highlights</i>Upcoming Task</h5>
+                          <p class="m-b-0">Completed Task:  <span >351</span></p>
+                            <p class="m-b-0">Unfinised Task:  <span >351</span></p>
+                            <small>Ratio</small>
+                            <div class="progress mb-3" style="height: 5px">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+    
+    
+              <div class="card mb-3">
+                <div class="tab-pane" id="weekly">
+                    <div class="col-xs-12 text-center">
+                        <h2>Weekly Analytics</h2>
+                      </div>
+                      <div id="line-chart" value="show_line">
+                        <div class="card-body" style="height: 430px">
+                        <canvas id="myChart"></canvas>
+                        </div>
+                      </div>
+
+                </div>
+              </div>
+
+              
+
+            </div>
+          </div>
+
+            
+        
+
+        <!-- Firebase -->
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+    <!-- Add Firebase products that you want to use -->
+
+    <!--         ===Bootstrap JS CDN===          -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="/JS/progress.js"></script>
+        
+    </body>
+</html>

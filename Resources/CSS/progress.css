@@ -17,6 +17,9 @@
 .bg-c-pink {
     background: linear-gradient(45deg,#FF5370,#ff869a);
 }
+.bg-c-gray {
+    background: linear-gradient(45deg,#536b8b,#c1e6f7d8);
+}
 
 .card .card-block {
     padding: 25px;
@@ -34,3 +37,7 @@
     float: right;
 }
 
+
+.order-card:hover {
+    transform: translatex(2px);
+  }
