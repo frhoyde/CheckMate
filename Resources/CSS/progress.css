@@ -47,3 +47,15 @@
     font-size: larger;
 }
 
+
+
+.tooltip-inner {
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.699);
+    color:  #536b8b;
+    border: #536b8b;
+}
+
+.tooltip .arrow {
+    display: none;
+}
