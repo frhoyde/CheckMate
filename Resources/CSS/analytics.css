@@ -63,4 +63,9 @@ body {
 .f-right {
     float: right;
 }
-  
+
+.card-text{
+    font-weight: bold;
+    font-size: large;
+    text-align: middle;
+}

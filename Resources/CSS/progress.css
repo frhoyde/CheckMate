@@ -40,4 +40,10 @@
 
 .order-card:hover {
     transform: translatex(2px);
-  }
+}
+
+.clarge{
+    font-weight: bolder;
+    font-size: larger;
+}
+
