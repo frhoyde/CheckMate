@@ -1,16 +1,4 @@
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-var firebaseConfig = {
-    apiKey: "AIzaSyBzFIsDwS53ueZZ9X79V06CvATUbde5XyI",
-    authDomain: "checkmate-b5734.firebaseapp.com",
-    projectId: "checkmate-b5734",
-    storageBucket: "checkmate-b5734.appspot.com",
-    messagingSenderId: "778401257741",
-    appId: "1:778401257741:web:4bbd814828867fc012f844",
-    measurementId: "G-HQ64910E4B",
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+
 /******hide and show tablinks and for jQuery add link to html body*/
 $(document).ready(function () {
     $("#myTab a").click(function (e) {
@@ -35,12 +23,11 @@ $(document).ready(function () {
           //document.getElementById("fullname").style.display = "none";
   
           document.getElementById("bio").innerHTML = userData.userBio;
-          document.getElementById("fb-url").innerHTML = userData.userFb;
-          document.getElementById("tw-url").innerHTML = userData.userTw;
+          // document.getElementById("fb-url").innerHTML = userData.userFb;
+          // document.getElementById("tw-url").innerHTML = userData.userTw;
           document.getElementById("email-div").innerHTML = userData.userEmail;
   
-          document.getElementById("username-div").innerHTML =
-            userData.userFullName;
+          
         });
       }
     });

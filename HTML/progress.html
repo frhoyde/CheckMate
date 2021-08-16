@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -102,8 +103,11 @@
 
                     <div class="card-body tab-content">
                         <div class="tab-pane active" id="summary">
+                            <div class="col-xs-12 text-center">
+                                <h2>Summary</h2>
+                              </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-md-4 col-xl-3">
                                     <div class="card text-white bg-c-green  order-card" >
                                         <div class="card-body">
                                             <h5 class="card-title">All Tasks</h5>
@@ -111,23 +115,23 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-md-4 col-xl-3">
                                     <div class="card text-white bg-c-blue  order-card">
                                         <div class="card-body">
-                                            <h5 class="card-title">Completed Tasks</h5>
+                                            <h5 class="card-title">Completed</h5>
                                             <p class="card-text" value="show_count_finished_task" id="show_fin"></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-md-4 col-xl-3">
                                     <div class="card text-white bg-c-yellow  order-card">
                                         <div class="card-body">
-                                            <h5 class="card-title">Unfinised Tasks</h5>
+                                            <h5 class="card-title">Unfinised</h5>
                                             <p class="card-text"  value="show_count_finished_task" id="show_unfin"></p>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-md-4 col-xl-3">
                                     <div class="card text-white bg-c-pink  order-card">
                                         <div class="card-body">
                                             <h5 class="card-title">Trash</h5>
@@ -135,6 +139,28 @@
                                         </div>
                                     </div>
                                 </div>
+                        </div>
+                    </div>
+                    <div class="card-body tab-content">
+                        <div class="tab-pane active" id="highlights">
+                            <div class="row gutters-sm">
+                                <div class="col-sm-6 mb-3">
+                                    <div class="card h-100 bg-c-gray order-card" >
+                                        <div class="card-body">
+                                            <h5 class="card-title">All Tasks</h5>
+                                            <div class="card-text" value="show_count_all_task" id="show_all"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 mb-3">
+                                    <div class="card h-100 bg-c-gray order-card" >
+                                        <div class="card-body">
+                                            <h5 class="card-title">All Tasks</h5>
+                                            <div class="card-text" value="show_count_all_task" id="show_all"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="analytics">
