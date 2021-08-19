@@ -27,6 +27,8 @@ function signUp() {
   } else if (checkConfirmUserPasswordValid == null) {
     return passwordValidation();
   } else {
+    userPassword = md5(userPassword);
+    console.log(userPassword);
     firebase
       .auth()
       .createUserWithEmailAndPassword(userEmail, userPassword)
@@ -174,6 +176,8 @@ function signIn() {
   } else if (userSIPassword == "") {
     return checkUserSIPassword();
   } else {
+    userSIPassword = md5(userSIPassword);
+    console.log(userSIPassword);
     firebase
       .auth()
       .signInWithEmailAndPassword(userSIEmail, userSIPassword)
