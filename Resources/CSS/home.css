@@ -930,11 +930,11 @@ label .label-text:before {
   transition: all 0.2s linear;
 }
 
-.modal-content {
+/* .modal-content {
   border: none;
   box-shadow: none;
   border-radius: 0.5rem;
-}
+} */
 
 .modal-content .modal-header {
   height: 60px;
@@ -943,7 +943,7 @@ label .label-text:before {
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  background-color: #ebebeb;
+  /* background-color: #ebebeb; */
   border-bottom: none;
 }
 
@@ -978,13 +978,13 @@ label .label-text:before {
   font-size: initial;
 }
 
-.modal-content .modal-body {
+/* .modal-content .modal-body {
   padding: 1.5rem;
 }
 
 .modal-content .modal-footer {
   height: 60px;
-}
+} */
 
 form {
   display: block;
@@ -1032,6 +1032,25 @@ input[type="time"]::-webkit-datetime-edit-fields-wrapper {
   display: flex;
 }
 
+/* For open Task Detail card in Task */
+
+.task-detail-action-right {
+  margin-left: auto;
+  float: right;
+}
+
+.date-tag-div {
+  padding: auto;
+}
+
+/* 
+.task-detail {
+  display: none;
+  position: relative;
+  width: fit-content;
+  z-index: 2;
+} */
+
 /* For Drag and Drop in Task */
 
 ul.draggable {
@@ -1047,3 +1066,5 @@ ul.draggable:after {
 .over {
   transform: scale(1.1, 1.1);
 }
+
+/*** Task-Card CSS****/
