@@ -132,7 +132,7 @@ function showAllTrash() {
           );
           three_dot_unarchive.setAttribute(
             "onclick",
-            "task_restore(this.parentElement.parentElement.parentElement)"
+            "task_restore(this.parentElement.parentElement.parentElement.previousSibling)"
           );
           
 
