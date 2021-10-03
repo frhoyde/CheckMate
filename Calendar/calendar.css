@@ -979,12 +979,10 @@ button.btn-action.active {
   font-family: "Source Sans Pro", monospace;
 	color: #755eb5;
 	border: none;
-	background-color: #fff;
-	border-radius: 8px;
-	padding: 5px 10px;
-	font-size: 18px;
+	background-color: transparent;
+	padding: 5px 5px;
+	font-size: medium;
 	cursor: pointer;
-	border: 2px solid #fff;
   margin-right: 10px;
 }
 
@@ -992,12 +990,10 @@ button.btn-action.active {
   font-family: "Source Sans Pro", monospace;
 	color: #755eb5;
 	border: none;
-	background-color: #fff;
-	border-radius: 8px;
-	padding: 5px 10px;
-	font-size: 18px;
+	background-color: transparent;
+	padding: 5px 5px;
+	font-size:medium;
 	cursor: pointer;
-	border: 2px solid #fff;
   margin-right: 10px;
   
 }
@@ -1014,3 +1010,4 @@ button.btn-action.active {
   margin-right: 20px;
   
 }
+

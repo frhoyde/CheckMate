@@ -3,12 +3,21 @@
 <html>
 
 <head>
-  <title>Google Calendar API Quickstart</title>
+  <title>Calendar</title>
   <meta charset="utf-8" />
+
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+   integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 
   <!--Adding ui-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" type="text/css" href="/Calendar/calendar.css" />
+  <link rel="stylesheet" type="text/css" href="/Resources/CSS/settings.css" />
+
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
@@ -17,14 +26,24 @@
 </head>
 
 <body>
+  <div class="container">
+
+  <!-- Breadcrumb -->
+  <nav aria-label="breadcrumb" class="main-breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/HTML/home.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Settings</li>
+    </ol>
+</nav>
+<!-- /Breadcrumb -->
+
 
   <div class="signin-out-button">
     <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button">Sign In with google account</button>
-    <button id="signout_button">Sign Out</button>
-    <a href="home.html">
-      <button id="homeFromCal">Home</button>
-    </a>
+    <button id="authorize_button" 
+     class="btn btn-secondary" data-toggle="tooltip" title="Sign in with your Google account to sync your google calendar events here" data-placement="right" target="__blank" >Sync with google account</button>
+    <button id="signout_button">Sign Out from google account</button>
+    
 
   </div>
 
@@ -43,6 +62,8 @@
       </div> -->
     </div>
   </section>
+
+</div>
 
   <!--Adding ui-->
 
@@ -72,10 +93,22 @@
     onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
 
 
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
   <!-- jQuery -->
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
   <script src="/Calendar/calendar.js"></script>
   <script src="/Calendar/demo.js"></script>
+
+  <script>
+   $(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();  
+});
+
+  </script>
+  
   <script>
     // initialize your calendar, once the page's DOM is ready
     $(document).ready(function () {
