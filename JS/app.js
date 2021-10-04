@@ -455,6 +455,7 @@ function create_finished_task() {
         task_container.append(task_tool);
         task_tool.append(task_delete_button);
         task_delete_button.append(fa_delete);
+        task_list.append(task_details);
       }
     });
   });
@@ -651,7 +652,7 @@ function create_upcoming_unfinished_task() {
           task_date = taskArrayUpcoming[i].date;
           task_key = taskArrayUpcoming[i].key;
           task_title = taskArrayUpcoming[i].title;
-          task_date = taskArrayUpcoming[i].date;
+          task_time = taskArrayUpcoming[i].time;
           task_description = taskArrayUpcoming[i].description;
           console.log(task_title);
 
@@ -661,7 +662,7 @@ function create_upcoming_unfinished_task() {
 
           task_container = create_task_container(i, task_key, user.uid);
 
-          task_details = create_task_detail_card(
+          task_details_up_unfinished = create_task_detail_card(
             i,
             task_key,
             user.uid,
@@ -671,7 +672,7 @@ function create_upcoming_unfinished_task() {
             task_description
           );
 
-          console.log(task_details);
+          console.log(task_details_up_unfinished);
 
           // TASK DATA
           task_data = document.createElement("div");
@@ -740,6 +741,7 @@ function create_upcoming_unfinished_task() {
           task_edit_button.append(fa_edit);
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
+          task_list.append(task_details_up_unfinished);
         }
       });
     }
@@ -845,6 +847,7 @@ function create_upcoming_finished_task() {
         task_container.append(task_tool);
         task_tool.append(task_delete_button);
         task_delete_button.append(fa_delete);
+        task_list.append(task_details);
       }
     });
   });
@@ -937,26 +940,6 @@ function create_task_detail_card(
 
   task_close_icon = document.createElement("i");
   task_close_icon.setAttribute("class", "bi bi-x-lg");
-
-  // task_close_svg = document.createElement("svg");
-  // task_close_svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-  // task_close_svg.setAttribute("width", "24");
-  // task_close_svg.setAttribute("height", "24");
-  // task_close_svg.setAttribute("viewbox", "0 0 24 24");
-  // task_close_svg.setAttribute("fill", "none");
-  // task_close_svg.setAttribute("stroke", "currentColor");
-  // task_close_svg.setAttribute("stroke-width", "1.5");
-  // task_close_svg.setAttribute("stroke-linecap", "round");
-  // task_close_svg.setAttribute("stroke-linejoin", "round");
-  // task_close_svg.setAttribute("class", "feather feather-arrow-left mr-3");
-
-  // task_close_lineSvg = document.createElement("line");
-  // task_close_lineSvg.setAttribute("x1", "19");
-  // task_close_lineSvg.setAttribute("y1", "12");
-  // task_close_lineSvg.setAttribute("x2", "5");
-  // task_close_lineSvg.setAttribute("y2", "12");
-  // task_close_polySvg = document.createElement("polyline");
-  // task_close_polySvg.setAttribute("points", "12 19 5 12 12 5");
 
   task_title_detail = document.createElement("h3");
   task_title_detail.setAttribute("class", "task-title-detail modal-title");
