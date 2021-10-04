@@ -83,9 +83,8 @@ var today = new Date();
 console.log(today);
 
 function create_unfinished_task() {
-  unfinished_task_container = document.getElementsByClassName(
-    "important-container"
-  )[0];
+  unfinished_task_container =
+    document.getElementsByClassName("all-container")[0];
   unfinished_task_container.innerHTML = "";
   var taskArray = [];
   task_listUl = document.createElement("ul");
@@ -95,9 +94,9 @@ function create_unfinished_task() {
       .database()
       .ref("users/" + user.uid + "/unfinished_task/");
 
-    var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
+    // var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
 
-    copyTask(firebaseRef, allTask);
+    // copyTask(firebaseRef, allTask);
 
     if (user) {
       user = firebase.auth().currentUser;
@@ -135,7 +134,6 @@ function create_unfinished_task() {
             task_time,
             task_description
           );
-          console.log(task_details_unfinished);
 
           // TASK DATA
           task_data = document.createElement("div");
@@ -223,136 +221,136 @@ function create_unfinished_task() {
 }
 
 /**ALLTask Container */
-function create_all_task() {
-  all_task_container = document.getElementsByClassName("all-container")[0];
-  all_task_container.innerHTML = "";
-  var all_taskArray = [];
-  all_task_listUl = document.createElement("ul");
-  all_task_listUl.setAttribute("class", "task-list drag-list");
-  firebase.auth().onAuthStateChanged(function (user) {
-    var firebaseRef = firebase
-      .database()
-      .ref("users/" + user.uid + "/all_task/");
+// function create_all_task() {
+//   all_task_container = document.getElementsByClassName("all-container")[0];
+//   all_task_container.innerHTML = "";
+//   var all_taskArray = [];
+//   all_task_listUl = document.createElement("ul");
+//   all_task_listUl.setAttribute("class", "task-list drag-list");
+//   firebase.auth().onAuthStateChanged(function (user) {
+//     var firebaseRef = firebase
+//       .database()
+//       .ref("users/" + user.uid + "/all_task/");
 
-    if (user) {
-      user = firebase.auth().currentUser;
-      // Retrieve new tasks as they are added to our database
-      firebaseRef.once("value", (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-          var childkey = childSnapshot.key;
-          var date_given = new Date(childSnapshot.val().date);
+//     if (user) {
+//       user = firebase.auth().currentUser;
+//       // Retrieve new tasks as they are added to our database
+//       firebaseRef.once("value", (snapshot) => {
+//         snapshot.forEach((childSnapshot) => {
+//           var childkey = childSnapshot.key;
+//           var date_given = new Date(childSnapshot.val().date);
 
-          /*** Checking if task is for today or not ***/
-          if (today.getDate() == date_given.getDate())
-            all_taskArray.push(childSnapshot.val());
-        });
-        for (var i, i = 0; i < all_taskArray.length; i++) {
-          task_date = all_taskArray[i].date;
-          task_key = all_taskArray[i].key;
-          task_title = all_taskArray[i].title;
-          task_time = all_taskArray[i].time;
-          task_description = all_taskArray[i].description;
-          //console.log(all_taskArray[i]);
+//           /*** Checking if task is for today or not ***/
+//           if (today.getDate() == date_given.getDate())
+//             all_taskArray.push(childSnapshot.val());
+//         });
+//         for (var i, i = 0; i < all_taskArray.length; i++) {
+//           task_date = all_taskArray[i].date;
+//           task_key = all_taskArray[i].key;
+//           task_title = all_taskArray[i].title;
+//           task_time = all_taskArray[i].time;
+//           task_description = all_taskArray[i].description;
+//           //console.log(all_taskArray[i]);
 
-          task_list = document.createElement("li");
-          task_list.setAttribute("class", "drag-item");
-          task_list.setAttribute("draggable", "true");
+//           task_list = document.createElement("li");
+//           task_list.setAttribute("class", "drag-item");
+//           task_list.setAttribute("draggable", "true");
 
-          task_container = create_task_container(i, task_key, user.uid);
+//           task_container = create_task_container(i, task_key, user.uid);
 
-          task_details = create_task_detail_card(
-            i,
-            task_key,
-            user.uid,
-            task_date,
-            task_title,
-            task_time,
-            task_description
-          );
+//           task_details = create_task_detail_card(
+//             i,
+//             task_key,
+//             user.uid,
+//             task_date,
+//             task_title,
+//             task_time,
+//             task_description
+//           );
 
-          // TASK DATA
-          task_data = document.createElement("div");
-          task_data.setAttribute("id", "task_data");
+//           // TASK DATA
+//           task_data = document.createElement("div");
+//           task_data.setAttribute("id", "task_data");
 
-          //TASK DONE CHECKBOX
+//           //TASK DONE CHECKBOX
 
-          // label_for_checkbox = document.createElement("label");
-          // label_for_checkbox.setAttribute("for", "task_done_button");
+//           // label_for_checkbox = document.createElement("label");
+//           // label_for_checkbox.setAttribute("for", "task_done_button");
 
-          title = create_title(task_title);
+//           title = create_title(task_title);
 
-          date = document.createElement("p");
-          date.setAttribute("id", "task_date");
-          date.setAttribute("contenteditable", false);
-          date.setAttribute("style", "display:none;");
-          date.innerHTML = task_date;
+//           date = document.createElement("p");
+//           date.setAttribute("id", "task_date");
+//           date.setAttribute("contenteditable", false);
+//           date.setAttribute("style", "display:none;");
+//           date.innerHTML = task_date;
 
-          time = document.createElement("p");
-          time.setAttribute("id", "task_time");
-          time.setAttribute("contenteditable", false);
-          time.innerHTML = task_time;
+//           time = document.createElement("p");
+//           time.setAttribute("id", "task_time");
+//           time.setAttribute("contenteditable", false);
+//           time.innerHTML = task_time;
 
-          tag = document.createElement("span");
-          tag.setAttribute("class", "tag review"); //for now review tag
-          tag.innerHTML = "important";
+//           tag = document.createElement("span");
+//           tag.setAttribute("class", "tag review"); //for now review tag
+//           tag.innerHTML = "important";
 
-          // TASK TOOLS
-          task_tool = document.createElement("div");
-          task_tool.setAttribute("id", "task_tool");
+//           // TASK TOOLS
+//           task_tool = document.createElement("div");
+//           task_tool.setAttribute("id", "task_tool");
 
-          task_done_button = document.createElement("button");
-          task_done_button.setAttribute("id", "task_done_button");
-          task_done_button.setAttribute(
-            "onclick",
-            "task_done(this.parentElement.parentElement, this.parentElement)"
-          );
-          task_done_button.innerHTML = "done";
-          fa_done = document.createElement("i");
-          fa_done.setAttribute("class", "bi bi-check-lg");
+//           task_done_button = document.createElement("button");
+//           task_done_button.setAttribute("id", "task_done_button");
+//           task_done_button.setAttribute(
+//             "onclick",
+//             "task_done(this.parentElement.parentElement, this.parentElement)"
+//           );
+//           task_done_button.innerHTML = "done";
+//           fa_done = document.createElement("i");
+//           fa_done.setAttribute("class", "bi bi-check-lg");
 
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
+//           task_edit_button = document.createElement("button");
+//           task_edit_button.setAttribute("id", "task_edit_button");
+//           task_edit_button.setAttribute(
+//             "onclick",
+//             "task_edit(this.parentElement.parentElement, this)"
+//           );
+//           task_edit_button.innerHTML = "edit";
+//           fa_edit = document.createElement("i");
+//           fa_edit.setAttribute("class", "bi bi-pencil");
 
-          task_delete_button = document.createElement("button");
-          task_delete_button.setAttribute("id", "task_delete_button");
-          task_delete_button.setAttribute(
-            "onclick",
-            "task_delete(this.parentElement.parentElement)"
-          );
-          task_delete_button.innerHTML = "delete";
-          fa_delete = document.createElement("i");
-          fa_delete.setAttribute("class", "bi bi-trash-fill");
+//           task_delete_button = document.createElement("button");
+//           task_delete_button.setAttribute("id", "task_delete_button");
+//           task_delete_button.setAttribute(
+//             "onclick",
+//             "task_delete(this.parentElement.parentElement)"
+//           );
+//           task_delete_button.innerHTML = "delete";
+//           fa_delete = document.createElement("i");
+//           fa_delete.setAttribute("class", "bi bi-trash-fill");
 
-          all_task_container.append(all_task_listUl);
-          all_task_listUl.append(task_list);
-          addEventsDragAndDrop(task_list);
-          task_list.append(task_container);
+//           all_task_container.append(all_task_listUl);
+//           all_task_listUl.append(task_list);
+//           addEventsDragAndDrop(task_list);
+//           task_list.append(task_container);
 
-          task_container.append(task_data);
-          task_data.append(title);
-          task_data.append(tag);
-          task_data.append(time);
-          task_data.append(date);
-          task_container.append(task_tool);
+//           task_container.append(task_data);
+//           task_data.append(title);
+//           task_data.append(tag);
+//           task_data.append(time);
+//           task_data.append(date);
+//           task_container.append(task_tool);
 
-          task_tool.append(task_done_button);
-          task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
-          task_tool.append(task_delete_button);
-          task_delete_button.append(fa_delete);
-        }
-      });
-    }
-  });
-}
+//           task_tool.append(task_done_button);
+//           task_done_button.append(fa_done);
+//           task_tool.append(task_edit_button);
+//           task_edit_button.append(fa_edit);
+//           task_tool.append(task_delete_button);
+//           task_delete_button.append(fa_delete);
+//         }
+//       });
+//     }
+//   });
+// }
 
 //Create finished tasks
 function create_finished_task() {
@@ -368,10 +366,6 @@ function create_finished_task() {
     var firebaseRef = firebase
       .database()
       .ref("users/" + user.uid + "/finished_task/");
-
-    var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
-
-    copyTask(firebaseRef, allTask);
 
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
@@ -624,9 +618,8 @@ function task_finished_delete(task) {
 }
 
 function create_upcoming_unfinished_task() {
-  unfinished_upTask_container = document.getElementsByClassName(
-    "upcomingImportant-container"
-  )[0];
+  unfinished_upTask_container =
+    document.getElementsByClassName("up-all-container")[0];
   unfinished_upTask_container.innerHTML = "";
   var taskArrayUpcoming = [];
   upcomingTask_listUl = document.createElement("ul");
@@ -645,7 +638,12 @@ function create_upcoming_unfinished_task() {
           var date_given = new Date(childSnapshot.val().date);
 
           /*** Checking if task is for today or not ***/
-          if (today.getDate() != date_given.getDate())
+
+          if (
+            today.getDate() < date_given.getDate() &&
+            today.getMonth() <= date_given.getMonth() &&
+            today.getFullYear() <= date_given.getFullYear()
+          )
             taskArrayUpcoming.push(childSnapshot.val());
         });
         for (var i, i = 0; i < taskArrayUpcoming.length; i++) {
@@ -671,8 +669,6 @@ function create_upcoming_unfinished_task() {
             task_time,
             task_description
           );
-
-          console.log(task_details_up_unfinished);
 
           // TASK DATA
           task_data = document.createElement("div");
@@ -773,7 +769,11 @@ function create_upcoming_finished_task() {
         var date_given = new Date(childSnapshot.val().date);
 
         /*** Checking if task is for today or not ***/
-        if (today.getDate() != date_given.getDate())
+        if (
+          today.getDate() < date_given.getDate() &&
+          today.getMonth() <= date_given.getMonth() &&
+          today.getFullYear() <= date_given.getFullYear()
+        )
           finished_upcomingTask_array.push(childSnapshot.val());
       });
 
