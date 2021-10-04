@@ -14,7 +14,7 @@
 </head>
 
 <body
-  onload="create_unfinished_task(), create_finished_task(), create_all_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task()">
+  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task()">
   <svg style=" display:none;">
     <!-- <symbol id="logo" viewBox="0 0 140 59">
 
@@ -330,11 +330,11 @@
         <div class="page-content2-header">Today's Tasks</div>
         <div class="content-categories">
           <div class="label-wrapper">
-            <input class="nav-item" name="nav" type="radio" id="showAll" value="all-container">
+            <input class="nav-item" name="nav" type="radio" id="showAll" checked value="all-container">
             <label class="category" for="showAll">All</label>
           </div>
           <div class="label-wrapper">
-            <input class="nav-item" name="nav" type="radio" id="showImportant" checked value="important-container">
+            <input class="nav-item" name="nav" type="radio" id="showImportant" value="important-container">
             <label class="category" for="showImportant">Important</label>
           </div>
           <div class="label-wrapper">
@@ -348,10 +348,15 @@
         </div>
         <div class="tasks-wrapper">
 
-          <div class="all-container" id="allTask-container">
+          <div class="all-container">
 
           </div>
           <div class="important-container">
+
+
+
+          </div>
+          <div class="progress-container">
 
 
 
@@ -365,12 +370,12 @@
 
         <div class="content-categories">
           <div class="label-wrapper">
-            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showAll-upcoming"
+            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showAll-upcoming" checked
               value="up-all-container">
             <label class="category" for="showAll-upcoming">All</label>
           </div>
           <div class="label-wrapper">
-            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showImportant-upcoming" checked
+            <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showImportant-upcoming"
               value="upcomingImportant-container">
             <label class="category" for="showImportant-upcoming">Important</label>
           </div>
@@ -386,6 +391,10 @@
           </div>
         </div>
         <div class="tasks-wrapper-up">
+          <div class="up-all-container">
+
+
+          </div>
           <div class="upcomingImportant-container">
 
 

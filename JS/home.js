@@ -74,7 +74,7 @@ function closeAddForm() {
 }
 
 /****Today's task radio button nav ****/
-var currentState = $(".important-container");
+var currentState = $(".all-container");
 $("input[type=radio][name=nav]").on("change", function () {
   currentState.hide();
   currentState = $("." + $("input[type='radio'][name=nav]:checked").val());
@@ -82,7 +82,7 @@ $("input[type=radio][name=nav]").on("change", function () {
 });
 
 /****Upcoming task radio button nav ****/
-var currentStateForUpcoming = $(".upcomingImportant-container");
+var currentStateForUpcoming = $(".up-all-container");
 $("input[type=radio][name=nav-upcoming]").on("change", function () {
   currentStateForUpcoming.hide();
   currentStateForUpcoming = $(

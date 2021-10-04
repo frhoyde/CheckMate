@@ -710,13 +710,15 @@ div.important-container,
   overflow-x: hidden;
 }
 
-.all-container,
+.important-container,
+.upcomingImportant-container,
 .completed-container,
 .upcomingCompleted-container {
   display: none;
 }
 
 div.upcomingImportant-container,
+.up-all-container,
 .upcomingCompleted-container {
   position: relative;
   box-sizing: border-box;
