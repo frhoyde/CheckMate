@@ -17,10 +17,10 @@ body {
 .search-box {
   display: inline-block;
   align-items: stretch;
-  margin-inline-start: 2%;
+  margin-inline-start: 100%;
   width: 100%;
   border-radius: 3px;
-  padding: 2px 400px 2px 15px;
+  padding: 2px 60px 2px 15px;
   position: relative;
   background: #fff;
   border: 1px solid #ddd;
@@ -28,6 +28,7 @@ body {
   -moz-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
   box-align: right;
+  
 }
 .search-box.hovered,
 .search-box:hover,
@@ -61,16 +62,6 @@ body {
 .search-box .search-btn:hover {
   color: #fff;
 }
-
-
-@media screen and (max-width: 767px) {
-  .search-box {
-    fill: var(--black);
-  }
-}
-
-
-
 
 
 body{
@@ -367,7 +358,7 @@ body{
   text-transform: uppercase;
 }
 
-.widget-49 .widget-49-title-wrapper .widget-49-meeting-info {
+.widget-49 .widget-49-meeting-info {
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
@@ -376,12 +367,13 @@ body{
   font-weight: 500;
 }
 
-.widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-pro-title {
+.widget-49 .widget-49-meeting-info .widget-49-pro-title {
   color: #3c4142;
   font-size: 20px;
+  display: block;
 }
 
-.widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {
+.widget-49 .widget-49-meeting-info .widget-49-meeting-time {
   color: #B1BAC5;
   font-size: 13px;
 }
@@ -405,10 +397,7 @@ body{
   text-align: right;
   align-self:flex-start;
 }
-
-
-
-  
+ 
 
 .widget-49 .widget-49-meeting-action a {
   text-transform: uppercase;

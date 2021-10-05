@@ -90,18 +90,18 @@ function showAllTrash() {
 
           var date_given_month = new Date(task_date);
           const months = [
-            "January",
-            "February",
-            "March",
-            "April",
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
             "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ];
           date_month.innerHTML = months[date_given_month.getMonth()];
           date_day.innerHTML = date_given_month.getDate();
@@ -111,56 +111,31 @@ function showAllTrash() {
           task_tool.setAttribute("class", "dropdown-container");
           task_tool.setAttribute("tabindex", "-2");
 
-          three_dot_button = document.createElement("div");
-          three_dot_button.setAttribute("class", "three-dots");
-
-          three_dot_dropdown = document.createElement("div");
-          three_dot_dropdown.setAttribute("class", "dropdown");
-
-          // three_dot_button_icon = document.createElement("i");
-          // three_dot_button_icon.setAttribute("class", "bi bi-three-dots-vertical");
-
           three_dot_unarchive = document.createElement("button");
 
-          three_dot_unarchive.setAttribute("class", "dropdown-unarchive");
-          three_dot_unarchive.innerHTML = "restore";
+          three_dot_unarchive.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
 
           three_dot_unarchive_icon = document.createElement("i");
           three_dot_unarchive_icon.setAttribute(
             "class",
-            "bi bi-journal-arrow-up"
+            "bi bi-arrow-counterclockwise"
           );
           three_dot_unarchive.setAttribute(
             "onclick",
             "task_restore(this.parentElement.parentElement.parentElement.previousSibling)"
           );
-          
-
-          // three_dot_edit = document.createElement("button");
-          // three_dot_edit.setAttribute("class", "dropdown-edit");
-          // three_dot_edit.innerHTML = "edit";
-
-          // three_dot_edit_icon = document.createElement("i");
-          // three_dot_edit_icon.setAttribute("class", "bi bi-pencil");
 
           three_dot_delete = document.createElement("button");
-          three_dot_delete.setAttribute("class", "dropdown-delete");
-          three_dot_delete.innerHTML = "delete";
+          three_dot_delete.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          //three_dot_delete.innerHTML = "delete";
 
           three_dot_delete_icon = document.createElement("i");
-          three_dot_delete_icon.setAttribute("class", "bi bi-trash-fill");
+          three_dot_delete_icon.setAttribute("class", "bi bi-trash");
 
           three_dot_delete.setAttribute(
             "onclick",
             "task_delete(this.parentElement.parentElement.parentElement.previousSibling)"
           );
-
-          // three_dot_done = document.createElement("button");
-          // three_dot_done.setAttribute("class", "dropdown-done");
-          // three_dot_done.innerHTML = "done";
-
-          // three_dot_done_icon = document.createElement("i");
-          // three_dot_done_icon.setAttribute("class", "bi bi-check-lg");
 
           description_div = document.createElement("div");
           description_div.setAttribute("class", "widget-49-meeting-item");
@@ -177,24 +152,16 @@ function showAllTrash() {
           title_wrapper.append(date);
           date.append(date_day);
           date.append(date_month);
-          title_wrapper.append(title_info);
+          main_text.append(title_info);
           title_info.append(add_title);
           title_info.append(title_time);
           title_wrapper.append(task_tool);
-          task_tool.append(three_dot_button);
-
-          //three_dot_button.append(three_dot_button_icon);
-          three_dot_button.append(three_dot_dropdown);
-          three_dot_dropdown.append(three_dot_unarchive);
-          //three_dot_dropdown.append(three_dot_edit);
-          three_dot_dropdown.append(three_dot_delete);
-
-          //three_dot_dropdown.append(three_dot_done);
+          task_tool.append(three_dot_unarchive);
+          task_tool.append(three_dot_delete);
 
           three_dot_unarchive.append(three_dot_unarchive_icon);
-          //three_dot_edit.append(three_dot_edit_icon);
+
           three_dot_delete.append(three_dot_delete_icon);
-          //three_dot_done.append(three_dot_done_icon);
 
           main_text.append(description_div);
           description_div.append(description);
@@ -251,26 +218,22 @@ function copyTask(oldRef, newRef) {
 
 function task_restore(task_parentDiv) {
   console.log(task_parentDiv);
-  // task = task_parentDiv.childNodes[0];
-  
+  task = task_parentDiv.childNodes[0];
 
-  // var key = task.getAttribute("data-key");
-  
-  //   var user_uid = task.getAttribute("user-uid");
+  var key = task.getAttribute("data-key");
 
-  // task_to_restore = firebase
-  //   .database()
-  //   .ref("users/" + user_uid + "/unfinised_task/" + key);
+    var user_uid = task.getAttribute("user-uid");
 
-  // trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
+  task_to_restore = firebase
+    .database()
+    .ref("users/" + user_uid + "/unfinised_task/" + key);
 
-  
-  
+  trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
 
-  // copyTask(trash, task_to_remove);
+  copyTask(trash, task_to_remove);
 
-  // task_delete_card(
-  //   task_parentDiv.parentElement.parentElement.parentElement.parentElement
-  //     .parentElement
-  // );
+  task_delete_card(
+    task_parentDiv.parentElement.parentElement.parentElement.parentElement
+      .parentElement
+  );
 }
