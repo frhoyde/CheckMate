@@ -92,18 +92,18 @@ function showUnfinishedTaskInArchive() {
 
           var date_given_month = new Date(task_date);
           const months = [
-            "January",
-            "February",
-            "March",
-            "April",
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
             "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ];
           date_month.innerHTML = months[date_given_month.getMonth()];
           date_day.innerHTML = date_given_month.getDate();
@@ -119,45 +119,28 @@ function showUnfinishedTaskInArchive() {
           three_dot_dropdown = document.createElement("div");
           three_dot_dropdown.setAttribute("class", "dropdown");
 
-          // three_dot_button_icon = document.createElement("i");
-          // three_dot_button_icon.setAttribute("class", "bi bi-three-dots-vertical");
-
-          three_dot_unarchive = document.createElement("button");
-
-          three_dot_unarchive.setAttribute("class", "dropdown-unarchive");
-          three_dot_unarchive.innerHTML = "unarchive";
-
-          three_dot_unarchive_icon = document.createElement("i");
-          three_dot_unarchive_icon.setAttribute(
+          task_complete_btn = document.createElement("button");
+          task_complete_btn.setAttribute(
             "class",
-            "bi bi-journal-arrow-up"
+            "btn btn-outline-success btn-sm done-btn"
           );
 
-          three_dot_edit = document.createElement("button");
-          three_dot_edit.setAttribute("class", "dropdown-edit");
-          three_dot_edit.innerHTML = "edit";
+          task_complete_icon = document.createElement("i");
+          task_complete_icon.setAttribute("class", "bi bi-check2");
 
-          three_dot_edit_icon = document.createElement("i");
-          three_dot_edit_icon.setAttribute("class", "bi bi-pencil");
+          task_edit_btn = document.createElement("button");
+          task_edit_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          task_edit_btn.setAttribute("onclick", "task_edit()");
 
-          three_dot_delete = document.createElement("button");
-          three_dot_delete.setAttribute("class", "dropdown-delete");
-          three_dot_delete.innerHTML = "delete";
+          task_edit_icon = document.createElement("i");
+          task_edit_icon.setAttribute("class", "bi bi-pen");
 
-          three_dot_delete_icon = document.createElement("i");
-          three_dot_delete_icon.setAttribute("class", "bi bi-trash-fill");
+          task_delete_btn = document.createElement("button");
+          task_delete_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          task_delete_btn.setAttribute("onclick", "task_delete()");
 
-          three_dot_delete.setAttribute(
-            "onclick",
-            "task_delete(this.parentElement.parentElement.parentElement.previousSibling, 'unfinished_task')"
-          );
-
-          three_dot_done = document.createElement("button");
-          three_dot_done.setAttribute("class", "dropdown-done");
-          three_dot_done.innerHTML = "done";
-
-          three_dot_done_icon = document.createElement("i");
-          three_dot_done_icon.setAttribute("class", "bi bi-check-lg");
+          task_delete_icon = document.createElement("i");
+          task_delete_icon.setAttribute("class", "bi bi-trash");
 
           description_div = document.createElement("div");
           description_div.setAttribute("class", "widget-49-meeting-item");
@@ -174,24 +157,19 @@ function showUnfinishedTaskInArchive() {
           title_wrapper.append(date);
           date.append(date_day);
           date.append(date_month);
-          title_wrapper.append(title_info);
+          main_text.append(title_info);
           title_info.append(add_title);
           title_info.append(title_time);
           title_wrapper.append(task_tool);
-          task_tool.append(three_dot_button);
 
-          //three_dot_button.append(three_dot_button_icon);
-          three_dot_button.append(three_dot_dropdown);
-          three_dot_dropdown.append(three_dot_unarchive);
-          three_dot_dropdown.append(three_dot_edit);
-          three_dot_dropdown.append(three_dot_delete);
+          task_tool.append(task_complete_btn);
+          task_complete_btn.append(task_complete_icon);
 
-          three_dot_dropdown.append(three_dot_done);
+          task_tool.append(task_edit_btn);
+          task_edit_btn.append(task_edit_icon);
 
-          three_dot_unarchive.append(three_dot_unarchive_icon);
-          three_dot_edit.append(three_dot_edit_icon);
-          three_dot_delete.append(three_dot_delete_icon);
-          three_dot_done.append(three_dot_done_icon);
+          task_tool.append(task_delete_btn);
+          task_delete_btn.append(task_delete_icon);
 
           main_text.append(description_div);
           description_div.append(description);
@@ -280,18 +258,18 @@ function showCompletedTaskInArchive() {
 
           var date_given_month = new Date(task_date);
           const months = [
-            "January",
-            "February",
-            "March",
-            "April",
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
             "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
           ];
           date_month.innerHTML = months[date_given_month.getMonth()];
           date_day.innerHTML = date_given_month.getDate();
@@ -301,51 +279,22 @@ function showCompletedTaskInArchive() {
           task_tool.setAttribute("class", "dropdown-container");
           task_tool.setAttribute("tabindex", "-2");
 
-          three_dot_button = document.createElement("div");
-          three_dot_button.setAttribute("class", "three-dots");
-
-          three_dot_dropdown = document.createElement("div");
-          three_dot_dropdown.setAttribute("class", "dropdown");
-
-          // three_dot_button_icon = document.createElement("i");
-          // three_dot_button_icon.setAttribute("class", "bi bi-three-dots-vertical");
-
-          three_dot_unarchive = document.createElement("button");
-
-          three_dot_unarchive.setAttribute("class", "dropdown-unarchive");
-          three_dot_unarchive.innerHTML = "unarchive";
-
-          three_dot_unarchive_icon = document.createElement("i");
-          three_dot_unarchive_icon.setAttribute(
-            "class",
-            "bi bi-journal-arrow-up"
-          );
-
-          three_dot_edit = document.createElement("button");
-          three_dot_edit.setAttribute("class", "dropdown-edit");
-          three_dot_edit.innerHTML = "edit";
-
-          three_dot_edit_icon = document.createElement("i");
-          three_dot_edit_icon.setAttribute("class", "bi bi-pencil");
+          
 
           three_dot_delete = document.createElement("button");
-          three_dot_delete.setAttribute("class", "dropdown-delete");
-          three_dot_delete.innerHTML = "delete";
+          three_dot_delete.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
+          //three_dot_delete.innerHTML = "delete";
 
           three_dot_delete_icon = document.createElement("i");
-          three_dot_delete_icon.setAttribute("class", "bi bi-trash-fill");
+          three_dot_delete_icon.setAttribute("class", "bi bi-trash");
 
           three_dot_delete.setAttribute(
             "onclick",
-            "task_delete(this.parentElement.parentElement.parentElement.previousSibling, 'finished_task')"
+            "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished_task')"
           );
-
-          three_dot_done = document.createElement("button");
-          three_dot_done.setAttribute("class", "dropdown-done");
-          three_dot_done.innerHTML = "done";
-
-          three_dot_done_icon = document.createElement("i");
-          three_dot_done_icon.setAttribute("class", "bi bi-check-lg");
 
           description_div = document.createElement("div");
           description_div.setAttribute("class", "widget-49-meeting-item");
@@ -362,25 +311,12 @@ function showCompletedTaskInArchive() {
           title_wrapper.append(date);
           date.append(date_day);
           date.append(date_month);
-          title_wrapper.append(title_info);
+          main_text.append(title_info);
           title_info.append(add_title);
           title_info.append(title_time);
           title_wrapper.append(task_tool);
-          task_tool.append(three_dot_button);
-
-          //three_dot_button.append(three_dot_button_icon);
-          three_dot_button.append(three_dot_dropdown);
-          three_dot_dropdown.append(three_dot_unarchive);
-          three_dot_dropdown.append(three_dot_edit);
-          three_dot_dropdown.append(three_dot_delete);
-
-          three_dot_dropdown.append(three_dot_done);
-
-          three_dot_unarchive.append(three_dot_unarchive_icon);
-          three_dot_edit.append(three_dot_edit_icon);
+          task_tool.append(three_dot_delete);
           three_dot_delete.append(three_dot_delete_icon);
-          three_dot_done.append(three_dot_done_icon);
-
           main_text.append(description_div);
           description_div.append(description);
         }
@@ -398,7 +334,8 @@ function create_title(task_title) {
 }
 
 function task_delete(task_parentDiv, tasktype) {
-  task = task_parentDiv.childNodes[0];
+  console.log(task_parentDiv);
+  task = task_parentDiv;
 
   var key = task.getAttribute("data-key");
   var user_uid = task.getAttribute("user-uid");

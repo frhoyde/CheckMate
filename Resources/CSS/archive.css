@@ -367,7 +367,7 @@ body{
   text-transform: uppercase;
 }
 
-.widget-49 .widget-49-title-wrapper .widget-49-meeting-info {
+.widget-49 .widget-49-meeting-info {
   display: flex;
   flex-direction: column;
   margin-left: 1rem;
@@ -376,12 +376,12 @@ body{
   font-weight: 500;
 }
 
-.widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-pro-title {
+.widget-49 .widget-49-meeting-info .widget-49-pro-title {
   color: #3c4142;
   font-size: 20px;
 }
 
-.widget-49 .widget-49-title-wrapper .widget-49-meeting-info .widget-49-meeting-time {
+.widget-49 .widget-49-meeting-info .widget-49-meeting-time {
   color: #B1BAC5;
   font-size: 13px;
 }
