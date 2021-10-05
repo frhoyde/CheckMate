@@ -125,19 +125,33 @@ function showUnfinishedTaskInArchive() {
             "btn btn-outline-success btn-sm done-btn"
           );
 
+          task_complete_btn.setAttribute(
+            "onclick",
+            "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+          );
+
           task_complete_icon = document.createElement("i");
           task_complete_icon.setAttribute("class", "bi bi-check2");
 
           task_edit_btn = document.createElement("button");
-          task_edit_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          task_edit_btn.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
           task_edit_btn.setAttribute("onclick", "task_edit()");
 
           task_edit_icon = document.createElement("i");
           task_edit_icon.setAttribute("class", "bi bi-pen");
 
           task_delete_btn = document.createElement("button");
-          task_delete_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
-          task_delete_btn.setAttribute("onclick", "task_delete()");
+          task_delete_btn.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
+          task_delete_btn.setAttribute(
+            "onclick",
+            "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'unfinished_task')"
+          );
 
           task_delete_icon = document.createElement("i");
           task_delete_icon.setAttribute("class", "bi bi-trash");
@@ -279,8 +293,6 @@ function showCompletedTaskInArchive() {
           task_tool.setAttribute("class", "dropdown-container");
           task_tool.setAttribute("tabindex", "-2");
 
-          
-
           three_dot_delete = document.createElement("button");
           three_dot_delete.setAttribute(
             "class",
@@ -333,9 +345,38 @@ function create_title(task_title) {
   return title;
 }
 
+function task_done(task_parentDiv) {
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
+
+  var key = task.getAttribute("data-key");
+  var user_uid = task.getAttribute("user-uid");
+
+  console.log(key, user_uid);
+
+  unfinshed_task = firebase
+    .database()
+    .ref("users/" + user_uid + "/unfinished_task/" + key);
+
+  completed_task = firebase
+    .database()
+    .ref("users/" + user_uid + "/finished_task/" + key);
+
+  copyTask(unfinshed_task, completed_task);
+
+  task_parentDiv.remove();
+}
+
 function task_delete(task_parentDiv, tasktype) {
   console.log(task_parentDiv);
-  task = task_parentDiv;
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
 
   var key = task.getAttribute("data-key");
   var user_uid = task.getAttribute("user-uid");
@@ -348,15 +389,6 @@ function task_delete(task_parentDiv, tasktype) {
 
   copyTask(task_to_remove, trash);
 
-  task_delete_card(
-    task_parentDiv.parentElement.parentElement.parentElement.parentElement
-      .parentElement
-  );
-}
-
-/*** remove from html view or whateversss *****/
-function task_delete_card(task_parentDiv) {
-  console.log(task_parentDiv);
   task_parentDiv.remove();
 }
 
