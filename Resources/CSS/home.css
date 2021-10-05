@@ -932,11 +932,11 @@ label .label-text:before {
   transition: all 0.2s linear;
 }
 
-/* .modal-content {
+.modal-content {
   border: none;
-  box-shadow: none;
   border-radius: 0.5rem;
-} */
+  width: fit-content;
+}
 
 .modal-content .modal-header {
   height: 60px;
@@ -952,6 +952,11 @@ label .label-text:before {
 .modal-content .modal-header .modal-title {
   font-size: 17px;
   font-weight: 600;
+  overflow: hidden;
+}
+
+.task-description-show {
+  overflow: hidden;
 }
 
 .modal-content .modal-header button.close {

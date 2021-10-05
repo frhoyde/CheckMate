@@ -169,7 +169,7 @@ function create_unfinished_task() {
           task_done_button.setAttribute("id", "task_done_button");
           task_done_button.setAttribute(
             "onclick",
-            "task_done(this.parentElement.parentElement.parentElement, this.parentElement)"
+            "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
           );
           task_done_button.innerHTML = "done";
           fa_done = document.createElement("i");
@@ -481,46 +481,74 @@ function create_title(task_title) {
 }
 
 //Task-done button func
-function task_done(task, task_tool) {
-  console.log(task.childNodes[0].childNodes[0].childNodes[3].innerHTML);
-  var date_given = new Date(
-    task.childNodes[0].childNodes[0].childNodes[3].innerHTML
-  );
-  console.log(today.getDate());
+function task_done(task) {
+  date =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[0].childNodes[0].innerHTML;
+
+  console.log(date);
+  var date_given = new Date(date);
 
   /*** Checking if task is for today or not ***/
-  if (today.getDate() == date_given.getDate()) {
+  if (
+    today.getDate() == date_given.getDate() &&
+    today.getMonth() == date_given.getMonth() &&
+    today.getFullYear() == date_given.getFullYear()
+  ) {
     finished_task_container = document.getElementsByClassName(
       "completed-container"
     )[0];
-    console.log("hiii");
-    task.childNodes[0].removeChild(task_tool);
+
+    //task.childNodes[0].removeChild(task_tool);
     finished_task_container.append(task);
   } else {
     finished_upTask_container = document.getElementsByClassName(
       "upcomingCompleted-container"
     )[0];
-    task.childNodes[0].removeChild(task_tool);
+    //task.childNodes[0].removeChild(task_tool);
     finished_upTask_container.append(task);
   }
 
-  var user_uid = task.getAttribute("user-uid");
-  var key = task.getAttribute("data-key");
+  var key = task.childNodes[0].getAttribute("data-key");
+  var user_uid = task.childNodes[0].getAttribute("user-uid");
   console.log(task);
+
+  title =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
+      .innerHTML;
+
+  time =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+  console.log(time);
+
+  description =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[3].childNodes[0].innerHTML;
+  console.log(description);
+
   var task_obj = {
-    title: task.childNodes[0].childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[0].childNodes[3].innerHTML,
-    time: task.childNodes[0].childNodes[0].childNodes[2].innerHTML,
     key: key,
+    title: title,
+    date: date,
+    time: time,
+    description: description,
   };
 
   var updates = {};
   updates["users/" + user_uid + "/finished_task/" + key] = task_obj;
+
   firebaseRef.update(updates);
 
   // delete our task from unfinished
   task_delete(task);
-  if (today.getDate() == date_given.getDate()) create_finished_task();
+
+  if (
+    today.getDate() == date_given.getDate() &&
+    today.getMonth() == date_given.getMonth() &&
+    today.getFullYear() == date_given.getFullYear()
+  )
+    create_finished_task();
   else create_upcoming_finished_task();
 }
 
@@ -572,23 +600,134 @@ function finish_edit(task, edit_button) {
   firebaseRef.update(updates);
 }
 
-function task_delete(task) {
-  var key = task.getAttribute("data-key");
-  var user_uid = task.getAttribute("user-uid");
+function task_edit_new(task, edit_button) {
+  console.log(task);
+  edit_button.setAttribute("id", "task_edit_button_editing");
+  edit_button.setAttribute(
+    "onclick",
+    "finish_edit_new(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+  );
+
+  title = task.childNodes[0].childNodes[0];
+  title.setAttribute("contenteditable", true);
+  title.setAttribute("id", "title_editing");
+  title.focus();
+
+  date = task.childNodes[1].childNodes[0].childNodes[1].childNodes[0];
+  date.setAttribute("contenteditable", true);
+  date.setAttribute("id", "date_editing");
+  console.log(date);
+
+  description = task.childNodes[1].childNodes[0].childNodes[3];
+  description.setAttribute("contenteditable", true);
+  description.setAttribute("id", "description_editing");
+
+  console.log(description);
+}
+
+function task_archive(task) {
+  date =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[0].childNodes[0].innerHTML;
+
+  console.log(date);
+  var date_given = new Date(date);
+
+  var key = task.childNodes[0].getAttribute("data-key");
+  var user_uid = task.childNodes[0].getAttribute("user-uid");
+  console.log(task);
+
+  title =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
+      .innerHTML;
+
+  time =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+  console.log(time);
+
+  description =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[3].childNodes[0].innerHTML;
+  console.log(description);
+
+  var task_obj = {
+    key: key,
+    title: title,
+    date: date,
+    time: time,
+    description: description,
+  };
+
+  var updates = {};
+  updates["users/" + user_uid + "/archived_task/" + key] = task_obj;
+
+  firebaseRef.update(updates);
+
+  // delete our task from unfinished
+
+  /** Close the modal manually **/
+  document.getElementById("close_btn").click();
+
   task_to_remove = firebase
     .database()
     .ref("users/" + user_uid + "/unfinished_task/" + key);
 
+  task_to_remove.remove();
+  task.remove();
+  /*** Checking if task is for today or not ***/
+  // if (
+  //   today.getDate() == date_given.getDate() &&
+  //   today.getMonth() == date_given.getMonth() &&
+  //   today.getFullYear() == date_given.getFullYear()
+  // ) {
+  //   task_delete(task);
+  // } else {
+  //   task_finished_delete(task);
+  // }
+}
+
+function task_delete(task) {
+  console.log(task);
+  var key = task.childNodes[0].getAttribute("data-key");
+  var user_uid = task.childNodes[0].getAttribute("user-uid");
+
+  task_to_remove = firebase
+    .database()
+    .ref("users/" + user_uid + "/unfinished_task/" + key);
+
+  title =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
+      .innerHTML;
+  date =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[0].childNodes[0].innerHTML;
+
+  time =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+  console.log(time);
+
+  description =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[3].childNodes[0].innerHTML;
+  console.log(description);
+
   var task_obj = {
-    title: task.childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[2].innerHTML,
     key: key,
+    title: title,
+    date: date,
+    time: time,
+    description: description,
   };
 
   var updates = {};
   updates["users/" + user_uid + "/Trash/" + key] = task_obj;
   firebaseRef.update(updates);
 
+  /** Close the modal manually **/
+  document.getElementById("close_btn").click();
+  /** remove task from database **/
   task_to_remove.remove();
 
   // remove from html view or whateversss
@@ -596,21 +735,45 @@ function task_delete(task) {
 }
 
 function task_finished_delete(task) {
-  var key = task.getAttribute("data-key");
-  var user_uid = task.getAttribute("user-uid");
+  var key = task.childNodes[0].getAttribute("data-key");
+  var user_uid = task.childNodes[0].getAttribute("user-uid");
+
   task_to_remove = firebase
     .database()
     .ref("users/" + user_uid + "/finished_task/" + key);
 
+  title =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
+      .innerHTML;
+  date =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[0].childNodes[0].innerHTML;
+
+  time =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+  console.log(time);
+
+  description =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[3].childNodes[0].innerHTML;
+  console.log(description);
+
   var task_obj = {
-    title: task.childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[2].innerHTML,
     key: key,
+    title: title,
+    date: date,
+    time: time,
+    description: description,
   };
 
   var updates = {};
   updates["users/" + user_uid + "/Trash/" + key] = task_obj;
   firebaseRef.update(updates);
+
+  /** Close the modal manually **/
+  document.getElementById("close_btn").click();
+
   task_to_remove.remove();
 
   // remove from html view or whateversss
@@ -693,7 +856,7 @@ function create_upcoming_unfinished_task() {
           task_done_button.setAttribute("id", "task_done_button");
           task_done_button.setAttribute(
             "onclick",
-            "task_done(this.parentElement.parentElement, this.parentElement)"
+            "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
           );
           task_done_button.innerHTML = "done";
           fa_done = document.createElement("i");
@@ -908,13 +1071,12 @@ function create_task_detail_card(
   task_card = document.createElement("div");
 
   let idNum = idNumber;
-  console.log(idNum);
 
   task_card.setAttribute("class", "modal fade task-detail");
-  //task_card.setAttribute("id", "task_detail");
+  task_card.setAttribute("id", "task_detail");
   task_card.id = "task_detail";
   task_card.id += key;
-  console.log(task_card.id);
+
   task_card.setAttribute("tabindex", "-1");
   task_card.setAttribute("role", "dialog");
   task_card.setAttribute("aria-hidden", "true");
@@ -931,6 +1093,7 @@ function create_task_detail_card(
 
   task_close = document.createElement("button");
   task_close.setAttribute("class", "close task-detail-close-button");
+  task_close.setAttribute("id", "close_btn");
   task_close.setAttribute("type", "button");
   task_close.setAttribute("data-dismiss", "modal");
   task_close.setAttribute("aria-label", "Close");
@@ -955,20 +1118,33 @@ function create_task_detail_card(
   task_complete_btn = document.createElement("button");
   task_complete_btn.setAttribute("class", "btn btn-success done-btn");
   task_complete_btn.innerHTML = "Completed";
+  task_complete_btn.setAttribute(
+    "onclick",
+    "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
 
   task_complete_icon = document.createElement("i");
   task_complete_icon.setAttribute("class", "bi bi-check2");
 
   task_edit_btn = document.createElement("button");
   task_edit_btn.setAttribute("class", "btn btn-outline-primary ml-2");
-  task_edit_btn.setAttribute("onclick", "task_edit()");
+  task_edit_btn.setAttribute(
+    "onclick",
+    "task_edit_new(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+  );
 
   task_edit_icon = document.createElement("i");
   task_edit_icon.setAttribute("class", "bi bi-pen");
 
   task_delete_btn = document.createElement("button");
-  task_delete_btn.setAttribute("class", "btn btn-outline-primary ml-2");
-  task_delete_btn.setAttribute("onclick", "task_delete()");
+  task_delete_btn.setAttribute(
+    "class",
+    "btn btn-outline-primary ml-2 delete_btn"
+  );
+  task_delete_btn.setAttribute(
+    "onclick",
+    "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
 
   task_delete_icon = document.createElement("i");
   task_delete_icon.setAttribute("class", "bi bi-trash");
@@ -979,6 +1155,10 @@ function create_task_detail_card(
     "btn btn-outline-primary ml-2 dropdown-archive"
   );
   task_archive_btn.setAttribute("id", "dropdown_archive");
+  task_archive_btn.setAttribute(
+    "onclick",
+    "task_archive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
 
   task_archive_icon = document.createElement("i");
   task_archive_icon.setAttribute("class", "bi bi-journal-arrow-down");
@@ -1000,7 +1180,7 @@ function create_task_detail_card(
   task_date_detail.setAttribute("class", "task-detail-date");
 
   task_date_show = document.createElement("p");
-  task_date_show.innerHTML = "Date: " + date;
+  task_date_show.innerHTML = date;
 
   left_tag_time = document.createElement("div");
   left_tag_time.setAttribute("class", "ml-auto");

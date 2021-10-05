@@ -244,57 +244,59 @@
             onclick="openAddForm()">
             New Task
           </button>
-          <div class="modal-content" id="popupForm">
-            <div class="modal-header">
-              <h5 class="modal-title">New Task</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddForm()">
-                <i class=" bi bi-x-lg"></i>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form autocomplete="off">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Task title</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" id="new-task" required>
+          <div class="modal" id="newTaskModal">
+            <div class="modal-content" id="popupForm">
+              <div class="modal-header">
+                <h5 class="modal-title">New Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddForm()">
+                  <i class=" bi bi-x-lg"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form autocomplete="off">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Task title</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="new-task" required>
+                    </div>
                   </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Tags</label>
-                  <div class="col-sm-9" id="tag-option">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Tags</label>
+                    <div class="col-sm-9" id="tag-option">
 
-                    <select class="form-control select2" id="select_tag" name="data[]" multiple="multiple"
-                      style="width: 100%;">
-                      <option value="Important">Important</option>
-                      <option value="In-Progress">In-Progress</option>
-                    </select>
+                      <select class="form-control select2" id="select_tag" name="data[]" multiple="multiple"
+                        style="width: 100%;">
+                        <option value="Important">Important</option>
+                        <option value="In-Progress">In-Progress</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
-                <div class="form-group row row-sm">
-                  <label class="col-sm-3 col-form-label">Deadline</label>
-                  <div class="col-sm-5">
-                    <input type="date" id="input_date" class="form-control create-event-datepicker datepicker"
-                      placeholder="Date" required>
+                  <div class="form-group row row-sm">
+                    <label class="col-sm-3 col-form-label">Deadline</label>
+                    <div class="col-sm-5">
+                      <input type="date" id="input_date" class="form-control create-event-datepicker datepicker"
+                        placeholder="Date" required>
+                    </div>
+                    <div class="col-sm-4 clock">
+                      <input type="time" id="input_time" class="form-control create-event-demo" placeholder="Time"
+                        required>
+                    </div>
                   </div>
-                  <div class="col-sm-4 clock">
-                    <input type="time" id="input_time" class="form-control create-event-demo" placeholder="Time"
-                      required>
-                  </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Description</label>
-                  <div class="col-sm-9">
-                    <textarea class="form-control" id="description" rows="6"></textarea>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Description</label>
+                    <div class="col-sm-9">
+                      <textarea class="form-control" id="description" rows="6"></textarea>
+                    </div>
                   </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-sm-3"></label>
-                  <div class="col-sm-9" id="create_btn_div">
-                    <button type="submit" class="btn btn-primary" id="create_btn" onclick="add_task()">Create</button>
+                  <div class="form-group row">
+                    <label class="col-sm-3"></label>
+                    <div class="col-sm-9" id="create_btn_div">
+                      <button type="submit" class="btn btn-primary" id="create_btn" onclick="add_task()">Create</button>
+                    </div>
                   </div>
-                </div>
-              </form>
+                </form>
+              </div>
             </div>
           </div>
           <!-- <div class="addTaskPopup">
