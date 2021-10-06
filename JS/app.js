@@ -392,7 +392,7 @@ function create_finished_task() {
 
         task_container = create_task_container(i, task_key, user.uid);
 
-        task_details = create_task_detail_card(
+        task_details = create_finished_task_detail_card(
           i,
           task_key,
           user.uid,
@@ -540,6 +540,9 @@ function task_done(task) {
 
   firebaseRef.update(updates);
 
+  /** Close the modal manually **/
+  document.getElementById("close_btn").click();
+
   // delete our task from unfinished
   task_delete(task);
 
@@ -660,7 +663,7 @@ function task_archive(task) {
   };
 
   var updates = {};
-  updates["users/" + user_uid + "/archived_task/" + key] = task_obj;
+  updates["users/" + user_uid + "/archived_task/unfinished/" + key] = task_obj;
 
   firebaseRef.update(updates);
 
@@ -675,16 +678,58 @@ function task_archive(task) {
 
   task_to_remove.remove();
   task.remove();
-  /*** Checking if task is for today or not ***/
-  // if (
-  //   today.getDate() == date_given.getDate() &&
-  //   today.getMonth() == date_given.getMonth() &&
-  //   today.getFullYear() == date_given.getFullYear()
-  // ) {
-  //   task_delete(task);
-  // } else {
-  //   task_finished_delete(task);
-  // }
+}
+
+function task_finished_archive(task) {
+  date =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[0].childNodes[0].innerHTML;
+
+  console.log(date);
+  var date_given = new Date(date);
+
+  var key = task.childNodes[0].getAttribute("data-key");
+  var user_uid = task.childNodes[0].getAttribute("user-uid");
+  console.log(task);
+
+  title =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
+      .innerHTML;
+
+  time =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+  console.log(time);
+
+  description =
+    task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
+      .childNodes[3].childNodes[0].innerHTML;
+  console.log(description);
+
+  var task_obj = {
+    key: key,
+    title: title,
+    date: date,
+    time: time,
+    description: description,
+  };
+
+  var updates = {};
+  updates["users/" + user_uid + "/archived_task/finished/" + key] = task_obj;
+
+  firebaseRef.update(updates);
+
+  // delete our task from unfinished
+
+  /** Close the modal manually **/
+  document.getElementById("close_btn").click();
+
+  task_to_remove = firebase
+    .database()
+    .ref("users/" + user_uid + "/finished_task/" + key);
+
+  task_to_remove.remove();
+  task.remove();
 }
 
 function task_delete(task) {
@@ -953,7 +998,7 @@ function create_upcoming_finished_task() {
 
         task_container = create_task_container(i, task_key, user.uid);
 
-        task_details = create_task_detail_card(
+        task_details = create_finished_task_detail_card(
           i,
           task_key,
           user.uid,
@@ -1225,6 +1270,171 @@ function create_task_detail_card(
 
   option_buttons.append(task_edit_btn);
   task_edit_btn.append(task_edit_icon);
+
+  option_buttons.append(task_delete_btn);
+  task_delete_btn.append(task_delete_icon);
+
+  option_buttons.append(task_archive_btn);
+  task_archive_btn.append(task_archive_icon);
+  /**  end card header div **/
+
+  task_description_card.append(date_tag_div);
+  date_tag_div.append(task_date_detail);
+  task_date_detail.append(task_date_show);
+
+  date_tag_div.append(left_tag_time);
+  left_tag_time.append(tag_span);
+  left_tag_time.append(time_span);
+
+  task_description_card.append(horizontalLine);
+
+  task_description_card.append(task_description_show);
+  task_description_show.append(task_description_span);
+
+  //console.log(task_card);
+
+  return task_card;
+}
+
+function create_finished_task_detail_card(
+  idNumber,
+  key,
+  userUid,
+  date,
+  title,
+  time,
+  description
+) {
+  task_card = document.createElement("div");
+
+  let idNum = idNumber;
+
+  task_card.setAttribute("class", "modal fade task-detail");
+  task_card.setAttribute("id", "task_detail");
+  task_card.id = "task_detail";
+  task_card.id += key;
+
+  task_card.setAttribute("tabindex", "-1");
+  task_card.setAttribute("role", "dialog");
+  task_card.setAttribute("aria-hidden", "true");
+  // console.log("show task card");
+
+  task_card_center = document.createElement("div");
+  task_card_center.className = "modal-dialog modal-dialog-centered";
+
+  task_card_content = document.createElement("div");
+  task_card_content.className = "modal-content";
+
+  task_header = document.createElement("div");
+  task_header.setAttribute("class", "card-header modal-header");
+
+  task_close = document.createElement("button");
+  task_close.setAttribute("class", "close task-detail-close-button");
+  task_close.setAttribute("id", "close_btn");
+  task_close.setAttribute("type", "button");
+  task_close.setAttribute("data-dismiss", "modal");
+  task_close.setAttribute("aria-label", "Close");
+
+  //task_close.setAttribute("href", "#");
+  //task_close.setAttribute("onclick", "closeTaskDetail()");
+
+  task_close_icon = document.createElement("i");
+  task_close_icon.setAttribute("class", "bi bi-x-lg");
+
+  task_title_detail = document.createElement("h3");
+  task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.innerHTML = title;
+  // console.log(key);
+
+  task_header_right = document.createElement("div");
+  task_header_right.setAttribute("class", "task-detail-action-right");
+
+  option_buttons = document.createElement("div");
+  option_buttons.setAttribute("class", "option_btns");
+
+  task_delete_btn = document.createElement("button");
+  task_delete_btn.setAttribute(
+    "class",
+    "btn btn-outline-primary ml-2 delete_btn"
+  );
+  task_delete_btn.setAttribute(
+    "onclick",
+    "task_finished_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_delete_icon = document.createElement("i");
+  task_delete_icon.setAttribute("class", "bi bi-trash");
+
+  task_archive_btn = document.createElement("button");
+  task_archive_btn.setAttribute(
+    "class",
+    "btn btn-outline-primary ml-2 dropdown-archive"
+  );
+  task_archive_btn.setAttribute("id", "dropdown_archive");
+  task_archive_btn.setAttribute(
+    "onclick",
+    "task_finished_archive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_archive_icon = document.createElement("i");
+  task_archive_icon.setAttribute("class", "bi bi-journal-arrow-down");
+
+  task_description_detail = document.createElement("div");
+  task_description_detail.setAttribute("class", "task-detail-description");
+  // task_description_detail.setAttribute("tabindex", "9");
+
+  task_description_card = document.createElement("div");
+  task_description_card.setAttribute("class", "modal-body");
+
+  date_tag_div = document.createElement("div");
+  date_tag_div.setAttribute(
+    "class",
+    "d-flex align-items-center p-l-r-0 m-b-20 date-tag-div"
+  );
+
+  task_date_detail = document.createElement("div");
+  task_date_detail.setAttribute("class", "task-detail-date");
+
+  task_date_show = document.createElement("p");
+  task_date_show.innerHTML = date;
+
+  left_tag_time = document.createElement("div");
+  left_tag_time.setAttribute("class", "ml-auto");
+
+  tag_span = document.createElement("span");
+  tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span.innerHTML = "Important";
+
+  time_span = document.createElement("span");
+  time_span.setAttribute("class", "text-muted task-time-show");
+  time_span.innerHTML = time;
+
+  task_description_show = document.createElement("div");
+  task_description_show.setAttribute("class", "task-description-show");
+
+  task_description_span = document.createElement("span");
+  task_description_span.innerHTML = description;
+
+  horizontalLine = document.createElement("hr");
+  horizontalLine.setAttribute("class", "m-0");
+
+  /***************** Append Start *********************/
+
+  task_card.append(task_card_center);
+  task_card_center.append(task_card_content);
+  task_card_content.append(task_header);
+  task_card_content.append(task_description_detail);
+  task_description_detail.append(task_description_card);
+
+  task_header.append(task_title_detail);
+
+  //task_card_content.append(task_close);
+  task_header.appendChild(task_close);
+
+  task_close.append(task_close_icon);
+
+  task_description_card.append(task_header_right);
+  task_header_right.append(option_buttons);
 
   option_buttons.append(task_delete_btn);
   task_delete_btn.append(task_delete_icon);
