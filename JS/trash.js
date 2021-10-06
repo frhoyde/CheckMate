@@ -127,15 +127,23 @@ function showAllTrash() {
 
           three_dot_delete = document.createElement("button");
           three_dot_delete.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          three_dot_delete.setAttribute("data-toggle", "modal");
+          three_dot_delete.setAttribute("data-target", "delete-modal");
           //three_dot_delete.innerHTML = "delete";
+          
 
           three_dot_delete_icon = document.createElement("i");
           three_dot_delete_icon.setAttribute("class", "bi bi-trash");
 
           three_dot_delete.setAttribute(
-            "onclick",
-            "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished_task')"
-          );
+              "onclick",
+              "open_del_modal()"
+           );
+
+          // three_dot_delete.setAttribute(
+          //   "onclick",
+          //   "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished_task')"
+          // );
 
           description_div = document.createElement("div");
           description_div.setAttribute("class", "widget-49-meeting-item");
@@ -169,6 +177,10 @@ function showAllTrash() {
       });
     }
   });
+}
+
+function open_del_modal(){
+  document.getElementsByClassName("delete-modal").style.display="block";
 }
 
 function create_title(task_title) {
@@ -240,3 +252,7 @@ function task_restore(task_parentDiv) {
 
   task_parentDiv.remove();
 }
+
+var delm = document.getElementById("delete-modal");
+
+console.log(delm);
