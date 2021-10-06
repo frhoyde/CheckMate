@@ -21,7 +21,7 @@ function showUnfinishedTaskInArchive() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/unfinished_task/"); // need for all task
+      .ref("users/" + user.uid + "/archived_task/unfinished/"); // need for all task
     if (user) {
       user = firebase.auth().currentUser;
       // Retrieve new tasks as they are added to our database
@@ -115,8 +115,16 @@ function showUnfinishedTaskInArchive() {
 
           three_dot_unarchive = document.createElement("button");
 
-          three_dot_unarchive.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
-          
+          three_dot_unarchive.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
+
+          three_dot_unarchive.setAttribute(
+            "onclick",
+            "task_unarchive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'unfinished', 'unfinished_task')"
+          );
+
           three_dot_unarchive_icon = document.createElement("i");
           three_dot_unarchive_icon.setAttribute(
             "class",
@@ -129,19 +137,33 @@ function showUnfinishedTaskInArchive() {
             "btn btn-outline-success btn-sm done-btn ml-2"
           );
 
+          task_complete_btn.setAttribute(
+            "onclick",
+            "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+          );
+
           task_complete_icon = document.createElement("i");
           task_complete_icon.setAttribute("class", "bi bi-check2");
 
           task_edit_btn = document.createElement("button");
-          task_edit_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          task_edit_btn.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
           task_edit_btn.setAttribute("onclick", "task_edit()");
 
           task_edit_icon = document.createElement("i");
           task_edit_icon.setAttribute("class", "bi bi-pen");
 
           task_delete_btn = document.createElement("button");
-          task_delete_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
-          task_delete_btn.setAttribute("onclick", "task_delete()");
+          task_delete_btn.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
+          task_delete_btn.setAttribute(
+            "onclick",
+            "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'unfinished')"
+          );
 
           task_delete_icon = document.createElement("i");
           task_delete_icon.setAttribute("class", "bi bi-trash");
@@ -175,7 +197,7 @@ function showUnfinishedTaskInArchive() {
 
           task_tool.append(task_delete_btn);
           task_delete_btn.append(task_delete_icon);
-          
+
           main_text.append(description_div);
           description_div.append(description);
         }
@@ -192,7 +214,7 @@ function showCompletedTaskInArchive() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/finished_task/"); // need for all task
+      .ref("users/" + user.uid + "/archived_task/finished/"); // need for all task
     if (user) {
       user = firebase.auth().currentUser;
       // Retrieve new tasks as they are added to our database
@@ -286,8 +308,16 @@ function showCompletedTaskInArchive() {
 
           three_dot_unarchive = document.createElement("button");
 
-          three_dot_unarchive.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
-          
+          three_dot_unarchive.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
+
+          three_dot_unarchive.setAttribute(
+            "onclick",
+            "task_unarchive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished', 'finished_task')"
+          );
+
           three_dot_unarchive_icon = document.createElement("i");
           three_dot_unarchive_icon.setAttribute(
             "class",
@@ -295,15 +325,24 @@ function showCompletedTaskInArchive() {
           );
 
           task_edit_btn = document.createElement("button");
-          task_edit_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          task_edit_btn.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
           task_edit_btn.setAttribute("onclick", "task_edit()");
 
           task_edit_icon = document.createElement("i");
           task_edit_icon.setAttribute("class", "bi bi-pen");
 
           task_delete_btn = document.createElement("button");
-          task_delete_btn.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
-          task_delete_btn.setAttribute("onclick", "task_delete()");
+          task_delete_btn.setAttribute(
+            "class",
+            "btn btn-outline-primary btn-sm ml-2"
+          );
+          task_delete_btn.setAttribute(
+            "onclick",
+            "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished')"
+          );
 
           task_delete_icon = document.createElement("i");
           task_delete_icon.setAttribute("class", "bi bi-trash");
@@ -352,6 +391,52 @@ function create_title(task_title) {
   return title;
 }
 
+function task_done(task_parentDiv) {
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
+
+  var key = task.getAttribute("data-key");
+  var user_uid = task.getAttribute("user-uid");
+
+  task_unfinished = firebase
+    .database()
+    .ref("users/" + user_uid + "/archived_task/unfinished/" + key);
+
+  task_finished = firebase
+    .database()
+    .ref("users/" + user_uid + "/archived_task/finished/" + key);
+
+  copyTask(task_unfinished, task_finished);
+
+  task_parentDiv.remove();
+}
+
+function task_unarchive(task_parentDiv, tasktype, task_sent_type) {
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
+
+  var key = task.getAttribute("data-key");
+  var user_uid = task.getAttribute("user-uid");
+
+  task_to_remove = firebase
+    .database()
+    .ref("users/" + user_uid + "/archived_task/" + tasktype + "/" + key);
+
+  unarchived_to = firebase
+    .database()
+    .ref("users/" + user_uid + "/" + task_sent_type + "/" + key);
+
+  copyTask(task_to_remove, unarchived_to);
+
+  task_parentDiv.remove();
+}
+
 function task_delete(task_parentDiv, tasktype) {
   console.log(task_parentDiv);
   task =
@@ -365,7 +450,7 @@ function task_delete(task_parentDiv, tasktype) {
 
   task_to_remove = firebase
     .database()
-    .ref("users/" + user_uid + "/" + tasktype + "/" + key);
+    .ref("users/" + user_uid + "/archived_task/" + tasktype + "/" + key);
 
   trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
 
@@ -373,6 +458,7 @@ function task_delete(task_parentDiv, tasktype) {
 
   task_parentDiv.remove();
 }
+
 /*** remove from html view or whateversss *****/
 function task_delete_card(task_parentDiv) {
   console.log(task_parentDiv);
@@ -393,26 +479,4 @@ function copyTask(oldRef, newRef) {
     .catch((err) => {
       console.log(err.message);
     });
-}
-
-
-function task_restore(task_parentDiv) {
-  console.log(task_parentDiv);
-  task =
-    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
-      .childNodes[0];
-
-  var key = task.getAttribute("data-key");
-
-    var user_uid = task.getAttribute("user-uid");
-
-  task_to_restore = firebase
-    .database()
-    .ref("users/" + user_uid + "/unfinished_task/" + key);
-
-  archieve = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
-
-  copyTask(trash, task_to_restore);
-
-  task_parentDiv.remove();
 }
