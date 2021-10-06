@@ -122,8 +122,8 @@ function showAllTrash() {
           );
           three_dot_unarchive.setAttribute(
             "onclick",
-            "task_restore(this.parentElement.parentElement.parentElement.previousSibling)"
-          );
+            "task_restore(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished_task')"
+            );
 
           three_dot_delete = document.createElement("button");
           three_dot_delete.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
@@ -134,7 +134,7 @@ function showAllTrash() {
 
           three_dot_delete.setAttribute(
             "onclick",
-            "task_delete(this.parentElement.parentElement.parentElement.previousSibling)"
+            "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished_task')"
           );
 
           description_div = document.createElement("div");
@@ -179,19 +179,23 @@ function create_title(task_title) {
   return title;
 }
 
-function task_delete(task_parentDiv) {
-  task = task_parentDiv.childNodes[0];
+function task_delete(task_parentDiv, tasktype) {
+  console.log(task_parentDiv);
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
 
   var key = task.getAttribute("data-key");
   var user_uid = task.getAttribute("user-uid");
 
   trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
+
+
   trash.remove();
 
-  task_delete_card(
-    task_parentDiv.parentElement.parentElement.parentElement.parentElement
-      .parentElement
-  );
+  task_parentDiv.remove();
 }
 
 /*** remove from html view or whateversss *****/
@@ -218,7 +222,9 @@ function copyTask(oldRef, newRef) {
 
 function task_restore(task_parentDiv) {
   console.log(task_parentDiv);
-  task = task_parentDiv.childNodes[0];
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
 
   var key = task.getAttribute("data-key");
 
@@ -226,14 +232,11 @@ function task_restore(task_parentDiv) {
 
   task_to_restore = firebase
     .database()
-    .ref("users/" + user_uid + "/unfinised_task/" + key);
+    .ref("users/" + user_uid + "/unfinished_task/" + key);
 
   trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
 
-  copyTask(trash, task_to_remove);
+  copyTask(trash, task_to_restore);
 
-  task_delete_card(
-    task_parentDiv.parentElement.parentElement.parentElement.parentElement
-      .parentElement
-  );
+  task_parentDiv.remove();
 }

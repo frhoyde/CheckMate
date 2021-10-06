@@ -365,6 +365,7 @@ body {
   .widget-49 .widget-49-meeting-info .widget-49-pro-title {
     color: #3c4142;
     font-size: 20px;
+    display: block;
   }
   
   .widget-49 .widget-49-meeting-info .widget-49-meeting-time {
@@ -390,11 +391,10 @@ body {
     margin-left: 20px;
     text-align: right;
     align-self:flex-start;
+    display: block;
   }
   
-  
-  
-    
+   
   
   .widget-49 .widget-49-meeting-action a {
     text-transform: uppercase;
@@ -411,7 +411,6 @@ body {
     backface-visibility: unset;
     padding:10px 10px 15px 50px;
     background: none;
-    
     
   }
   

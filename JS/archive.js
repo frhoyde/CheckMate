@@ -353,7 +353,12 @@ function create_title(task_title) {
 }
 
 function task_delete(task_parentDiv, tasktype) {
-  task = task_parentDiv.childNodes[0];
+  console.log(task_parentDiv);
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
 
   var key = task.getAttribute("data-key");
   var user_uid = task.getAttribute("user-uid");
@@ -366,12 +371,8 @@ function task_delete(task_parentDiv, tasktype) {
 
   copyTask(task_to_remove, trash);
 
-  task_delete_card(
-    task_parentDiv.parentElement.parentElement.parentElement.parentElement
-      .parentElement
-  );
+  task_parentDiv.remove();
 }
-
 /*** remove from html view or whateversss *****/
 function task_delete_card(task_parentDiv) {
   console.log(task_parentDiv);
@@ -392,4 +393,26 @@ function copyTask(oldRef, newRef) {
     .catch((err) => {
       console.log(err.message);
     });
+}
+
+
+function task_restore(task_parentDiv) {
+  console.log(task_parentDiv);
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  var key = task.getAttribute("data-key");
+
+    var user_uid = task.getAttribute("user-uid");
+
+  task_to_restore = firebase
+    .database()
+    .ref("users/" + user_uid + "/unfinished_task/" + key);
+
+  archieve = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
+
+  copyTask(trash, task_to_restore);
+
+  task_parentDiv.remove();
 }
