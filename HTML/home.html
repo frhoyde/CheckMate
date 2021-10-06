@@ -14,7 +14,7 @@
 </head>
 
 <body
-  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task()">
+  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task(), create_important_task(), create_upcoming_important_task(), create_inProgress_task(), create_upcoming_inProgress_task()">
   <svg style=" display:none;">
     <!-- <symbol id="logo" viewBox="0 0 140 59">
 
@@ -384,7 +384,7 @@
           </div>
           <div class="label-wrapper">
             <input class="nav-item-upcoming" name="nav-upcoming" type="radio" id="showInprogress-upcoming"
-              value="up-progress-container">
+              value="upcomingInprogress-container">
             <label class="category" for="showInprogress-upcoming">In-progress</label>
           </div>
           <div class="label-wrapper">
@@ -399,6 +399,10 @@
 
           </div>
           <div class="upcomingImportant-container">
+
+
+          </div>
+          <div class="upcomingInprogress-container">
 
 
           </div>

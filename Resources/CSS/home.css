@@ -700,6 +700,7 @@ body {
 
 div.important-container,
 .completed-container,
+.progress-container,
 .all-container {
   position: relative;
   box-sizing: border-box;
@@ -712,6 +713,8 @@ div.important-container,
 
 .important-container,
 .upcomingImportant-container,
+.progress-container,
+.upcomingInprogress-container,
 .completed-container,
 .upcomingCompleted-container {
   display: none;
@@ -719,6 +722,7 @@ div.important-container,
 
 div.upcomingImportant-container,
 .up-all-container,
+.upcomingInprogress-container,
 .upcomingCompleted-container {
   position: relative;
   box-sizing: border-box;
