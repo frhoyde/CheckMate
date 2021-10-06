@@ -370,7 +370,7 @@ body{
 .widget-49 .widget-49-meeting-info {
   display: flex;
   flex-direction: column;
-  margin-left: 1rem;
+  margin-left: 20px;
   font-size: 18px;
   font-style: bold;
   font-weight: 500;
@@ -379,6 +379,7 @@ body{
 .widget-49 .widget-49-meeting-info .widget-49-pro-title {
   color: #3c4142;
   font-size: 20px;
+  display: block;
 }
 
 .widget-49 .widget-49-meeting-info .widget-49-meeting-time {
@@ -389,7 +390,7 @@ body{
 
 
 .widget-49 .widget-49-meeting-item {
-  display: flex;
+  display: block;
   color: #727686;
   font-weight: 400;
   font-size: 13px;
@@ -401,7 +402,7 @@ body{
 }
 
 .widget-49 .widget-49-meeting-points .widget-49-meeting-item span {
-  margin-left: 20px;
+  margin-left: 1rem;
   text-align: right;
   align-self:flex-start;
 }

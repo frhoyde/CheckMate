@@ -13,7 +13,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-function showUnfinishedTaskInArchive() {
+function showUnfinishedTask() {
   var taskArray = [];
   show_unfinised_task_container =
     document.getElementsByClassName("row unfinished")[0];
@@ -193,7 +193,7 @@ function showUnfinishedTaskInArchive() {
   });
 }
 
-function showCompletedTaskInArchive() {
+function showCompletedTask() {
   var taskArray = [];
   show_completed_task_container =
     document.getElementsByClassName("row finished")[0];

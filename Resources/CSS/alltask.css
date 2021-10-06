@@ -381,21 +381,22 @@ body{
 
 
 .widget-49 .widget-49-meeting-item {
-  display: flex;
+  display: block;
+  flex-direction: column;
   color: #727686;
   font-weight: 400;
   font-size: 13px;
   margin-top: .5rem;
   margin-left: 1rem;
-  align-content:space-around;
+  align-content:center;
+  
   align-self:flex-start;
   margin-top: .5rem;
 }
 
 .widget-49 .widget-49-meeting-points .widget-49-meeting-item span {
-  margin-left: 20px;
-  text-align: right;
-  align-self:flex-start;
+  display: block;
+  
 }
  
 
