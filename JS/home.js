@@ -113,10 +113,16 @@ $(".select2").select2({
   // }
 });
 
-$(".select2").on("select2:select", function (e) {
-  var select_val = $(e.currentTarget).val();
-  console.log(select_val);
-});
+// $(".select2").on("select2:select", function (e) {
+//   var select_val = $(e.currentTarget).val();
+//   console.log(select_val);
+
+//   select_val.forEach((item) => console.log(item));
+
+//   if ("Important" in select_val) {
+//     console.log(1, "importano");
+//   }
+// });
 
 // var tag_opt = $("#select_tag").find(":selected");
 // console.log(tag_opt);
