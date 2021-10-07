@@ -137,7 +137,7 @@ function showAllTrash() {
 
           three_dot_delete.setAttribute(
               "onclick",
-              "open_del_modal()"
+              "open_del_modal(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement, 'finished_task')"
            );
 
           // three_dot_delete.setAttribute(
@@ -179,8 +179,22 @@ function showAllTrash() {
   });
 }
 
-function open_del_modal(){
-  document.getElementsByClassName("delete-modal").style.display="block";
+function open_del_modal(task_parentDiv, tasktype){
+  console.log("yes");
+  document.getElementById("delete-modal").style= "display:block";
+  task =
+    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+      .childNodes[0];
+
+  console.log(task);
+  document.getElementById("delforever").addEventListener("click", function() {
+    
+  var key = task.getAttribute("data-key");
+  var user_uid = task.getAttribute("user-uid");
+  trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
+  trash.remove();
+  task_parentDiv.remove();
+  });
 }
 
 function create_title(task_title) {
@@ -191,24 +205,24 @@ function create_title(task_title) {
   return title;
 }
 
-function task_delete(task_parentDiv, tasktype) {
-  console.log(task_parentDiv);
-  task =
-    task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
-      .childNodes[0];
+// function task_delete(task_parentDiv, tasktype) {
+//   console.log(task_parentDiv);
+//   task =
+//     task_parentDiv.childNodes[0].childNodes[0].childNodes[0].childNodes[1]
+//       .childNodes[0];
 
-  console.log(task);
+//   console.log(task);
 
-  var key = task.getAttribute("data-key");
-  var user_uid = task.getAttribute("user-uid");
+//   var key = task.getAttribute("data-key");
+//   var user_uid = task.getAttribute("user-uid");
 
-  trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
+//   trash = firebase.database().ref("users/" + user_uid + "/Trash/" + key);
 
 
-  trash.remove();
+//   trash.remove();
 
-  task_parentDiv.remove();
-}
+//   task_parentDiv.remove();
+// }
 
 /*** remove from html view or whateversss *****/
 function task_delete_card(task_parentDiv) {
@@ -253,6 +267,9 @@ function task_restore(task_parentDiv) {
   task_parentDiv.remove();
 }
 
-var delm = document.getElementById("delete-modal");
 
-console.log(delm);
+function closeTrashModal(){
+ 
+  document.getElementById("delete-modal").style = "display: none";
+
+}
