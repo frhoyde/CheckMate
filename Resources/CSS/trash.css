@@ -465,12 +465,4 @@ body {
   .dropdown button:hover {
     transform: translatex(2px);
   }
-
-  .modal-body .btn-danger {
-    border-radius: 11px;
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2)
-}
-.modal-content {
-  background: transparent !important
-}
-
+  
