@@ -146,7 +146,7 @@ function showUnfinishedTask() {
           task_delete_btn = document.createElement("button");
           task_delete_btn.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-outline-danger btn-sm ml-2"
           );
           task_delete_btn.setAttribute(
             "onclick",
@@ -296,7 +296,7 @@ function showCompletedTask() {
           three_dot_delete = document.createElement("button");
           three_dot_delete.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-outline-danger btn-sm ml-2"
           );
           //three_dot_delete.innerHTML = "delete";
 
@@ -409,23 +409,3 @@ function copyTask(oldRef, newRef) {
 }
 
 
-function swapStyleSheet(sheet) {
-  document.getElementById("pagestyle").setAttribute("href", sheet);  
-}
-
-if (window.localStorage.getItem("theme") === "beige") {
-  
-  swapStyleSheet("https://bootswatch.com/4/journal/bootstrap.min.css");
-}
-if (window.localStorage.getItem("theme") === "classic") {
-  
-  swapStyleSheet("https://bootswatch.com/4/lux/bootstrap.min.css");
-}
-if (window.localStorage.getItem("theme") === "nature") {
-  
-  swapStyleSheet("https://bootswatch.com/4/minty/bootstrap.min.css");
-}
-if (localStorage.getItem("theme") === "midnight") {
-  
-  swapStyleSheet("https://bootswatch.com/4/superhero/bootstrap.min.css");
-}
