@@ -788,6 +788,7 @@ label .label-text:before {
 .tag.progress {
   background-color: var(--tag-color-two);
   color: var(--tag-color-text-two);
+  display: inline;
 }
 .tag.review {
   background-color: var(--tag-color-three);
@@ -873,6 +874,16 @@ label .label-text:before {
 
 .add-task .modal-content {
   display: none;
+  position: fixed;
+  width: fit-content;
+  left: 53%;
+  top: 15%;
+  transform: translate(-50%, 5%);
+  border: 3px solid #d2e3f1;
+  z-index: 9;
+}
+
+.edit_taskForm .modal-content {
   position: fixed;
   width: fit-content;
   left: 53%;
@@ -1080,32 +1091,31 @@ ul.draggable:after {
 
 /*** Task-Card CSS****/
 
-
 /*** Search Bar CSS****/
-.wrapper{
+.wrapper {
   max-width: 450px;
 }
 
-.wrapper .search-input{
+.wrapper .search-input {
   background: #fff;
   width: 100%;
   border-radius: 5px;
   position: relative;
-  box-shadow: 0px 1px 5px 3px rgba(0,0,0,0.12);
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
 }
 
-.search-input input{
+.search-input input {
   height: 55px;
-  width:100%;
+  width: 100%;
   outline: none;
   border: none;
   border-radius: 5px;
   padding: 0 60px 0 20px;
   font-size: 18px;
-  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
-.search-input .searchicon{
+.search-input .searchicon {
   position: absolute;
   right: 0px;
   top: 0px;
@@ -1118,7 +1128,7 @@ ul.draggable:after {
   cursor: pointer;
 }
 
-.search-input .autocom-box{
+.search-input .autocom-box {
   padding: 0;
   opacity: 0;
   pointer-events: none;
@@ -1126,7 +1136,7 @@ ul.draggable:after {
   overflow-y: auto;
 }
 
-.autocom-box li{
+.autocom-box li {
   list-style: none;
   padding: 8px 12px;
   display: none;
@@ -1135,22 +1145,20 @@ ul.draggable:after {
   border-radius: 3px;
 }
 
-.autocom-box li:hover{
+.autocom-box li:hover {
   background: #efefef;
 }
 
-.search-input.active input{
+.search-input.active input {
   border-radius: 5px 5px 0 0;
 }
 
-
-.search-input.active .autocom-box{
+.search-input.active .autocom-box {
   padding: 10px 8px;
   opacity: 1;
   pointer-events: auto;
 }
 
-
-.search-input.active .autocom-box li{
+.search-input.active .autocom-box li {
   display: flex;
 }
