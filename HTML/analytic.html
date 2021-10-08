@@ -66,8 +66,8 @@
                         <div class="col-sm-6">
                             <div class="card text-white bg-c-green  order-card" >
                                 <div class="card-body">                                   
-                                    <h2 class="text-right"><i class="bi bi-ui-checks-grid f-left"></i><span class="clarge" value="show_count_all_task" id="show_all" style="font-size:x-large;"></span></h2>
-                                    <h5 class="card-title" style="align-items: center;">All Tasks</h5>
+                                    <h2 class="text-right"><i class="bi bi-ui-checks-grid f-left" id="showIcon"></i><span class="clarge" value="show_count_all_task" id="show_all" style="font-size:x-large;"></span></h2>
+                                    <h6 class="card-title" style="align-items: center;">All Tasks</h6>
                                 </div>
                             </div>
                         </div>
@@ -75,8 +75,8 @@
                             <div class="card text-white bg-c-blue  order-card">
                                 <div class="card-body">
                                     
-                                    <h2 class="text-right"><i class="bi bi-check-square f-left"></i><span class="clarge" value="show_count_finished_task" id="show_fin" style="font-size:x-large;"></span></h2>
-                                    <h5 class="card-title">Completed</h5>
+                                    <h2 class="text-right"><i class="bi bi-check-square f-left" id="showIcon"></i><span class="clarge" value="show_count_finished_task" id="show_fin" style="font-size:x-large;"></span></h2>
+                                    <h6 class="card-title">Completed</h6>
                                 </div>
                             </div>
                         </div>
@@ -84,8 +84,8 @@
                             <div class="card text-white bg-c-yellow  order-card">
                                 <div class="card-body">
                                    
-                                    <h2 class="text-right"><i class="bi bi-dash-square f-left"></i><span class="clarge" value="show_count_finished_task" id="show_unfin" style="font-size:x-large;"></span></h2>
-                                    <h5 class="card-title">Unfinised</h5>
+                                    <h2 class="text-right"><i class="bi bi-dash-square f-left" id="showIcon"></i><span class="clarge" value="show_count_finished_task" id="show_unfin" style="font-size:x-large;"></span></h2>
+                                    <h6 class="card-title">Unfinised</h6>
                                 </div>
                             </div>
                         </div>
@@ -93,8 +93,8 @@
                             <div class="card text-white bg-c-pink  order-card">
                                 <div class="card-body">
                                   
-                                    <h2 class="text-right"><i class="bi bi-trash f-left"></i><span class="clarge" value="show_count_trash_task" id="show_trash" style="font-size:x-large;"></span></h2>
-                                    <h5 class="card-title">Trash</h5>
+                                    <h2 class="text-right"><i class="bi bi-trash f-left" id="showIcon"></i><span class="clarge" value="show_count_trash_task" id="show_trash" style="font-size:x-large;"></span></h2>
+                                    <h6 class="card-title">Trash</h6>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                           <div class="card-body">
                             <h5 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">highlights</i>Today's Task</h5>
                             <p class="m-b-0">Completed Task:  <span style="color: #4CAF50;" id="tcomText" ></span></p>
-                            <p class="m-b-0">Unfinised Task:  <span style="color: red;" id="tunText"></span></p>
+                            <p class="m-b-0">Unfinised Task:  <span style="color: #ff6859;" id="tunText"></span></p>
                             <small>Ratio</small>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" id="tprogress" role="progressbar" style="width: 0%"  aria-valuemin="0" aria-valuemax="100"></div>
@@ -147,7 +147,7 @@
                         <div class="card-body">
                           <h5 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">highlights</i>Upcoming Task</h5>
                           <p class="m-b-0">Completed Task:  <span style="color: #4CAF50;" id="comText" ></span></p>
-                            <p class="m-b-0">Unfinised Task:  <span style="color: red;" id="unText"></span></p>
+                            <p class="m-b-0">Unfinised Task:  <span style="color: #ff6859;" id="unText"></span></p>
                             <small>Ratio</small>
                             <div class="progress mb-3" style="height: 5px">
                                 <div class="progress-bar bg-primary" id="upprogress" role="progressbar" style="width: 0%" aria-valuemin="0" aria-valuemax="100"></div>
@@ -155,10 +155,8 @@
                         </div>
                       </div>
                     </div>
-                    
                   </div>
-    
-    
+
               <div class="card mb-3">
                 <div class="card-body">
                 <div class="tab-pane" id="weekly">
@@ -170,19 +168,11 @@
                         <canvas id="myChart"></canvas>
                         </div>
                       </div>
-
                 </div>
               </div>
               </div>
-
-
-              
-
             </div>
           </div>
-
-            
-        
 
         <!-- Firebase -->
 

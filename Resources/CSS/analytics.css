@@ -44,6 +44,10 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
+.pitchMode .order-card{
+    border: 1px solid rgba(255,255,255,.4);
+} 
+
 .card .card-block {
   padding: 25px;
 }
@@ -66,20 +70,40 @@ body {
   text-align: middle;
 }
 
+.natureMode .bg-c-green {
+    background: linear-gradient(45deg, #78c2ad, #78c2ae);
+  }
+
 .pitchMode .bg-c-blue {
-    background: linear-gradient(45deg, #29323d, #394049);
+    background: transparent;
   }
 
   .pitchMode .bg-c-green {
-    background: linear-gradient(45deg, #0c3b32, #2a6458);
+    background: transparent;
   }
 
   .pitchMode .bg-c-yellow {
-    background: linear-gradient(45deg, #644820, #8f7147);
+    background: transparent;
   }
 
   .pitchMode .bg-c-pink {
-    background: linear-gradient(45deg, #5f1f2a, #552d34);
+    background: transparent;
+  }
+
+  .midnightMode .bg-c-blue {
+    background: transparent;
+  }
+
+  .midnightMode .bg-c-green {
+    background: transparent;
+  }
+
+  .midnightMode .bg-c-yellow {
+    background: transparent;
+  }
+
+  .midnightMode .bg-c-pink {
+    background: transparent;
   }
 
   #textMode{
@@ -108,4 +132,25 @@ body {
 
 .midnightMode #address-div  {
     color: rgba(255,255,255,.4)!important;
+}
+
+.pitchMode #show_trash  {
+    color: #aaaaaa!important;
+}
+
+.pitchMode #show_unfin  {
+    color: #aaaaaa!important;
+}
+.pitchMode #show_fin  {
+    color: #aaaaaa!important;
+}
+.pitchMode #show_all  {
+    color: #aaaaaa!important;
+}
+.pitchMode h6  {
+    color: rgba(255,255,255,.4)!important;
+}
+ 
+ .pitchMode #showIcon  {
+    color: #aaaaaa!important;
 }
