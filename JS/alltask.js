@@ -55,6 +55,7 @@ function showUnfinishedTask() {
 
           card_margin = document.createElement("div");
           card_margin.setAttribute("class", "card card-margin");
+          card_margin.id = "cardId" + task_key;
 
           card_body = document.createElement("div");
           card_body.setAttribute("class", "card-body pt-0");
@@ -331,7 +332,6 @@ function showCompletedTask() {
           three_dot_delete.append(three_dot_delete_icon);
           main_text.append(description_div);
           description_div.append(description);
-
         }
       });
     }
@@ -369,7 +369,6 @@ function task_done(task_parentDiv) {
   copyTask(unfinshed_task, completed_task);
 
   task_parentDiv.remove();
-  
 }
 
 function task_delete(task_parentDiv, tasktype) {
@@ -409,4 +408,3 @@ function copyTask(oldRef, newRef) {
       console.log(err.message);
     });
 }
-

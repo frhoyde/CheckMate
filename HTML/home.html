@@ -13,10 +13,14 @@
   <!-- select2 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
 
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/Resources/CSS/analytics.css">
+  <link rel="stylesheet" href="/Resources/CSS/progress.css">
+
 </head>
 
 <body
-  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task(), create_important_task(), create_upcoming_important_task(), create_inProgress_task(), create_upcoming_inProgress_task()">
+  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task(), create_important_task(), create_upcoming_important_task(), create_inProgress_task(), create_upcoming_inProgress_task(), countAllTask() ">
   <svg style=" display:none;">
     <!-- <symbol id="logo" viewBox="0 0 140 59">
 
@@ -184,7 +188,7 @@
           </a>
         </li>
         <li>
-          <a href="#0">
+          <a href="apperance.html">
             <svg>
               <use xlink:href="#appearance"></use>
             </svg>
@@ -201,7 +205,7 @@
           </a>
         </li>
         <li>
-          <a href="#0">
+          <a href="helpabout.html">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
               class="bi bi-question-circle">
               <use xlink:href="#help"></use>
@@ -233,7 +237,7 @@
         <div class="wrapper">
           <div class="search-input">
             <a href="" target="_blank" hidden></a>
-            <input type="text" placeholder="Type to search..">
+            <input type="text" placeholder="Type to search.." id="searchbox-home">
             <div class="autocom-box">
 
               <!-- here list are inserted from javascript -->
@@ -294,7 +298,7 @@
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label">Description</label>
                     <div class="col-sm-9">
-                      <textarea class="form-control" id="description" rows="6"></textarea>
+                      <textarea class="form-control" id="description" rows="6" style="height: 115px;"></textarea>
                     </div>
                   </div>
                   <div class="form-group row">
@@ -402,7 +406,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Description</label>
                   <div class="col-sm-9">
-                    <textarea class="form-control" id="edit-description" rows="6"></textarea>
+                    <textarea class="form-control" id="edit-description" rows="6" style="height: 115px;"></textarea>
                   </div>
                 </div>
                 <div class="form-group row">
@@ -481,8 +485,71 @@
           <div class="upcomingCompleted-container">
 
           </div>
+
+        </div>
+      </div>
+
+
+      <div style="padding: 20%;">
+
+        <div class="row">
+          <div class="col-md-4 col-xl-6">
+            <div class="card ">
+              <div class="card-body">
+                <h6 class="card-title" style="align-items: center;">All Tasks</h6>
+                <h2 class="text-right"><span style="color:#4099ff ;" value="show_count_all_task" id="show_all"
+                    style="font-size:x-large;"></span>
+                </h2>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-xl-6">
+            <div class="card ">
+              <div class="card-body">
+                <h6 class="card-title">Completed</h6>
+                <h2 class="text-right"><span style="color:#2ed8b6 ;" value="show_count_finished_task" id="show_fin"
+                    style="font-size:x-large;"></span></h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-xl-6">
+            <div class="card">
+              <div class="card-body">
+                <h6 class="card-title">Unfinished</h6>
+                <h2 class="text-right"><span style="color:#FFB64D ;" value="show_count_finished_task" id="show_unfin"
+                    style="font-size:x-large;"></span></h2>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-xl-6">
+            <div class="card text-blach">
+              <div class="card-body">
+                <h6 class="card-title">Trash</h6>
+                <h2 class="text-right"><span style="color:#FF5370 ;" value="show_count_trash_task" id="show_trash"
+                    style="font-size:x-large;"></span></h2>
+              </div>
+            </div>
+          </div>
         </div>
 
+
+
+        <div class="card h-70">
+          <div class="card-body">
+            <h5 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">highlights</i>Today's
+              Task
+            </h5>
+            <p class="m-b-0">Completed Task: <span style="color: #4CAF50;" id="tcomText"></span></p>
+            <p class="m-b-0">Unfinised Task: <span style="color: #ff6859;" id="tunText"></span></p>
+            <small>Ratio</small>
+            <div class="progress mb-3" style="height: 5px">
+              <div class="progress-bar bg-primary" id="tprogress" role="progressbar" style="width: 0%" aria-valuemin="0"
+                aria-valuemax="100"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </section>
     <footer class="page-footer">
@@ -522,6 +589,7 @@
   <script src="/JS/home.js"></script>
   <script src="/JS/app.js"></script>
   <script src="/JS/TaskList.js"></script>
+  <script src="/JS/homeHighlights.js"></script>
   <!-- <script src="/JS/searchbar.js"></script> -->
 
 </body>

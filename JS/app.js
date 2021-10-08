@@ -106,7 +106,8 @@ function create_unfinished_task() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/unfinished_task/");
+      .ref("users/" + user.uid + "/unfinished_task/")
+      .orderByChild("time");
 
     // var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
 
@@ -152,7 +153,9 @@ function create_unfinished_task() {
             task_date,
             task_title,
             task_time,
-            task_description
+            task_description,
+            tag_Imp,
+            tag_Progress
           );
 
           // TASK DATA
@@ -297,7 +300,8 @@ function create_important_task() {
             task_date,
             task_title,
             task_time,
-            task_description
+            task_description,
+            "Important"
           );
 
           // TASK DATA
@@ -424,7 +428,9 @@ function create_inProgress_task() {
             task_date,
             task_title,
             task_time,
-            task_description
+            task_description,
+            null,
+            "In-Progress"
           );
 
           // TASK DATA
@@ -664,7 +670,7 @@ function task_done(task) {
 
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
-      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+      .childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML;
   console.log(time);
 
   description =
@@ -687,6 +693,7 @@ function task_done(task) {
 
   /** Close the modal manually **/
   document.getElementById("close_btn").click();
+  location.reload();
 
   // delete our task from unfinished
   task_delete(task);
@@ -807,6 +814,7 @@ function task_archive(task) {
 
   /** Close the modal manually **/
   document.getElementById("close_btn").click();
+  location.reload();
 
   task_to_remove = firebase
     .database()
@@ -856,6 +864,7 @@ function task_finished_archive(task) {
 
   /** Close the modal manually **/
   document.getElementById("close_btn_completed").click();
+  location.reload();
 
   task_to_remove = firebase
     .database()
@@ -883,7 +892,7 @@ function task_delete(task) {
 
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
-      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+      .childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML;
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
@@ -903,6 +912,7 @@ function task_delete(task) {
 
   /** Close the modal manually **/
   document.getElementById("close_btn").click();
+  location.reload();
   /** remove task from database **/
   task_to_remove.remove();
 
@@ -927,7 +937,8 @@ function task_finished_delete(task) {
 
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
-      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+      .childNodes[1].childNodes[1].childNodes[0].innerHTML;
+  console.log(time);
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
@@ -947,6 +958,7 @@ function task_finished_delete(task) {
 
   /** Close the modal manually **/
   document.getElementById("close_btn_completed").click();
+  location.reload();
 
   task_to_remove.remove();
 
@@ -966,7 +978,8 @@ function create_upcoming_unfinished_task() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/unfinished_task/");
+      .ref("users/" + user.uid + "/unfinished_task/")
+      .orderByChild("date");
     if (user) {
       user = firebase.auth().currentUser;
       // Retrieve new tasks as they are added to our database
@@ -1007,7 +1020,9 @@ function create_upcoming_unfinished_task() {
             task_date,
             task_title,
             task_time,
-            task_description
+            task_description,
+            tag_Imp_up,
+            tag_Progress_up
           );
 
           // TASK DATA
@@ -1098,7 +1113,8 @@ function create_upcoming_important_task() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/unfinished_task/");
+      .ref("users/" + user.uid + "/unfinished_task/")
+      .orderByChild("date");
 
     if (user) {
       user = firebase.auth().currentUser;
@@ -1226,7 +1242,8 @@ function create_upcoming_inProgress_task() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/unfinished_task/");
+      .ref("users/" + user.uid + "/unfinished_task/")
+      .orderByChild("date");
 
     if (user) {
       user = firebase.auth().currentUser;
@@ -1357,7 +1374,8 @@ function create_upcoming_finished_task() {
   firebase.auth().onAuthStateChanged(function (user) {
     var firebaseRef = firebase
       .database()
-      .ref("users/" + user.uid + "/finished_task/");
+      .ref("users/" + user.uid + "/finished_task/")
+      .orderByChild("date");
 
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
@@ -1518,7 +1536,9 @@ function create_task_detail_card(
   date,
   title,
   time,
-  description
+  description,
+  impTag,
+  progressTag
 ) {
   task_card = document.createElement("div");
 
@@ -1535,10 +1555,11 @@ function create_task_detail_card(
   // console.log("show task card");
 
   task_card_center = document.createElement("div");
-  task_card_center.className = "modal-dialog modal-dialog-centered";
+  task_card_center.className =
+    "modal-dialog modal-dialog-centered modal-dialog-lg task-modal-card";
 
   task_card_content = document.createElement("div");
-  task_card_content.className = "modal-content";
+  task_card_content.className = "modal-content ";
 
   task_header = document.createElement("div");
   task_header.setAttribute("class", "card-header modal-header");
@@ -1633,6 +1654,7 @@ function create_task_detail_card(
   task_date_detail.setAttribute("class", "task-detail-date");
 
   task_date_show = document.createElement("p");
+  task_date_show.style = "width: 100px";
   task_date_show.innerHTML = date;
 
   left_tag_time = document.createElement("div");
@@ -1642,6 +1664,11 @@ function create_task_detail_card(
   tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
   tag_span.innerHTML = "Important";
 
+  tag_span_progress = document.createElement("span");
+  tag_span_progress.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span_progress.innerHTML = "In-Progress";
+
+  time_tag = document.createElement("div");
   time_span = document.createElement("span");
   time_span.setAttribute("class", "text-muted task-time-show");
   time_span.innerHTML = time;
@@ -1691,8 +1718,12 @@ function create_task_detail_card(
   task_date_detail.append(task_date_show);
 
   date_tag_div.append(left_tag_time);
-  left_tag_time.append(tag_span);
-  left_tag_time.append(time_span);
+  left_tag_time.append(time_tag);
+  time_tag.append(time_span);
+
+  if (impTag == "Important") left_tag_time.append(tag_span);
+
+  if (progressTag == "In-Progress") left_tag_time.append(tag_span_progress);
 
   task_description_card.append(horizontalLine);
 
@@ -1810,10 +1841,6 @@ function create_finished_task_detail_card(
   left_tag_time = document.createElement("div");
   left_tag_time.setAttribute("class", "ml-auto");
 
-  tag_span = document.createElement("span");
-  tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
-  tag_span.innerHTML = "Important";
-
   time_span = document.createElement("span");
   time_span.setAttribute("class", "text-muted task-time-show");
   time_span.innerHTML = time;
@@ -1857,7 +1884,6 @@ function create_finished_task_detail_card(
   task_date_detail.append(task_date_show);
 
   date_tag_div.append(left_tag_time);
-  left_tag_time.append(tag_span);
   left_tag_time.append(time_span);
 
   task_description_card.append(horizontalLine);
@@ -1956,11 +1982,11 @@ SearchinputBox.onkeyup = (e) => {
   let userData = e.target.value; //user enetered data
   let emptyArray = [];
   if (userData) {
-    searchicon.onclick = () => {
-      webLink = `https://www.google.com/search?q=${userData}`;
-      linkTag.setAttribute("href", webLink);
-      linkTag.click();
-    };
+    // searchicon.onclick = () => {
+    //   webLink = `https://www.google.com/search?q=${userData}`;
+    //   linkTag.setAttribute("href", webLink);
+    //   linkTag.click();
+    // };
     emptyArray = taskArray.filter((data) => {
       //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
       return data
@@ -1969,40 +1995,37 @@ SearchinputBox.onkeyup = (e) => {
     });
     emptyArray = emptyArray.map((data) => {
       // passing return data inside li tag
-      return (data = `<li>${data}</li>`);
+      return (data = `<a><li>${data}</li></a>`);
     });
     searchWrapper.classList.add("active"); //show autocomplete box
     showSuggestions(emptyArray);
-    let allList = suggBox.querySelectorAll("li");
+    let allList = suggBox.querySelectorAll("a");
     for (let i = 0; i < allList.length; i++) {
       //adding onclick attribute in all li tag
 
-      allList[i].setAttribute("data-toggle", "modal");
-      allList[i].setAttribute("data-target", "#task_detail" + taskID[i]);
-      console.log(allList[i].dataset.target);
-
-      task_string = "task_detail" + taskID[i];
+      task_string = "cardId" + taskID[i];
       console.log(task_string);
-      allList[i].setAttribute("task_id", task_string);
+      allList[i].setAttribute("href", "alltask.html#" + task_string);
       //allList[i].task_id += ;
 
       //allList[i].setAttribute("onclick", "OpenModal(this)");
+
       console.log(allList[i]);
       console.log(taskID[i]);
     }
-  } else {
-    searchWrapper.classList.remove("active"); //hide autocomplete box
-  }
+    // } else if (document.getElementById("searchbox-home").hasFocus() == false) {
+    //   searchWrapper.classList.remove("active"); //hide autocomplete box
+  } else searchWrapper.classList.remove("active"); //hide autocomplete box
 };
 
 function select(element) {
   let selectData = element.textContent;
   SearchinputBox.value = selectData;
-  searchicon.onclick = () => {
-    webLink = `https://www.google.com/search?q=${selectData}`;
-    linkTag.setAttribute("href", webLink);
-    linkTag.click();
-  };
+  // searchicon.onclick = () => {
+  //   webLink = `https://www.google.com/search?q=${selectData}`;
+  //   linkTag.setAttribute("href", webLink);
+  //   linkTag.click();
+  // };
   searchWrapper.classList.remove("active");
 }
 
@@ -2017,9 +2040,9 @@ function showSuggestions(list) {
   suggBox.innerHTML = listData;
 }
 
-function OpenModal(id) {
-  task_id = id.getAttribute("task_id");
-  console.log(task_id);
-  modal = document.getElementById(task_id);
+function OpenModal() {
+  console.log(task_string);
+
+  modal = document.getElementById(task_string);
   console.log(modal);
 }
