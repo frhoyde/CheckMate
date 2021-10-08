@@ -13,10 +13,10 @@ function changeHandler() {
     swapStyleSheet("https://bootswatch.com/4/superhero/bootstrap.min.css");
     localStorage.setItem("theme", "midnight");
     
-   } else if ( this.value === 'beige' ) {
-    swapStyleSheet("https://bootswatch.com/4/journal/bootstrap.min.css");
+   } else if ( this.value === 'pitch-dark' ) {
+    swapStyleSheet("https://bootswatch.com/4/slate/bootstrap.min.css");
     //document.querySelector("body").style.background = "beige";
-    window.localStorage.setItem("theme", "beige");
+    window.localStorage.setItem("theme", "pitch-dark");
    } else {
   
     window.localStorage.setItem("theme", "classic");
@@ -32,9 +32,9 @@ function swapStyleSheet(sheet) {
     document.getElementById("pagestyle").setAttribute("href", sheet);  
 }
 
-if (window.localStorage.getItem("theme") === "beige") {
+if (window.localStorage.getItem("theme") === "pitch-dark") {
     document.getElementById("radios4").checked = true;
-    swapStyleSheet("https://bootswatch.com/4/journal/bootstrap.min.css");
+    swapStyleSheet("https://bootswatch.com/4/slate/bootstrap.min.css");
 }
 if (window.localStorage.getItem("theme") === "classic") {
     document.getElementById("radios1").checked = true;
