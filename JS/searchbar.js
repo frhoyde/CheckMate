@@ -7,57 +7,68 @@ let linkTag = searchWrapper.querySelector("a");
 let webLink;
 
 // if user press any key and release
-SearchinputBox.onkeyup = (e)=>{
-    let userData = e.target.value; //user enetered data
-    let emptyArray = [];
-    if(userData){
-        searchicon.onclick = ()=>{
-            webLink = `https://www.google.com/search?q=${userData}`;
-            linkTag.setAttribute("href", webLink);
-            linkTag.click();
-        }
-        emptyArray = taskArray.filter((data)=>{
-            //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
-            return data.toLocaleLowerCase().startsWith(userData.toLocaleLowerCase());
-        });
-        emptyArray = emptyArray.map((data)=>{
-            // passing return data inside li tag
-            return data = `<li>${data}</li>`;
-        });
-        searchWrapper.classList.add("active"); //show autocomplete box
-        showSuggestions(emptyArray);
-        let allList = suggBox.querySelectorAll("li");
-        for (let i = 0; i < allList.length; i++) {
-            //adding onclick attribute in all li tag
-            allList[i].setAttribute("onclick", "select(this)");
-        }
-    }else{
-        searchWrapper.classList.remove("active"); //hide autocomplete box
+SearchinputBox.onkeyup = (e) => {
+  let userData = e.target.value; //user enetered data
+  let emptyArray = [];
+  if (userData) {
+    searchicon.onclick = () => {
+      webLink = `https://www.google.com/search?q=${userData}`;
+      linkTag.setAttribute("href", webLink);
+      linkTag.click();
+    };
+    emptyArray = taskArray.filter((data) => {
+      //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+      return data
+        ?.toLocaleLowerCase()
+        .startsWith(userData?.toLocaleLowerCase());
+    });
+    emptyArray = emptyArray.map((data) => {
+      // passing return data inside li tag
+      return (data = `<li>${data}</li>`);
+    });
+    searchWrapper.classList.add("active"); //show autocomplete box
+    showSuggestions(emptyArray);
+    let allList = suggBox.querySelectorAll("li");
+    for (let i = 0; i < allList.length; i++) {
+      //adding onclick attribute in all li tag
+      allList[i].setAttribute("task_id", "task_detail");
+      allList[i].task_id = "task_detail";
+      allList[i].task_id += taskID[i];
+
+      allList[i].setAttribute("onclick", "OpenModal(this)");
+      console.log(allList[i]);
+      console.log(taskID[i]);
     }
+  } else {
+    searchWrapper.classList.remove("active"); //hide autocomplete box
+  }
+};
+
+function select(element) {
+  let selectData = element.textContent;
+  SearchinputBox.value = selectData;
+  searchicon.onclick = () => {
+    webLink = `https://www.google.com/search?q=${selectData}`;
+    linkTag.setAttribute("href", webLink);
+    linkTag.click();
+  };
+  searchWrapper.classList.remove("active");
 }
 
-function select(element){
-    let selectData = element.textContent;
-    SearchinputBox.value = selectData;
-    searchicon.onclick = ()=>{
-        webLink = `https://www.google.com/search?q=${selectData}`;
-        linkTag.setAttribute("href", webLink);
-        linkTag.click();
-    }
-    searchWrapper.classList.remove("active");
+function showSuggestions(list) {
+  let listData;
+  if (!list.length) {
+    userValue = SearchinputBox.value;
+    listData = `<li>${userValue}</li>`;
+  } else {
+    listData = list.join("");
+  }
+  suggBox.innerHTML = listData;
 }
 
-function showSuggestions(list){
-    let listData;
-    if(!list.length){
-        userValue = SearchinputBox.value;
-        listData = `<li>${userValue}</li>`;
-    }else{
-      listData = list.join('');
-    }
-    suggBox.innerHTML = listData;
-}
-
-function OpenModal(){
-    document.getElementById("")
+function OpenModal(id) {
+  task_id = id.getAttribute("id");
+  console.log(task_id);
+  modal = document.getElementById(task_id);
+  console.log(modal);
 }

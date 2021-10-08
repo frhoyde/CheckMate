@@ -73,6 +73,10 @@ function closeAddForm() {
   document.getElementById("popupForm").style.display = "none";
 }
 
+function closeAddForm_edit() {
+  document.getElementById("editTaskModal").style.display = "none";
+}
+
 /****Today's task radio button nav ****/
 var currentState = $(".all-container");
 $("input[type=radio][name=nav]").on("change", function () {

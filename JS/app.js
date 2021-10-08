@@ -22,6 +22,7 @@ var showState = "showImportant";
 
 var tagImportant = null;
 var tagProgress = null;
+var taskKey;
 var firebaseRef = firebase.database().ref();
 
 //****Listen for auth status changes****
@@ -90,6 +91,7 @@ function create_unfinished_task() {
     document.getElementsByClassName("all-container")[0];
   unfinished_task_container.innerHTML = "";
   var taskArray = [];
+  var tag_Imp, tag_Progress;
   task_listUl = document.createElement("ul");
   task_listUl.setAttribute("class", "task-list");
   firebase.auth().onAuthStateChanged(function (user) {
@@ -123,6 +125,8 @@ function create_unfinished_task() {
           task_title = taskArray[i].title;
           task_time = taskArray[i].time;
           task_description = taskArray[i].description;
+          tag_Imp = taskArray[i].tag_important;
+          tag_Progress = taskArray[i].tag_progress;
           console.log(task_title);
 
           task_list = document.createElement("li");
@@ -164,9 +168,13 @@ function create_unfinished_task() {
           time.setAttribute("contenteditable", false);
           time.innerHTML = task_time;
 
-          tag = document.createElement("span");
-          tag.setAttribute("class", "tag review"); //for now review tag
-          tag.innerHTML = "important";
+          tagImp = document.createElement("span");
+          tagImp.setAttribute("class", "tag review"); //for now review tag
+          tagImp.innerHTML = "important";
+
+          tagProgress = document.createElement("span");
+          tagProgress.setAttribute("class", "tag progress"); //for now review tag
+          tagProgress.innerHTML = "progress";
 
           // TASK TOOLS
           task_tool = document.createElement("div");
@@ -181,16 +189,6 @@ function create_unfinished_task() {
           task_done_button.innerHTML = "done";
           fa_done = document.createElement("i");
           fa_done.setAttribute("class", "bi bi-check-lg");
-
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
 
           task_delete_button = document.createElement("button");
           task_delete_button.setAttribute("id", "task_delete_button");
@@ -209,15 +207,22 @@ function create_unfinished_task() {
 
           task_container.append(task_data);
           task_data.append(title);
-          task_data.append(tag);
+
+          if (tag_Imp) {
+            task_data.append(tagImp);
+          }
+
+          if (tag_Progress) {
+            task_data.append(tagProgress);
+          }
+
           task_data.append(time);
           task_data.append(date);
           task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
+
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
           task_list.append(task_details_unfinished);
@@ -321,16 +326,6 @@ function create_important_task() {
           fa_done = document.createElement("i");
           fa_done.setAttribute("class", "bi bi-check-lg");
 
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
-
           task_delete_button = document.createElement("button");
           task_delete_button.setAttribute("id", "task_delete_button");
           task_delete_button.setAttribute(
@@ -357,8 +352,6 @@ function create_important_task() {
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
           task_list.append(task_details_imp);
@@ -443,8 +436,8 @@ function create_inProgress_task() {
           time.innerHTML = task_time;
 
           tag = document.createElement("span");
-          tag.setAttribute("class", "tag review"); //for now review tag
-          tag.innerHTML = "important";
+          tag.setAttribute("class", "tag progress"); //for now review tag
+          tag.innerHTML = "progress";
 
           // TASK TOOLS
           task_tool = document.createElement("div");
@@ -459,16 +452,6 @@ function create_inProgress_task() {
           task_done_button.innerHTML = "done";
           fa_done = document.createElement("i");
           fa_done.setAttribute("class", "bi bi-check-lg");
-
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
 
           task_delete_button = document.createElement("button");
           task_delete_button.setAttribute("id", "task_delete_button");
@@ -496,8 +479,7 @@ function create_inProgress_task() {
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
+
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
           task_list.append(task_details_imp);
@@ -641,7 +623,6 @@ function task_done(task) {
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[0].childNodes[0].innerHTML;
 
-  console.log(date);
   var date_given = new Date(date);
 
   /*** Checking if task is for today or not ***/
@@ -710,77 +691,72 @@ function task_done(task) {
   else create_upcoming_finished_task();
 }
 
-function task_edit(task, edit_button) {
-  edit_button.setAttribute("id", "task_edit_button_editing");
-  edit_button.setAttribute(
-    "onclick",
-    "finish_edit(this.parentElement.parentElement, this)"
-  );
-
-  title = task.childNodes[0].childNodes[0];
-  title.setAttribute("contenteditable", true);
-  title.setAttribute("id", "title_editing");
-  title.focus();
-
-  date = task.childNodes[0].childNodes[2];
-  date.setAttribute("contenteditable", true);
-  date.setAttribute("id", "date_editing");
-}
-
-//Finish-edit-tasks
-
-function finish_edit(task, edit_button) {
-  edit_button.setAttribute("id", "task_edit_button");
-  edit_button.setAttribute(
-    "onclick",
-    "task_edit(this.parentElement.parentElement, this)"
-  );
-
-  title = task.childNodes[0].childNodes[0];
-  title.setAttribute("contenteditable", false);
-  title.setAttribute("id", "task_title");
-
-  date = task.childNodes[0].childNodes[2];
-  date.setAttribute("contenteditable", false);
-  date.setAttribute("id", "task_date");
-
-  // change in firebase for editing tasks
-  var user_uid = task.getAttribute("user-uid");
-  var key = task.getAttribute("data-key");
-  var task_obj = {
-    title: task.childNodes[0].childNodes[0].innerHTML,
-    date: task.childNodes[0].childNodes[2].innerHTML,
-    key: key,
-  };
-
-  var updates = {};
-  updates["users/" + user_uid + "/unfinished_task/" + key] = task_obj;
-  firebaseRef.update(updates);
-}
-
-function task_edit_new(task, edit_button) {
+function task_edit(task) {
   console.log(task);
-  edit_button.setAttribute("id", "task_edit_button_editing");
-  edit_button.setAttribute(
-    "onclick",
-    "finish_edit_new(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
-  );
 
-  title = task.childNodes[0].childNodes[0];
-  title.setAttribute("contenteditable", true);
-  title.setAttribute("id", "title_editing");
-  title.focus();
+  taskKey = task.childNodes[0].childNodes[0].getAttribute("key");
 
-  date = task.childNodes[1].childNodes[0].childNodes[1].childNodes[0];
-  date.setAttribute("contenteditable", true);
-  date.setAttribute("id", "date_editing");
-  console.log(date);
+  /** Close the modal manually **/
+  //document.getElementById("close_btn").click();
+  document.getElementById("task_detail" + taskKey).style.display = "none";
 
-  description = task.childNodes[1].childNodes[0].childNodes[3];
-  description.setAttribute("contenteditable", true);
-  description.setAttribute("id", "description_editing");
+  /** Show the Edit Form */
+  document.getElementById("editTaskModal").style.display = "block";
 
-  console.log(description);
+  // taskKey = task.childNodes[0].childNodes[0].getAttribute("key");
+  title = task.childNodes[0].childNodes[0].innerHTML;
+  date = task.childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText;
+  description = task.childNodes[1].childNodes[0].childNodes[3].innerText;
+  time =
+    task.childNodes[1].childNodes[0].childNodes[1].childNodes[1].childNodes[1]
+      .innerText;
+
+  edit_task = document.getElementById("edit-task");
+  edit_task.setAttribute("value", title);
+
+  edit_date = document.getElementById("edit-date");
+  edit_date.setAttribute("value", date);
+
+  edit_time = document.getElementById("edit-time");
+  edit_time.value = time;
+
+  edit_description = document.getElementById("edit-description");
+  edit_description.value = description;
+
+  var submitButton = document.getElementById("edit_btn");
+  submitButton.addEventListener("click", get_Edited_Input, false);
+}
+
+/** edit database of user input */
+function get_Edited_Input() {
+  edit_task = document.getElementById("edit-task").value;
+  edit_date = document.getElementById("edit-date");
+  edit_time = document.getElementById("edit-time");
+  edit_description = document.getElementById("edit-description");
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      firebase
+        .database()
+        .ref("users/" + user.uid + "/unfinished_task/" + taskKey)
+        .set({
+          title: edit_task,
+          key: taskKey,
+          description: edit_description.value,
+          date: edit_date.value,
+          time: edit_time.value,
+          tag_important: tagImportant,
+          tag_progress: tagProgress,
+        });
+
+      create_unfinished_task();
+      create_upcoming_unfinished_task();
+      create_important_task();
+      create_upcoming_important_task();
+      create_inProgress_task();
+      create_upcoming_inProgress_task();
+    }
+  });
 }
 
 function task_archive(task) {
@@ -788,12 +764,10 @@ function task_archive(task) {
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[0].childNodes[0].innerHTML;
 
-  console.log(date);
   var date_given = new Date(date);
 
   var key = task.childNodes[0].getAttribute("data-key");
   var user_uid = task.childNodes[0].getAttribute("user-uid");
-  console.log(task);
 
   title =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
@@ -802,12 +776,10 @@ function task_archive(task) {
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[1].childNodes[1].innerHTML;
-  console.log(time);
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[3].childNodes[0].innerHTML;
-  console.log(description);
 
   var task_obj = {
     key: key,
@@ -833,6 +805,7 @@ function task_archive(task) {
 
   task_to_remove.remove();
   task.remove();
+  location.reload();
 }
 
 function task_finished_archive(task) {
@@ -840,12 +813,10 @@ function task_finished_archive(task) {
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[0].childNodes[0].innerHTML;
 
-  console.log(date);
   var date_given = new Date(date);
 
   var key = task.childNodes[0].getAttribute("data-key");
   var user_uid = task.childNodes[0].getAttribute("user-uid");
-  console.log(task);
 
   title =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[0].childNodes[0]
@@ -854,12 +825,10 @@ function task_finished_archive(task) {
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[1].childNodes[1].innerHTML;
-  console.log(time);
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[3].childNodes[0].innerHTML;
-  console.log(description);
 
   var task_obj = {
     key: key,
@@ -877,7 +846,7 @@ function task_finished_archive(task) {
   // delete our task from unfinished
 
   /** Close the modal manually **/
-  document.getElementById("close_btn").click();
+  document.getElementById("close_btn_completed").click();
 
   task_to_remove = firebase
     .database()
@@ -906,12 +875,10 @@ function task_delete(task) {
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[1].childNodes[1].innerHTML;
-  console.log(time);
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[3].childNodes[0].innerHTML;
-  console.log(description);
 
   var task_obj = {
     key: key,
@@ -952,12 +919,10 @@ function task_finished_delete(task) {
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[1].childNodes[1].childNodes[1].innerHTML;
-  console.log(time);
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
       .childNodes[3].childNodes[0].innerHTML;
-  console.log(description);
 
   var task_obj = {
     key: key,
@@ -972,7 +937,7 @@ function task_finished_delete(task) {
   firebaseRef.update(updates);
 
   /** Close the modal manually **/
-  document.getElementById("close_btn").click();
+  document.getElementById("close_btn_completed").click();
 
   task_to_remove.remove();
 
@@ -985,6 +950,7 @@ function create_upcoming_unfinished_task() {
     document.getElementsByClassName("up-all-container")[0];
   unfinished_upTask_container.innerHTML = "";
   var taskArrayUpcoming = [];
+  var tag_Imp_up, tag_Progress_up;
   upcomingTask_listUl = document.createElement("ul");
   upcomingTask_listUl.setAttribute("class", "task-list");
 
@@ -1015,6 +981,8 @@ function create_upcoming_unfinished_task() {
           task_title = taskArrayUpcoming[i].title;
           task_time = taskArrayUpcoming[i].time;
           task_description = taskArrayUpcoming[i].description;
+          tag_Imp_up = taskArrayUpcoming[i].tag_important;
+          tag_Progress_up = taskArrayUpcoming[i].tag_progress;
           console.log(task_title);
 
           task_list = document.createElement("li");
@@ -1044,9 +1012,13 @@ function create_upcoming_unfinished_task() {
           date.setAttribute("contenteditable", false);
           date.innerHTML = task_date;
 
-          tag = document.createElement("span");
-          tag.setAttribute("class", "tag review"); //for now review tag
-          tag.innerHTML = "important";
+          tagImp = document.createElement("span");
+          tagImp.setAttribute("class", "tag review"); //for now review tag
+          tagImp.innerHTML = "important";
+
+          tagProgress = document.createElement("span");
+          tagProgress.setAttribute("class", "tag progress"); //for now review tag
+          tagProgress.innerHTML = "progress";
 
           // TASK TOOLS
           task_tool = document.createElement("div");
@@ -1061,16 +1033,6 @@ function create_upcoming_unfinished_task() {
           task_done_button.innerHTML = "done";
           fa_done = document.createElement("i");
           fa_done.setAttribute("class", "bi bi-check-lg");
-
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
 
           task_delete_button = document.createElement("button");
           task_delete_button.setAttribute("id", "task_delete_button");
@@ -1089,15 +1051,21 @@ function create_upcoming_unfinished_task() {
 
           task_container.append(task_data);
           task_data.append(title);
-          task_data.append(tag);
+          if (tag_Imp_up) {
+            task_data.append(tagImp);
+          }
+
+          if (tag_Progress_up) {
+            task_data.append(tagProgress);
+          }
+
           task_data.append(date);
 
           task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
+
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
           task_list.append(task_details_up_unfinished);
@@ -1201,16 +1169,6 @@ function create_upcoming_important_task() {
           fa_done = document.createElement("i");
           fa_done.setAttribute("class", "bi bi-check-lg");
 
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
-
           task_delete_button = document.createElement("button");
           task_delete_button.setAttribute("id", "task_delete_button");
           task_delete_button.setAttribute(
@@ -1237,8 +1195,7 @@ function create_upcoming_important_task() {
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
+
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
         }
@@ -1314,17 +1271,18 @@ function create_upcoming_inProgress_task() {
           date = document.createElement("p");
           date.setAttribute("id", "task_date");
           date.setAttribute("contenteditable", false);
-          date.setAttribute("style", "display:none;");
+
           date.innerHTML = task_date;
 
           time = document.createElement("p");
           time.setAttribute("id", "task_time");
           time.setAttribute("contenteditable", false);
+          time.setAttribute("style", "display:none;");
           time.innerHTML = task_time;
 
           tag = document.createElement("span");
-          tag.setAttribute("class", "tag review"); //for now review tag
-          tag.innerHTML = "important";
+          tag.setAttribute("class", "tag progress"); //for now review tag
+          tag.innerHTML = "progress";
 
           // TASK TOOLS
           task_tool = document.createElement("div");
@@ -1339,16 +1297,6 @@ function create_upcoming_inProgress_task() {
           task_done_button.innerHTML = "done";
           fa_done = document.createElement("i");
           fa_done.setAttribute("class", "bi bi-check-lg");
-
-          task_edit_button = document.createElement("button");
-          task_edit_button.setAttribute("id", "task_edit_button");
-          task_edit_button.setAttribute(
-            "onclick",
-            "task_edit(this.parentElement.parentElement, this)"
-          );
-          task_edit_button.innerHTML = "edit";
-          fa_edit = document.createElement("i");
-          fa_edit.setAttribute("class", "bi bi-pencil");
 
           task_delete_button = document.createElement("button");
           task_delete_button.setAttribute("id", "task_delete_button");
@@ -1376,8 +1324,7 @@ function create_upcoming_inProgress_task() {
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
-          task_tool.append(task_edit_button);
-          task_edit_button.append(fa_edit);
+
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
         }
@@ -1602,6 +1549,7 @@ function create_task_detail_card(
 
   task_title_detail = document.createElement("h3");
   task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.setAttribute("key", key);
   task_title_detail.innerHTML = title;
   // console.log(key);
 
@@ -1626,7 +1574,7 @@ function create_task_detail_card(
   task_edit_btn.setAttribute("class", "btn btn-outline-primary ml-2");
   task_edit_btn.setAttribute(
     "onclick",
-    "task_edit_new(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+    "task_edit(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
   );
 
   task_edit_icon = document.createElement("i");
@@ -1781,7 +1729,7 @@ function create_finished_task_detail_card(
 
   task_close = document.createElement("button");
   task_close.setAttribute("class", "close task-detail-close-button");
-  task_close.setAttribute("id", "close_btn");
+  task_close.setAttribute("id", "close_btn_completed");
   task_close.setAttribute("type", "button");
   task_close.setAttribute("data-dismiss", "modal");
   task_close.setAttribute("aria-label", "Close");
@@ -1794,6 +1742,7 @@ function create_finished_task_detail_card(
 
   task_title_detail = document.createElement("h3");
   task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.setAttribute("key", key);
   task_title_detail.innerHTML = title;
   // console.log(key);
 
@@ -1983,3 +1932,85 @@ var listItens = document.querySelectorAll(".draggable");
 [].forEach.call(listItens, function (item) {
   addEventsDragAndDrop(item);
 });
+
+/** Searchbar Js */
+// getting all required elements
+const searchWrapper = document.querySelector(".search-input");
+const SearchinputBox = searchWrapper.querySelector("input");
+const suggBox = searchWrapper.querySelector(".autocom-box");
+const searchicon = searchWrapper.querySelector(".searchicon");
+let linkTag = searchWrapper.querySelector("a");
+let webLink;
+
+// if user press any key and release
+SearchinputBox.onkeyup = (e) => {
+  let userData = e.target.value; //user enetered data
+  let emptyArray = [];
+  if (userData) {
+    searchicon.onclick = () => {
+      webLink = `https://www.google.com/search?q=${userData}`;
+      linkTag.setAttribute("href", webLink);
+      linkTag.click();
+    };
+    emptyArray = taskArray.filter((data) => {
+      //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+      return data
+        ?.toLocaleLowerCase()
+        .startsWith(userData?.toLocaleLowerCase());
+    });
+    emptyArray = emptyArray.map((data) => {
+      // passing return data inside li tag
+      return (data = `<li>${data}</li>`);
+    });
+    searchWrapper.classList.add("active"); //show autocomplete box
+    showSuggestions(emptyArray);
+    let allList = suggBox.querySelectorAll("li");
+    for (let i = 0; i < allList.length; i++) {
+      //adding onclick attribute in all li tag
+
+      allList[i].setAttribute("data-toggle", "modal");
+      allList[i].setAttribute("data-target", "#task_detail" + taskID[i]);
+      console.log(allList[i].dataset.target);
+
+      task_string = "task_detail" + taskID[i];
+      console.log(task_string);
+      allList[i].setAttribute("task_id", task_string);
+      //allList[i].task_id += ;
+
+      //allList[i].setAttribute("onclick", "OpenModal(this)");
+      console.log(allList[i]);
+      console.log(taskID[i]);
+    }
+  } else {
+    searchWrapper.classList.remove("active"); //hide autocomplete box
+  }
+};
+
+function select(element) {
+  let selectData = element.textContent;
+  SearchinputBox.value = selectData;
+  searchicon.onclick = () => {
+    webLink = `https://www.google.com/search?q=${selectData}`;
+    linkTag.setAttribute("href", webLink);
+    linkTag.click();
+  };
+  searchWrapper.classList.remove("active");
+}
+
+function showSuggestions(list) {
+  let listData;
+  if (!list.length) {
+    userValue = SearchinputBox.value;
+    listData = `<li>${userValue}</li>`;
+  } else {
+    listData = list.join("");
+  }
+  suggBox.innerHTML = listData;
+}
+
+function OpenModal(id) {
+  task_id = id.getAttribute("task_id");
+  console.log(task_id);
+  modal = document.getElementById(task_id);
+  console.log(modal);
+}
