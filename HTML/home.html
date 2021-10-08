@@ -3,28 +3,29 @@
 
 <head>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+  <link id="pagestyle" 
+        href="https://bootswatch.com/4/lux/bootstrap.min.css"
+        rel="stylesheet"
+        type="text/css"
+      />
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="/Resources/CSS/home.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-  <!-- font awesome icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-
-  <!-- <link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css" /> -->
-
+  <link rel="stylesheet" href="/Resources/CSS/analytics.css">
+  <link rel="stylesheet" href="/Resources/CSS/progress.css">
   <!-- select2 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
 
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="/Resources/CSS/analytics.css">
-  <link rel="stylesheet" href="/Resources/CSS/progress.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <!-- font awesome icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
 </head>
 
 <body
   onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task(), create_important_task(), create_upcoming_important_task(), create_inProgress_task(), create_upcoming_inProgress_task(), countAllTask() ">
   <svg style=" display:none;">
-    <!-- <symbol id="logo" viewBox="0 0 140 59">
-
-    </symbol> -->
+    
     <symbol id="down" viewBox="0 0 16 16">
       <polygon points="3.81 4.38 8 8.57 12.19 4.38 13.71 5.91 8 11.62 2.29 5.91 3.81 4.38" />
     </symbol>
@@ -215,8 +216,8 @@
         </li>
         <li>
           <div class="switch">
-            <input type="checkbox" id="mode" checked>
-            <label for="mode">
+            
+            <label for="mode" style="display: none;">
               <span></span>
               <span>Dark</span>
             </label>
@@ -252,7 +253,7 @@
 
           <!-- <button type="submit" onclick="openAddForm()" class="add-button">Add</button> -->
 
-          <button class="btn btn-primary" id="add-button" data-toggle="modal" data-target="#newTaskModal"
+          <button class="btn btn-floating btn-primary" id="add-button" data-toggle="modal" data-target="#newTaskModal"
             onclick="openAddForm()">
             New Task
           </button>
@@ -427,25 +428,25 @@
 
 
 
-          <div class="all-container">
+          <div class="all-container card">
 
           </div>
-          <div class="important-container">
-
-
-
-          </div>
-          <div class="progress-container">
+          <div class="important-container card">
 
 
 
           </div>
-          <div class="completed-container">
+          <div class="progress-container card">
+
+
+
+          </div>
+          <div class="completed-container card">
 
           </div>
         </div>
 
-        <div class="header upcoming">Upcoming Tasks</div>
+        <div class="header-upcoming">Upcoming Tasks</div>
 
         <div class="content-categories">
           <div class="label-wrapper">
@@ -470,19 +471,19 @@
           </div>
         </div>
         <div class="tasks-wrapper-up">
-          <div class="up-all-container">
+          <div class="up-all-container card">
 
 
           </div>
-          <div class="upcomingImportant-container">
+          <div class="upcomingImportant-container card">
 
 
           </div>
-          <div class="upcomingInprogress-container">
+          <div class="upcomingInprogress-container card">
 
 
           </div>
-          <div class="upcomingCompleted-container">
+          <div class="upcomingCompleted-container card">
 
           </div>
 
@@ -590,6 +591,7 @@
   <script src="/JS/app.js"></script>
   <script src="/JS/TaskList.js"></script>
   <script src="/JS/homeHighlights.js"></script>
+  <script src="/JS/theme.js"></script>
   <!-- <script src="/JS/searchbar.js"></script> -->
 
 </body>
