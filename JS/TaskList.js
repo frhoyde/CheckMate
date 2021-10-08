@@ -85,4 +85,3 @@ if (user) {
 
 console.log(todaysTaskArray);
 
-console.log(upcomingTaskArray);

@@ -1968,6 +1968,37 @@ var listItens = document.querySelectorAll(".draggable");
   addEventsDragAndDrop(item);
 });
 
+
+/** tasklist js */
+
+var taskArrayTitle = [];
+
+
+firebase.auth().onAuthStateChanged(function (user) {
+  var firebaseRef = firebase.database().ref("users/" + user.uid + "/unfinished_task/").orderByChild("time"); // need for all task
+  if (user) {
+    user = firebase.auth().currentUser;
+    // Retrieve new tasks as they are added to our database
+    firebaseRef.once("value", (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        var childkey = childSnapshot.key;
+
+        taskArrayTitle.push(childSnapshot.val().title);
+      
+        
+
+        
+
+      });
+
+  });
+
+}
+
+});
+
+
+
 /** Searchbar Js */
 // getting all required elements
 const searchWrapper = document.querySelector(".search-input");
@@ -1987,7 +2018,7 @@ SearchinputBox.onkeyup = (e) => {
     //   linkTag.setAttribute("href", webLink);
     //   linkTag.click();
     // };
-    emptyArray = taskArray.filter((data) => {
+    emptyArray = taskArrayTitle.filter((data) => {
       //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
       return data
         ?.toLocaleLowerCase()
@@ -2040,9 +2071,4 @@ function showSuggestions(list) {
   suggBox.innerHTML = listData;
 }
 
-function OpenModal() {
-  console.log(task_string);
 
-  modal = document.getElementById(task_string);
-  console.log(modal);
-}
