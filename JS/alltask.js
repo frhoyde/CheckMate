@@ -146,7 +146,7 @@ function showUnfinishedTask() {
           task_delete_btn = document.createElement("button");
           task_delete_btn.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-outline-danger btn-sm ml-2"
           );
           task_delete_btn.setAttribute(
             "onclick",
@@ -296,7 +296,7 @@ function showCompletedTask() {
           three_dot_delete = document.createElement("button");
           three_dot_delete.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-outline-danger btn-sm ml-2"
           );
           //three_dot_delete.innerHTML = "delete";
 
@@ -368,6 +368,7 @@ function task_done(task_parentDiv) {
   copyTask(unfinshed_task, completed_task);
 
   task_parentDiv.remove();
+  
 }
 
 function task_delete(task_parentDiv, tasktype) {
@@ -407,3 +408,5 @@ function copyTask(oldRef, newRef) {
       console.log(err.message);
     });
 }
+
+

@@ -117,7 +117,7 @@ function showUnfinishedTaskInArchive() {
 
           three_dot_unarchive.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-primary btn-sm ml-2"
           );
 
           three_dot_unarchive.setAttribute(
@@ -158,7 +158,7 @@ function showUnfinishedTaskInArchive() {
           task_delete_btn = document.createElement("button");
           task_delete_btn.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-outline-danger btn-sm ml-2"
           );
           task_delete_btn.setAttribute(
             "onclick",
@@ -310,7 +310,7 @@ function showCompletedTaskInArchive() {
 
           three_dot_unarchive.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-primary btn-sm ml-2"
           );
 
           three_dot_unarchive.setAttribute(
@@ -337,7 +337,7 @@ function showCompletedTaskInArchive() {
           task_delete_btn = document.createElement("button");
           task_delete_btn.setAttribute(
             "class",
-            "btn btn-outline-primary btn-sm ml-2"
+            "btn btn-outline-danger btn-sm ml-2"
           );
           task_delete_btn.setAttribute(
             "onclick",

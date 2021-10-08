@@ -1,18 +1,14 @@
+
+
 body {
   margin-top: 20px;
-  color: #1a202c;
+  
   text-align: left;
-  background-color: #e2e8f0;
+ 
 }
 .main-body {
   padding: 15px;
 }
-
-.nav-link {
-  color: #4a5568;
-  
-}
-
 
 .search-box {
   display: inline-block;
@@ -22,7 +18,7 @@ body {
   border-radius: 3px;
   padding: 2px 60px 2px 15px;
   position: relative;
-  background: #fff;
+  
   border: 1px solid #ddd;
   -webkit-transition: all 200ms ease-in-out;
   -moz-transition: all 200ms ease-in-out;
@@ -51,7 +47,7 @@ body {
   position: absolute;
   right: 2px;
   top: 2px;
-  color: #aaa;
+  
   border-radius: 3px;
   font-size: 21px;
   padding: 5px 10px 1px;
@@ -59,13 +55,9 @@ body {
   -moz-transition: all 200ms ease-in-out;
   transition: all 200ms ease-in-out;
 }
-.search-box .search-btn:hover {
-  color: #fff;
-}
-
 
 body{
-    background: #F4F7FD;
+   
     margin-top:20px;
 }
 
@@ -76,6 +68,7 @@ body{
 
 .card {
     border: 0;
+    
     box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
     -webkit-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
     -moz-box-shadow: 0px 0px 10px 0px rgba(82, 63, 105, 0.1);
@@ -88,7 +81,7 @@ body{
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #ffffff;
+   
     background-clip: border-box;
     border: 1px solid #e6e4e9;
     border-radius: 8px;
@@ -138,21 +131,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #edf1fc;
+  background-color:#d2dae0;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-day {
-  color: #4e73e5;
+  
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-month {
-  color: #4e73e5;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -163,21 +156,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #fcfcfd;
+  
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-secondary .widget-49-date-day {
-  color: #dde1e9;
+  
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-secondary .widget-49-date-month {
-  color: #dde1e9;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -188,21 +181,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #e8faf8;
+ 
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-day {
-  color: #17d1bd;
+  
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-success .widget-49-date-month {
-  color: #17d1bd;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -213,21 +206,20 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #ebf7ff;
+  
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-info .widget-49-date-day {
-  color: #36afff;
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-info .widget-49-date-month {
-  color: #36afff;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -238,7 +230,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: floralwhite;
+  
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
@@ -263,7 +255,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #feeeef;
+  
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
@@ -288,21 +280,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #fefeff;
+  
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-light .widget-49-date-day {
-  color: #f7f9fa;
+ 
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-light .widget-49-date-month {
-  color: #f7f9fa;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -313,21 +305,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #ebedee;
+ 
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-dark .widget-49-date-day {
-  color: #394856;
+  
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-dark .widget-49-date-month {
-  color: #394856;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -338,21 +330,21 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: #f0fafb;
+  
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-base .widget-49-date-day {
-  color: #68CBD7;
+  
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 1;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-base .widget-49-date-month {
-  color: #68CBD7;
+  
   line-height: 1;
   font-size: 1rem;
   text-transform: uppercase;
@@ -368,13 +360,13 @@ body{
 }
 
 .widget-49 .widget-49-meeting-info .widget-49-pro-title {
-  color: #3c4142;
+  
   font-size: 20px;
   display: block;
 }
 
 .widget-49 .widget-49-meeting-info .widget-49-meeting-time {
-  color: #B1BAC5;
+ 
   font-size: 13px;
 }
 
@@ -383,7 +375,7 @@ body{
 .widget-49 .widget-49-meeting-item {
   display: block;
   flex-direction: column;
-  color: #727686;
+  
   font-weight: 400;
   font-size: 13px;
   margin-top: .5rem;
