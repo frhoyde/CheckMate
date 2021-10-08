@@ -13,14 +13,14 @@
 
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/Resources/CSS/settings.css">
+    <link rel="stylesheet" href="/Resources/CSS/help.css">
 
     <!-- Fontawesome CSS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
         integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
     <!-- Nunito Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
-    <title>Settings</title>
+    <title>Help & About</title>
 
 </head>
 
@@ -38,24 +38,27 @@
         </nav>
         <!-- /Breadcrumb -->
 
-        <div>
-            <h1 class="display-1">Contact Us</h1>
+        <div class="hero-txt">
+            <h1 class="display-1">Contact Us</h1><hr>
             <p class="lead">We are still under Development. Tell us how we can improve! Share your opinions!</p>
 
         </div>
+        <div class="form-div">
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email address</label>
+              </div>
+              <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Your Feedback</label>
+                
+            </div>  
+            <button type="button" class="btn btn-outline-secondary send-btn">Send</button>
+        </div>
+        
 
-        <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">Email address</label>
-          </div>
-          <div class="form-floating">
-            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-            <label for="floatingTextarea2">Your Feedback</label>
-            <button type="button" class="btn btn-outline-secondary">Send</button>
-        </div>  
-
-        <div>
-            <h1 class="display-1">About Us</h1>
+        <div class="about">
+            <h1 class="display-1">About Us</h1><hr>
             <p class="lead">This Project is a team effort of 3 University Students
         
             </p>

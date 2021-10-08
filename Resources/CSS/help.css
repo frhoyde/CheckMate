@@ -1,0 +1,21 @@
+h1.display-1{
+    font-size: 200%;
+}
+
+.form-div {
+    width: 70%;
+    padding-left: 200px;
+    padding-top: 20px;
+}
+
+button.send-btn {
+    margin-top: 10px;
+}
+
+.hero-txt {
+    margin-top: 20px;
+}
+
+.about {
+    margin-top: 40px;
+}
