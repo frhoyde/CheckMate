@@ -25,6 +25,18 @@ var tagProgress = null;
 var taskKey;
 var firebaseRef = firebase.database().ref();
 
+var today = new Date();
+
+var today_month =
+  today.getMonth() + 1 >= 10
+    ? today.getMonth() + 1
+    : "0" + (today.getMonth() + 1);
+
+var today_date =
+  today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
+
+var today_string = today.getFullYear() + "-" + today_month + "-" + today_date;
+
 //****Listen for auth status changes****
 firebase.auth().onAuthStateChanged(function (user) {
   console.log(user.uid);
@@ -82,9 +94,6 @@ function add_task() {
     add_task_to_database();
   }
 }
-
-var today = new Date();
-console.log(today);
 
 function create_unfinished_task() {
   unfinished_task_container =

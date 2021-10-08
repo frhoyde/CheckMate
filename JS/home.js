@@ -67,6 +67,20 @@ switchInput.addEventListener("input", function () {
 /****** Add task form ******/
 function openAddForm() {
   document.getElementById("popupForm").style.display = "block";
+
+  /** Minimum Date picker */
+  document.getElementById("input_date").setAttribute("min", today_string);
+  document.getElementById("input_date").setAttribute("value", today_string);
+
+  console.log(today_string);
+
+  /** Minimum Time picker */
+  time = document.getElementById("input_time");
+  time.setAttribute(
+    "value",
+    String(today.getHours() + ":" + today.getMinutes())
+  );
+  console.log(today.getHours() + ":" + today.getMinutes());
 }
 
 function closeAddForm() {
@@ -75,6 +89,7 @@ function closeAddForm() {
 
 function closeAddForm_edit() {
   document.getElementById("editTaskModal").style.display = "none";
+  location.reload();
 }
 
 /****Today's task radio button nav ****/
