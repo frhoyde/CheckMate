@@ -113,7 +113,7 @@ function showAllTrash() {
 
           three_dot_unarchive = document.createElement("button");
 
-          three_dot_unarchive.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          three_dot_unarchive.setAttribute("class", "btn btn-primary btn-sm ml-2");
 
           three_dot_unarchive_icon = document.createElement("i");
           three_dot_unarchive_icon.setAttribute(
@@ -126,7 +126,7 @@ function showAllTrash() {
             );
 
           three_dot_delete = document.createElement("button");
-          three_dot_delete.setAttribute("class", "btn btn-outline-primary btn-sm ml-2");
+          three_dot_delete.setAttribute("class", "btn btn-outline-danger btn-sm ml-2");
           three_dot_delete.setAttribute("data-toggle", "modal");
           three_dot_delete.setAttribute("data-target", "delete-modal");
           //three_dot_delete.innerHTML = "delete";

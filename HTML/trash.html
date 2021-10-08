@@ -14,10 +14,15 @@
         
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
+        <link id="pagestyle" 
+      href="https://bootswatch.com/4/lux/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
         
     
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="/Resources/CSS/trash.css" />
+        <link rel="stylesheet" href="/Resources/CSS/alltask.css" />
     
         <!-- Fontawesome CSS -->
         <link
@@ -41,31 +46,19 @@
         
               <!-- Breadcrumb-->
               <div class="mr-auto">
-                <nav aria-label="breadcrumb" class="main-breadcrumb">
-                  <ol class="breadcrumb clearfix  pt-0">
-                    <li class="breadcrumb-item"><a class="white-text" href="home.html">Home</a></li>
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb clearfix pt-0">
+                    <li class="breadcrumb-item"><a href="home.html">Home</a></li>
                     <li class="breadcrumb-item active">Trash</li>
                   </ol>
                 </nav>
               </div>
               <div>
-              <form class="form-inline">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                <button class="btn btn-link btn-sm search-btn" >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    class="bi bi-search"
-                    viewBox="0 0 16 16"
-                  >
-                    <path
-                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
-                    />
-                  </svg>
-                  
-                </button>
+              <form class="form-inline" >
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" style="background-color: transparent;">
+                <button class="btn btn-link btn-sm search-btn btn-icon-text">
+                  <i class="bi bi-search"></i>                  
+                </button>              
               </form>
             </div>
             </nav>
@@ -131,5 +124,6 @@
           <script src="/JS/trash.js">
 
     </script>
+    <script src="/JS/theme.js"> </script>
     </body>
 </html>

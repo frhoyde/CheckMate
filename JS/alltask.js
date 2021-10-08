@@ -368,6 +368,7 @@ function task_done(task_parentDiv) {
   copyTask(unfinshed_task, completed_task);
 
   task_parentDiv.remove();
+  
 }
 
 function task_delete(task_parentDiv, tasktype) {
