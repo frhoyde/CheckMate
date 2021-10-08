@@ -20,6 +20,9 @@ $(document).ready(function () {
   });
 });
 
+var resetBtn = document.getElementById("reset_btn");
+resetBtn.addEventListener("click", show_user_info, false);
+
 function show_user_info() {
   firebase.auth().onAuthStateChanged(function (user) {
     console.log(user.uid);
@@ -34,14 +37,80 @@ function show_user_info() {
         //document.getElementById("fullname").style.display = "none";
 
         document.getElementById("bio").innerHTML = userData.userBio;
-        document.getElementById("fb-url").innerHTML = userData.userFb;
-        document.getElementById("tw-url").innerHTML = userData.userTw;
+        document
+          .getElementById("fb-url")
+          .setAttribute("value", userData.userFb);
+        document
+          .getElementById("tw-url")
+          .setAttribute("value", userData.userTw);
+        document
+          .getElementById("location")
+          .setAttribute("value", userData.userLocation);
 
         document.getElementById("username-div").innerHTML =
           userData.userFullName;
+
+        var updateBtn = document.getElementById("update_btn");
+        updateBtn.addEventListener("click", get_Edited_data, false);
       });
     }
   });
+}
+
+function get_Edited_data() {
+  edit_name = document.getElementById("fullname-div").value;
+  edit_bio = document.getElementById("bio").value;
+  edit_fb = document.getElementById("fb-url").value;
+  edit_tw = document.getElementById("tw-url").value;
+  edit_location = document.getElementById("location").value;
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      var firebaseRef = firebase.database().ref("users/");
+
+      var userData = {
+        userUid: user.uid,
+        // userFullName: edit_name,
+        // userEmail: user.userEmail,
+        // userPassword: userPassword,
+        userFb: edit_fb,
+        userTw: edit_tw,
+        userBio: edit_bio,
+        userLocation: edit_location,
+      };
+
+      firebaseRef.child(user.uid).update(userData);
+
+      show_user_info();
+      location.reload();
+    }
+  });
+}
+
+var deleteAccBtn = document.getElementById("delete_account_btn");
+deleteAccBtn.addEventListener("click", delete_account, false);
+
+function delete_account() {
+  const user = firebase.auth().currentUser;
+
+  console.log(user);
+  firebase
+    .database()
+    .ref("users/" + user.uid)
+    .remove();
+
+  user
+    .delete()
+    .then(() => {
+      console.log("The User Is Deleted From Our Server");
+      //window.location.replace("/indext.html");
+      // User deleted.
+    })
+    .catch((error) => {
+      console.log("The Error: " + error);
+      // An error ocurred
+      // ...
+    });
 }
 
 show_user_info();

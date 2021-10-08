@@ -134,7 +134,8 @@
                                     <label for="fullName">Full Name</label>
                                     <div id="fullname-div"><input type="text" class="form-control" id="fullName"
                                             aria-describedby="fullNameHelp"></div>
-                                    <small id="fullNameHelp" class="form-text text-muted">You can change or remove it at
+                                    <small id="fullNameHelp" class="form-text text-muted">You can not change or remove
+                                        it at
                                         any time.</small>
                                 </div>
                                 <div class="form-group">
@@ -162,8 +163,8 @@
                                     filling them out, you're giving us consent to share this data wherever your user
                                     profile appears.
                                 </div>
-                                <button type="button" class="btn btn-primary">Update Profile</button>
-                                <button type="reset" class="btn btn-light">Reset Changes</button>
+                                <button type="button" class="btn btn-primary" id="update_btn">Update Profile</button>
+                                <button type="reset" class="btn btn-light" id="reset_btn">Reset Changes</button>
                             </form>
                         </div>
                         <div class="tab-pane" id="account">
@@ -183,7 +184,8 @@
                                     <p class="text-muted font-size-sm">Once you delete your account, there is no going
                                         back. Please be certain.</p>
                                 </div>
-                                <button class="btn btn-danger" type="button">Delete Account</button>
+                                <button class="btn btn-danger" id="delete_account_btn" type="button">Delete
+                                    Account</button>
                             </form>
                         </div>
                         <div class="tab-pane" id="security">
