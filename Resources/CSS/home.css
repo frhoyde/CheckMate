@@ -265,11 +265,11 @@ body {
   margin: 0 10px 0 20px;
 }
 
-.search-and-user .admin-profile .add-task #add-button {
+/* .search-and-user .admin-profile .add-task #add-button {
   cursor: pointer;
   outline: none;
   position: relative;
-}
+} */
 
 .search-and-user .admin-profile .add-task .addTaskPopup .addTask-formPopup {
   display: none;
@@ -322,7 +322,6 @@ body {
   border-color: #1172c4;
   border-style: solid;
   border-width: 2px;
-  border-radius: 22px;
   padding: 9px 9px;
   transition: all 0.2s linear;
 }
@@ -335,9 +334,9 @@ body {
   border-color: var(--white);
   transition: all 0.2s linear;
 }
-.search-and-user #add-button:active {
+/* .search-and-user #add-button:active {
   border-radius: 22px;
-}
+} */
 
 .search-and-user .admin-profile svg {
   width: 30px;
@@ -621,7 +620,7 @@ body {
   flex-direction: column;
   flex: 1;
   padding: 40px 20px 0 20px;
-  width: max-content;
+  width: 115%;
 }
 
 .page-content2-header {
@@ -691,7 +690,7 @@ body {
   margin-bottom: 16px;
   padding-left: 30px;
   color: var(--task-color);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
 }
 .task_container:hover {
@@ -885,7 +884,7 @@ label .label-text:before {
 
 .edit_taskForm .modal-content {
   position: fixed;
-  width: fit-content;
+  /* width: fit-content; */
   left: 53%;
   top: 15%;
   transform: translate(-50%, 5%);
@@ -1065,13 +1064,10 @@ input[type="time"]::-webkit-datetime-edit-fields-wrapper {
   padding: auto;
 }
 
-/* 
-.task-detail {
-  display: none;
-  position: relative;
-  width: fit-content;
-  z-index: 2;
-} */
+.task-modal-card {
+  width: 70%;
+  height: 30%;
+}
 
 /* For Drag and Drop in Task */
 
