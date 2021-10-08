@@ -218,7 +218,9 @@ function countTrashTask() {
         //show_trash.setAttribute("class", "card-text");
         show_trash.innerHTML = all;
         show_count_trash_task.append(show_trash);
-        showDonut();
+        showHighlights();
+        showUpcomingHighlights();
+        showDonut();  
       });
     }
   });
@@ -310,14 +312,11 @@ function showChart() {
       maintainAspectRatio: false,
     },
   });
-  showHighlights();
+  
 }
 
 function showHighlights() {
-  showcompText = document.getElementById("comText");
-  showcompText.innerHTML = "";
-  showcompText.append(up_fin);
-
+  
   showtcompText = document.getElementById("tcomText");
   showtcompText.innerHTML = "";
   showtcompText.append(t_fin);
@@ -326,10 +325,6 @@ function showHighlights() {
   showtunText.innerHTML = "";
   showtunText.append(t_unfin);
 
-  showunText = document.getElementById("unText");
-  showunText.innerHTML = "";
-  showunText.append(up_unfin);
-
   var t_all = t_fin + t_unfin;
   var up_all = up_fin + up_unfin;
   var twidth = (t_fin * 100) / t_all;
@@ -337,6 +332,19 @@ function showHighlights() {
   $(document).ready(function () {
     $("#tprogress").width(twidth);
   });
+}
+
+function showUpcomingHighlights() {
+  showcompText = document.getElementById("comText");
+  showcompText.innerHTML = "";
+  showcompText.append(up_fin);
+
+  showunText = document.getElementById("unText");
+  showunText.innerHTML = "";
+  showunText.append(up_unfin);
+  var up_all = up_fin + up_unfin;
+  var upwidth = (up_fin * 100) / up_all;
+
   $(document).ready(function () {
     $("#upprogress").width(upwidth);
   });

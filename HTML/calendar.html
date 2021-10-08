@@ -12,16 +12,21 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+   <link id="pagestyle" 
+      href="https://bootswatch.com/4/lux/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    
 
   <!--Adding ui-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  
   <link rel="stylesheet" type="text/css" href="/Calendar/calendar.css" />
-  <link rel="stylesheet" type="text/css" href="/Resources/CSS/settings.css" />
+  
+  <link rel="stylesheet" type="text/css" href="/Resources/CSS/alltask.css" />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet" />
+  
   <!--Adding ui-->
 </head>
 
@@ -32,7 +37,7 @@
   <nav aria-label="breadcrumb" class="main-breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/HTML/home.html">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Settings</li>
+        <li class="breadcrumb-item active" aria-current="page">Calendar</li>
     </ol>
 </nav>
 <!-- /Breadcrumb -->
@@ -41,7 +46,7 @@
   <div class="signin-out-button">
     <!--Add buttons to initiate auth sequence and sign out-->
     <button id="authorize_button" 
-     class="btn btn-secondary" data-toggle="tooltip" title="Sign in with your Google account to sync your google calendar events here" data-placement="right" target="__blank" >Sync with google account</button>
+     class="btn btn-primary" data-toggle="tooltip" title="Sign in with your Google account to sync your google calendar events here" data-placement="right" target="__blank" > Sync with google account</button>
     <button id="signout_button">Sign Out from google account</button>
     
 
@@ -101,6 +106,7 @@
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
   <script src="/Calendar/calendar.js"></script>
   <script src="/Calendar/demo.js"></script>
+  <script src="/JS/theme.js"></script>
 
   <script>
    $(document).ready(function(){
