@@ -131,7 +131,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  
+  background-color:#d2dae0;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
