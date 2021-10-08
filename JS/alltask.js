@@ -81,7 +81,7 @@ function showUnfinishedTask() {
           title_time.innerHTML = task_time;
 
           date = document.createElement("div");
-          date.setAttribute("class", "widget-49-date-primary");
+          date.setAttribute("class", "widget-49-date-primary dateBackground");
           //date.setAttribute("contenteditable", false);
 
           date_day = document.createElement("span");
@@ -261,7 +261,7 @@ function showCompletedTask() {
           title_time.innerHTML = task_time;
 
           date = document.createElement("div");
-          date.setAttribute("class", "widget-49-date-primary");
+          date.setAttribute("class", "widget-49-date-primary dateBackground");
           //date.setAttribute("contenteditable", false);
 
           date_day = document.createElement("span");
@@ -331,6 +331,7 @@ function showCompletedTask() {
           three_dot_delete.append(three_dot_delete_icon);
           main_text.append(description_div);
           description_div.append(description);
+
         }
       });
     }
@@ -408,5 +409,4 @@ function copyTask(oldRef, newRef) {
       console.log(err.message);
     });
 }
-
 

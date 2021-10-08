@@ -131,10 +131,22 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color:#d2dae0;
   width: 4rem;
   height: 4rem;
   border-radius: 50%;
+}
+
+.natureMode .widget-49-date-primary{
+  background-color:#c5ebe0;
+}
+.pitchMode .widget-49-date-primary{
+  background-color:#272b30;
+}
+.classicMode .widget-49-date-primary{
+  background-color:gainsboro;
+}
+.midnightMode .widget-49-date-primary{
+  background-color:#2b3e50;
 }
 
 .widget-49 .widget-49-title-wrapper .widget-49-date-primary .widget-49-date-day {
