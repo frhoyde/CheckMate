@@ -230,7 +230,7 @@ function create_unfinished_task() {
 
           task_data.append(time);
           task_data.append(date);
-          task_container.append(task_tool);
+          // task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
@@ -361,7 +361,7 @@ function create_important_task() {
           task_data.append(tag);
           task_data.append(time);
           task_data.append(date);
-          task_container.append(task_tool);
+          // task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
@@ -494,7 +494,7 @@ function create_inProgress_task() {
           task_data.append(tag);
           task_data.append(time);
           task_data.append(date);
-          task_container.append(task_tool);
+          // task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
@@ -602,7 +602,7 @@ function create_finished_task() {
         task_data.append(tag);
         task_data.append(date);
 
-        task_container.append(task_tool);
+        // task_container.append(task_tool);
         task_tool.append(task_delete_button);
         task_delete_button.append(fa_delete);
         task_list.append(task_details);
@@ -1146,7 +1146,7 @@ function create_upcoming_unfinished_task() {
 
           task_data.append(date);
 
-          task_container.append(task_tool);
+          //  task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
@@ -1279,7 +1279,7 @@ function create_upcoming_important_task() {
           task_data.append(tag);
           task_data.append(time);
           task_data.append(date);
-          task_container.append(task_tool);
+          // task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
@@ -1416,7 +1416,7 @@ function create_upcoming_inProgress_task() {
           task_data.append(tag);
           task_data.append(time);
           task_data.append(date);
-          task_container.append(task_tool);
+          // task_container.append(task_tool);
 
           task_tool.append(task_done_button);
           task_done_button.append(fa_done);
@@ -1531,7 +1531,7 @@ function create_upcoming_finished_task() {
         task_data.append(tag);
         task_data.append(date);
 
-        task_container.append(task_tool);
+        // task_container.append(task_tool);
         task_tool.append(task_delete_button);
         task_delete_button.append(fa_delete);
         task_list.append(task_details);
