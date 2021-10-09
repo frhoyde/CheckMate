@@ -1053,7 +1053,8 @@ button.icon-button > span.chevron-arrow-right {
 .midnightMode .calendar-sidebar > .month-list > .calendar-months > li.active-month {
   background-color: #ebebeb;
 }
-.midnightMode .calendar-sidebar > .month-list > .calendar-months > li:hover {
+.midnightMode .calendar-sidebar > .month-list > .calendar-months > li:hover,
+.midnightMode .event-container::before {
   background-color: #ebebeb;
 }
 .midnightMode .calendar-inner{
@@ -1146,7 +1147,8 @@ button.icon-button > span.chevron-arrow-right {
 .pitchMode .calendar-sidebar > .month-list > .calendar-months > li.active-month {
   background-color: #3a3f44;
 }
-.pitchMode .calendar-sidebar > .month-list > .calendar-months > li:hover {
+.pitchMode .calendar-sidebar > .month-list > .calendar-months > li:hover,
+.pitchMode .event-container::before {
   background-color: #aaaaaa;
 }
 .pitchMode .calendar-inner{
@@ -1244,7 +1246,8 @@ button.icon-button > span.chevron-arrow-right {
 .natureMode .calendar-sidebar > .month-list > .calendar-months > li.active-month {
   background-color: #f3969a;
 }
-.natureMode .calendar-sidebar > .month-list > .calendar-months > li:hover {
+.natureMode .calendar-sidebar > .month-list > .calendar-months > li:hover,
+.natureMode .event-container::before {
   background-color: #ffbfc1;
 }
 .natureMode .calendar-inner{
