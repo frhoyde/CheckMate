@@ -65,7 +65,7 @@ function getUserData(uid) {
     });
 }
 
-/*** copy to Trash in Firebase *****/
+/*** copy to AllTask in Firebase *****/
 function copyTask(oldRef, newRef) {
   oldRef
     .once("value")
@@ -109,9 +109,12 @@ function create_unfinished_task() {
       .ref("users/" + user.uid + "/unfinished_task/")
       .orderByChild("time");
 
-    // var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
+    var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
 
-    // copyTask(firebaseRef, allTask);
+    copyTask(
+      firebase.database().ref("users/" + user.uid + "/unfinished_task/"),
+      allTask
+    );
 
     if (user) {
       user = firebase.auth().currentUser;
@@ -522,6 +525,15 @@ function create_finished_task() {
     var firebaseRef = firebase
       .database()
       .ref("users/" + user.uid + "/finished_task/");
+
+    var allTask_complete = firebase
+      .database()
+      .ref("users/" + user.uid + "/all_task/");
+
+    copyTask(
+      firebase.database().ref("users/" + user.uid + "/finished_task/"),
+      allTask_complete
+    );
 
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
@@ -1041,6 +1053,15 @@ function create_upcoming_unfinished_task() {
       .database()
       .ref("users/" + user.uid + "/unfinished_task/")
       .orderByChild("date");
+
+    var allTask_up = firebase
+      .database()
+      .ref("users/" + user.uid + "/all_task/");
+
+    copyTask(
+      firebase.database().ref("users/" + user.uid + "/unfinished_task/"),
+      allTask_up
+    );
     if (user) {
       user = firebase.auth().currentUser;
       // Retrieve new tasks as they are added to our database
@@ -1447,6 +1468,13 @@ function create_upcoming_finished_task() {
       .database()
       .ref("users/" + user.uid + "/finished_task/")
       .orderByChild("date");
+
+    var allTask = firebase.database().ref("users/" + user.uid + "/all_task/");
+
+    copyTask(
+      firebase.database().ref("users/" + user.uid + "/finished_task/"),
+      allTask
+    );
 
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
