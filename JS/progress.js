@@ -22,17 +22,35 @@ var t_fin = 0,
   up_fin = 0,
   up_unfin = 0;
 
-  var newAllTask=0;
-  var newUnfinTask=0;
-  var newFinTask=0;
-
 function countAllTask() {
+  var all;
+  var taskArray = [];
   show_count_all_task = document.getElementById("show_all");
   show_count_all_task.innerHTML = "";
-  newAllTask = newFinTask+newUnfinTask;
-  show_all = document.createElement("div");
-        show_all.innerHTML = newAllTask;
+  firebase.auth().onAuthStateChanged(function (user) {
+    var firebaseRef = firebase
+      .database()
+      .ref("users/" + user.uid + "/all_task/");
+    if (user) {
+      user = firebase.auth().currentUser;
+      // Retrieve new tasks as they are added to our database
+      firebaseRef.once("value", (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+          var childkey = childSnapshot.key;
+          var date_given = new Date(childSnapshot.val().date);
+
+          taskArray.push(childSnapshot.val());
+        });
+        all = taskArray.length;
+
+        show_all = document.createElement("div");
+        show_all.innerHTML = all;
         show_count_all_task.append(show_all);
+
+        countfinishedTask();
+      });
+    }
+  });
 }
 
 function countfinishedTask() {
@@ -57,7 +75,6 @@ function countfinishedTask() {
         });
 
         all = taskArray.length;
-        newFinTask = all;
         fin.push(all);
         var d = null;
         for (var i, i = 0; i < taskArray.length; i++) {
@@ -130,7 +147,6 @@ function countunfinishedTask() {
           taskArray.push(childSnapshot.val());
         });
         all = taskArray.length;
-        newUnfinTask= all;
         fin.push(all);
         console.log(all);
         var d = null;
@@ -202,7 +218,6 @@ function countTrashTask() {
         //show_trash.setAttribute("class", "card-text");
         show_trash.innerHTML = all;
         show_count_trash_task.append(show_trash);
-        countAllTask();
         showHighlights();
         showUpcomingHighlights();
         showDonut();  
