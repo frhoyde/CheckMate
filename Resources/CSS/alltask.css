@@ -1,5 +1,7 @@
 
-
+html { 
+  scroll-behavior: smooth; 
+} 
 body {
   margin-top: 20px;
   

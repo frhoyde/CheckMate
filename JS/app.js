@@ -2030,18 +2030,31 @@ SearchinputBox.onkeyup = (e) => {
     searchWrapper.classList.add("active"); //show autocomplete box
     showSuggestions(emptyArray);
     let allList = suggBox.querySelectorAll("a");
+    let allString = suggBox.querySelectorAll("li");
+
+    function hrefAdder(TitleString){
+      for(let i = 0; i < todaysTaskArray.length;i++){
+        
+        if(TitleString == taskArrayTitle[i]){
+          // console.log(i);
+          return i;
+        }
+      }
+    }
+
     for (let i = 0; i < allList.length; i++) {
       //adding onclick attribute in all li tag
-
-      task_string = "cardId" + taskID[i];
+      taskTitleString = allString[i].innerHTML;
+      
+      task_string = "cardId" + taskID[hrefAdder(taskTitleString)];
       console.log(task_string);
       allList[i].setAttribute("href", "alltask.html#" + task_string);
       //allList[i].task_id += ;
 
       //allList[i].setAttribute("onclick", "OpenModal(this)");
 
-      console.log(allList[i]);
-      console.log(taskID[i]);
+      // console.log(allList[i]);
+      // console.log(taskID[i]);
     }
     // } else if (document.getElementById("searchbox-home").hasFocus() == false) {
     //   searchWrapper.classList.remove("active"); //hide autocomplete box
@@ -2063,7 +2076,7 @@ function showSuggestions(list) {
   let listData;
   if (!list.length) {
     userValue = SearchinputBox.value;
-    listData = `No Tasks Found`;
+    listData = `<li>No Tasks Found<li>`;
   } else {
     listData = list.join("");
   }
@@ -2168,8 +2181,8 @@ firebase.auth().onAuthStateChanged(function (user) {
         
           for(var i = 0; i < notificationTimes.length; i++){
             
-            if(stringToHour(currentTime) == stringToHour(notificationTimes[i]) &&
-                (stringToMin(notificationTimes[i]) - stringToMin(currentTime)) == 1 ){
+            if( (stringToHour(currentTime) == stringToHour(notificationTimes[i])) &&
+                ((stringToMin(notificationTimes[i]) - stringToMin(currentTime)) == 1) ){
 
                   setTimeout(() => {location.reload()}, 10000);
             }else if( ((stringToHour(notificationTimes[i]) - stringToHour(currentTime)) == 1) &&
