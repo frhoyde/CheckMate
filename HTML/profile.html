@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
         integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
+    <link rel="stylesheet" href="https://bootswatch.com/4/minty/bootstrap.min.css">
     <!-- Nunito Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
     <title>Profile </title>
@@ -27,10 +27,10 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 p-4 divCover">
                         <img class="img-responsive" src="../Resources/img/bgSignIn.png" alt="logo image"
-                        style="vertical-align:left;margin:0px -25px;align-items: center;">
+                            style="vertical-align:left;margin:0px -25px;align-items: center;">
                     </div>
                     <div class="col-lg-6 col-md-6 p-lg-5 p-md-5 px-3 py-4 text-dark bg-white">
-                        
+
                         <div id="editProfileForm">
                             <h2 class="h2 text-center text-dark mb-3">Profile Information</h2>
                             <div class="form-group">
@@ -40,13 +40,7 @@
                                 <small id="userFullNameError" class="form-text ">Please fill the
                                     field.</small>
                             </div>
-                            <div class="form-group">
-                                <label for="userSurname">Surname<span class="text-danger ml-1">*</span></label>
-                                <input type="text" class="form-control" id="userSurname" onblur="checkUserSurname()"
-                                    placeholder="Your surname">
-                                <small id="userSurnameError" class="form-text ">Please fill the
-                                    field.</small>
-                            </div>
+
                             <div class="form-group">
                                 <label for="userFacebook">Facebook</label>
                                 <input type="text" class="form-control" id="userFacebook"
@@ -59,15 +53,27 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="userNumber">Phone Number</label>
+                                <input type="text" class="form-control" id="userNumber"
+                                    placeholder="Enter Your Phone Number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userLocation">Location</label>
+                                <input type="text" class="form-control" id="userLocation"
+                                    placeholder="Enter Your Location">
+                            </div>
+
+                            <div class="form-group">
                                 <label for="userBio">Biography<span class="text-danger ml-1">*</span></label>
                                 <textarea class="form-control" id="userBio" rows="4"></textarea>
                             </div>
-                            <button type="button" class="btn btn-outline-danger text-uppercase mb-3 float-right" style="margin-left: 5%;"
-                            onclick="signOut()">
-                            Sign Out<small></small></button>
+                            <button type="button" class="btn btn-outline-danger text-uppercase mb-3 float-right"
+                                style="margin-left: 5%;" onclick="signOut()">
+                                Sign Out<small></small></button>
                             <button type="button" class="btn btn-outline-primary text-uppercase mb-3 float-right"
                                 onclick="saveProfile()">Save</button>
-                               
+
                         </div>
                     </div>
                 </div>

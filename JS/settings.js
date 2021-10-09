@@ -23,6 +23,12 @@ $(document).ready(function () {
 var resetBtn = document.getElementById("reset_btn");
 resetBtn.addEventListener("click", show_user_info, false);
 
+var deleteAccBtn = document.getElementById("delete_account_btn");
+deleteAccBtn.addEventListener("click", delete_account, false);
+
+var passwordRest = document.getElementById("passwordReset_btn");
+passwordRest.addEventListener("click", resetPassword, false);
+
 function show_user_info() {
   firebase.auth().onAuthStateChanged(function (user) {
     console.log(user.uid);
@@ -33,7 +39,7 @@ function show_user_info() {
         const userData = snapshot.val();
         //console.log(userData);
         document.getElementById("fullname-div").innerHTML =
-          userData.userFullName + " " + userData.userSurname;
+          userData.userFullName;
         //document.getElementById("fullname").style.display = "none";
 
         document.getElementById("bio").innerHTML = userData.userBio;
@@ -70,9 +76,6 @@ function get_Edited_data() {
 
       var userData = {
         userUid: user.uid,
-        // userFullName: edit_name,
-        // userEmail: user.userEmail,
-        // userPassword: userPassword,
         userFb: edit_fb,
         userTw: edit_tw,
         userBio: edit_bio,
@@ -86,9 +89,6 @@ function get_Edited_data() {
     }
   });
 }
-
-var deleteAccBtn = document.getElementById("delete_account_btn");
-deleteAccBtn.addEventListener("click", delete_account, false);
 
 function delete_account() {
   const user = firebase.auth().currentUser;
@@ -110,6 +110,24 @@ function delete_account() {
       console.log("The Error: " + error);
       // An error ocurred
       // ...
+    });
+}
+
+function resetPassword() {
+  var auth = firebase.auth();
+
+  var emailAddress = auth.currentUser.email;
+
+  console.log(emailAddress);
+  auth
+    .sendPasswordResetEmail(emailAddress)
+    .then(function () {
+      console.log("Email sent to user");
+      // Email sent.
+    })
+    .catch(function (error) {
+      console.log("The error: " + error);
+      // An error happened.
     });
 }
 

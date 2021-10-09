@@ -13,6 +13,9 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+var tagImportant = null;
+var tagProgress = null;
+
 function showUnfinishedTask() {
   var taskArray = [];
   show_unfinised_task_container =
@@ -40,22 +43,19 @@ function showUnfinishedTask() {
           task_time = taskArray[i].time;
           console.log(task_title);
 
-          //var date_given_month = new Date(task_date);
-
-          // task_list = document.createElement("li");
-
-          // task_container = document.createElement("div");
-          // task_container.setAttribute("class", "task_container");
-          // task_container.setAttribute("data-key", task_key);
-          // task_container.setAttribute("user-uid", user.uid);
-
           // TASK DATA
           card_box = document.createElement("div");
           card_box.setAttribute("class", "col-lg-4");
 
           card_margin = document.createElement("div");
           card_margin.setAttribute("class", "card card-margin");
+
           card_margin.id = "cardId" + task_key;
+
+          card_margin.setAttribute("title", task_title);
+          card_margin.setAttribute("Tdate", task_date);
+          card_margin.setAttribute("Ttime", task_time);
+          card_margin.setAttribute("Tdescription", task_description);
 
           card_body = document.createElement("div");
           card_body.setAttribute("class", "card-body pt-0");
@@ -139,7 +139,10 @@ function showUnfinishedTask() {
             "class",
             "btn btn-outline-primary btn-sm ml-2"
           );
-          task_edit_btn.setAttribute("onclick", "task_edit()");
+          task_edit_btn.setAttribute(
+            "onclick",
+            "task_edit(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+          );
 
           task_edit_icon = document.createElement("i");
           task_edit_icon.setAttribute("class", "bi bi-pen");
@@ -220,15 +223,6 @@ function showCompletedTask() {
           task_description = taskArray[i].description;
           task_time = taskArray[i].time;
           console.log(task_title);
-
-          //var date_given_month = new Date(task_date);
-
-          // task_list = document.createElement("li");
-
-          // task_container = document.createElement("div");
-          // task_container.setAttribute("class", "task_container");
-          // task_container.setAttribute("data-key", task_key);
-          // task_container.setAttribute("user-uid", user.uid);
 
           // TASK DATA
           card_box = document.createElement("div");
@@ -369,6 +363,72 @@ function task_done(task_parentDiv) {
   copyTask(unfinshed_task, completed_task);
 
   task_parentDiv.remove();
+
+  showUnfinishedTask();
+  showCompletedTask();
+}
+
+function closeAddForm_edit() {
+  document.getElementById("editTaskModal").style.display = "none";
+  location.reload();
+}
+
+function task_edit(task_parentDiv) {
+  console.log(task_parentDiv);
+
+  task = task_parentDiv.childNodes[0];
+  console.log(task);
+
+  /** Show the Edit Form */
+  document.getElementById("editTaskModal").style.display = "block";
+
+  taskKey = task.getAttribute("id").substring(6);
+  console.log(taskKey);
+
+  title = task.getAttribute("title");
+  console.log(title);
+  date = task.getAttribute("Tdate");
+  description = task.getAttribute("Tdescription");
+  time = task.getAttribute("Ttime");
+
+  document.getElementById("edit-task").value = title;
+
+  document.getElementById("edit-date").value = date;
+
+  document.getElementById("edit-time").value = time;
+
+  document.getElementById("edit-description").value = description;
+
+  var submitButton = document.getElementById("edit_btn");
+  submitButton.addEventListener("click", get_Edited_Input, false);
+}
+
+/** edit database of user input */
+function get_Edited_Input() {
+  edit_task = document.getElementById("edit-task").value;
+  edit_date = document.getElementById("edit-date");
+  edit_time = document.getElementById("edit-time");
+  edit_description = document.getElementById("edit-description");
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+      firebase
+        .database()
+        .ref("users/" + user.uid + "/unfinished_task/" + taskKey)
+        .set({
+          title: edit_task,
+          key: taskKey,
+          description: edit_description.value,
+          date: edit_date.value,
+          time: edit_time.value,
+          tag_important: tagImportant,
+          tag_progress: tagProgress,
+        });
+
+      showUnfinishedTask();
+      showCompletedTask();
+    }
+  });
 }
 
 function task_delete(task_parentDiv, tasktype) {
@@ -408,3 +468,36 @@ function copyTask(oldRef, newRef) {
       console.log(err.message);
     });
 }
+
+/** Select2 For Tag */
+$(".select2").select2({
+  tags: true,
+  maximumSelectionLength: 10,
+  tokenSeparators: [",", " "],
+  placeholder: "Select or type keywords",
+  //minimumInputLength: 1,
+  //ajax: {
+  //   url: "you url to data",
+  //   dataType: 'json',
+  //  quietMillis: 250,
+  //  data: function (term, page) {
+  //     return {
+  //         q: term, // search term
+  //    };
+  //  },
+  //  results: function (data, page) {
+  //  return { results: data.items };
+  //   },
+  //   cache: true
+  // }
+});
+
+$(".select2").on("select2:select", function (e) {
+  var select_val = $(e.currentTarget).val();
+  console.log(select_val);
+
+  select_val.forEach(function (item) {
+    if (item == "Important") tagImportant = "Important";
+    if (item == "In-Progress") tagProgress = "In-Progress";
+  });
+});
