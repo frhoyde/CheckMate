@@ -2071,3 +2071,163 @@ function showSuggestions(list) {
 }
 
 
+/*** Notifications js */
+
+
+var todaysTaskArray = [];
+  
+  var today = new Date();
+  var notificationTimes = [];
+  var notificationTxt;
+
+firebase.auth().onAuthStateChanged(function (user) {
+  var firebaseRef = firebase.database().ref("users/" + user.uid + "/unfinished_task/").orderByChild("time"); // need for all task
+  if (user) {
+    user = firebase.auth().currentUser;
+    // Retrieve new tasks as they are added to our database
+    firebaseRef.once("value", (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        var childkey = childSnapshot.key;
+
+        var date_given = new Date(childSnapshot.val().date);
+        
+      /*** Checking if task is for today or not ***/
+      if (
+        today.getDate() == date_given.getDate() &&
+        today.getMonth() == date_given.getMonth() &&
+        today.getFullYear() == date_given.getFullYear()
+      )
+        todaysTaskArray.push(childSnapshot.val());
+        
+
+        
+
+      });
+      var i;
+      for(i = 0; i < todaysTaskArray.length; i++){
+ 
+        var timeVar = todaysTaskArray[i].time;
+        var hourVar = stringToHour(timeVar);
+        var minVar = stringToMin(timeVar);
+        if(minVar >=30){
+            minVar -= 30;
+        }else {
+            minVar = 60 - (30 - minVar);
+            hourVar -= 1;
+        }
+        console.log(hourVar + ":" +minVar);
+    
+        notificationTimes.push(timeToString(hourVar, minVar));
+        console.log(todaysTaskArray);
+
+
+    }
+
+
+
+    
+    
+    var today_month =
+      today.getMonth() + 1 >= 10
+        ? today.getMonth() + 1
+        : "0" + (today.getMonth() + 1);
+    
+    var today_date =
+      today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
+
+
+    
+    var today_string = today.getFullYear() + "-" + today_month + "-" + today_date;
+
+
+
+    
+        function timeToString(a, b){
+            return a + ":" + b;
+        }
+        
+        function stringToHour(a){
+            return parseInt(a[0] + a[1]);
+        }
+        
+        function stringToMin(a){
+            return parseInt(a[3]+a[4]);
+        }
+    
+    
+    
+        setInterval(updateTime, 60000);
+        
+        function updateTime() {
+        let time = new Date();
+        let hour = time.getHours();
+        let min = time.getMinutes();
+        
+        var currentTime = hour + ":" + min;
+        
+        
+          for(var i = 0; i < notificationTimes.length; i++){
+            
+            if(stringToHour(currentTime) == stringToHour(notificationTimes[i]) &&
+                (stringToMin(notificationTimes[i]) - stringToMin(currentTime)) == 1 ){
+
+                  setTimeout(() => {location.reload()}, 10000);
+            }else if( ((stringToHour(notificationTimes[i]) - stringToHour(currentTime)) == 1) &&
+                     ( stringToMin(notificationTimes[i]) == 0) && (stringToMin(currentTime) == 59) ){
+                  setTimeout(() => {location.reload()}, 10000);
+            }
+
+
+
+
+            
+              if(currentTime === notificationTimes[i]){
+                  
+                  callNotification(i);
+                  break;
+              }
+          }
+            
+        
+      
+       
+    
+        }
+        updateTime();
+
+      function ShowNotification(){
+        var currTime = today.getHours() + ":" + today.getMinutes();
+        const notificationObj = new Notification(notificationTxt, {
+          body: currTime
+        });
+      }
+    
+    function callNotification(i){
+        // var list = document.getElementById("notification-list");
+        // var li = document.createElement("li");
+       
+        notificationTxt = todaysTaskArray[i].title;
+        // li.innerHTML = notificationTxt;
+        // list.appendChild(li);
+        
+        if(Notification.permission === "granted"){
+          ShowNotification();
+
+          
+        }
+        
+      }
+
+  });
+
+  
+
+  }
+
+});
+
+if(Notification.permission !== "denied"){
+  Notification.requestPermission().then( permission => {
+    console.log(permission);
+  });
+}
