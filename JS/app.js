@@ -622,6 +622,26 @@ function create_task_container(idNumber, key, userUid) {
   return task_container;
 }
 
+// Create Task Container for Tag Containers
+function create_task_container_tag(idNumber, key, userUid) {
+  task_container_tag = document.createElement("div");
+  task_container_tag.setAttribute("class", "task_container");
+  task_container_tag.setAttribute("id", "task_container_modal");
+  // task_container.setAttribute("data-toggle", "modal");
+  // task_container_tag.setAttribute("data-target", "#task_detail" + key);
+  id_string = "task_detail" + key;
+  // console.log(task_container.dataset.target);
+  task_container_tag.addEventListener("click", function () {
+    // document.getElementById(id_string).classList.remove("fade");
+    document.getElementById(id_string).style = "display: block";
+    console.log(document.getElementById(id_string));
+  });
+
+  task_container_tag.setAttribute("data-key", key);
+  task_container_tag.setAttribute("user-uid", userUid);
+  return task_container_tag;
+}
+
 //Create Task Title
 
 function create_title(task_title) {
@@ -724,7 +744,8 @@ function task_edit(task) {
   date = task.childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText;
   description = task.childNodes[1].childNodes[0].childNodes[3].innerText;
   time =
-    task.childNodes[1].childNodes[0].childNodes[1].childNodes[1].childNodes[1].innerText;
+    task.childNodes[1].childNodes[0].childNodes[1].childNodes[1].childNodes[0]
+      .childNodes[0].innerText;
 
   edit_task = document.getElementById("edit-task");
   edit_task.setAttribute("value", title);
@@ -840,7 +861,8 @@ function task_finished_archive(task) {
 
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
-      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+      .childNodes[1].childNodes[1].childNodes[0].innerText;
+  console.log(time);
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
@@ -1967,14 +1989,16 @@ var listItens = document.querySelectorAll(".draggable");
   addEventsDragAndDrop(item);
 });
 
-
 /** tasklist js */
 
 var taskArrayTitle = [];
 var taskID = [];
 
 firebase.auth().onAuthStateChanged(function (user) {
-  var firebaseRef = firebase.database().ref("users/" + user.uid + "/unfinished_task/").orderByChild("time"); // need for all task
+  var firebaseRef = firebase
+    .database()
+    .ref("users/" + user.uid + "/unfinished_task/")
+    .orderByChild("time"); // need for all task
   if (user) {
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
@@ -1984,19 +2008,10 @@ firebase.auth().onAuthStateChanged(function (user) {
 
         taskArrayTitle.push(childSnapshot.val().title);
         taskID.push(childkey);
-        
-
-        
-
       });
-
-  });
-
-}
-
+    });
+  }
 });
-
-
 
 /** Searchbar Js */
 // getting all required elements
@@ -2070,18 +2085,19 @@ function showSuggestions(list) {
   suggBox.innerHTML = listData;
 }
 
-
 /*** Notifications js */
 
-
 var todaysTaskArray = [];
-  
-  var today = new Date();
-  var notificationTimes = [];
-  var notificationTxt;
+
+var today = new Date();
+var notificationTimes = [];
+var notificationTxt;
 
 firebase.auth().onAuthStateChanged(function (user) {
-  var firebaseRef = firebase.database().ref("users/" + user.uid + "/unfinished_task/").orderByChild("time"); // need for all task
+  var firebaseRef = firebase
+    .database()
+    .ref("users/" + user.uid + "/unfinished_task/")
+    .orderByChild("time"); // need for all task
   if (user) {
     user = firebase.auth().currentUser;
     // Retrieve new tasks as they are added to our database
@@ -2090,144 +2106,116 @@ firebase.auth().onAuthStateChanged(function (user) {
         var childkey = childSnapshot.key;
 
         var date_given = new Date(childSnapshot.val().date);
-        
-      /*** Checking if task is for today or not ***/
-      if (
-        today.getDate() == date_given.getDate() &&
-        today.getMonth() == date_given.getMonth() &&
-        today.getFullYear() == date_given.getFullYear()
-      )
-        todaysTaskArray.push(childSnapshot.val());
-        
 
-        
-
+        /*** Checking if task is for today or not ***/
+        if (
+          today.getDate() == date_given.getDate() &&
+          today.getMonth() == date_given.getMonth() &&
+          today.getFullYear() == date_given.getFullYear()
+        )
+          todaysTaskArray.push(childSnapshot.val());
       });
       var i;
-      for(i = 0; i < todaysTaskArray.length; i++){
- 
+      for (i = 0; i < todaysTaskArray.length; i++) {
         var timeVar = todaysTaskArray[i].time;
         var hourVar = stringToHour(timeVar);
         var minVar = stringToMin(timeVar);
-        if(minVar >=30){
-            minVar -= 30;
-        }else {
-            minVar = 60 - (30 - minVar);
-            hourVar -= 1;
+        if (minVar >= 30) {
+          minVar -= 30;
+        } else {
+          minVar = 60 - (30 - minVar);
+          hourVar -= 1;
         }
-        console.log(hourVar + ":" +minVar);
-    
+        console.log(hourVar + ":" + minVar);
+
         notificationTimes.push(timeToString(hourVar, minVar));
         console.log(todaysTaskArray);
+      }
 
+      var today_month =
+        today.getMonth() + 1 >= 10
+          ? today.getMonth() + 1
+          : "0" + (today.getMonth() + 1);
 
-    }
+      var today_date =
+        today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
 
+      var today_string =
+        today.getFullYear() + "-" + today_month + "-" + today_date;
 
+      function timeToString(a, b) {
+        return a + ":" + b;
+      }
 
-    
-    
-    var today_month =
-      today.getMonth() + 1 >= 10
-        ? today.getMonth() + 1
-        : "0" + (today.getMonth() + 1);
-    
-    var today_date =
-      today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
+      function stringToHour(a) {
+        return parseInt(a[0] + a[1]);
+      }
 
+      function stringToMin(a) {
+        return parseInt(a[3] + a[4]);
+      }
 
-    
-    var today_string = today.getFullYear() + "-" + today_month + "-" + today_date;
+      setInterval(updateTime, 60000);
 
-
-
-    
-        function timeToString(a, b){
-            return a + ":" + b;
-        }
-        
-        function stringToHour(a){
-            return parseInt(a[0] + a[1]);
-        }
-        
-        function stringToMin(a){
-            return parseInt(a[3]+a[4]);
-        }
-    
-    
-    
-        setInterval(updateTime, 60000);
-        
-        function updateTime() {
+      function updateTime() {
         let time = new Date();
         let hour = time.getHours();
         let min = time.getMinutes();
-        
+
         var currentTime = hour + ":" + min;
-        
-        
-          for(var i = 0; i < notificationTimes.length; i++){
-            
-            if(stringToHour(currentTime) == stringToHour(notificationTimes[i]) &&
-                (stringToMin(notificationTimes[i]) - stringToMin(currentTime)) == 1 ){
 
-                  setTimeout(() => {location.reload()}, 10000);
-            }else if( ((stringToHour(notificationTimes[i]) - stringToHour(currentTime)) == 1) &&
-                     ( stringToMin(notificationTimes[i]) == 0) && (stringToMin(currentTime) == 59) ){
-                  setTimeout(() => {location.reload()}, 10000);
-            }
-
-
-
-
-            
-              if(currentTime === notificationTimes[i]){
-                  
-                  callNotification(i);
-                  break;
-              }
+        for (var i = 0; i < notificationTimes.length; i++) {
+          if (
+            stringToHour(currentTime) == stringToHour(notificationTimes[i]) &&
+            stringToMin(notificationTimes[i]) - stringToMin(currentTime) == 1
+          ) {
+            setTimeout(() => {
+              location.reload();
+            }, 10000);
+          } else if (
+            stringToHour(notificationTimes[i]) - stringToHour(currentTime) ==
+              1 &&
+            stringToMin(notificationTimes[i]) == 0 &&
+            stringToMin(currentTime) == 59
+          ) {
+            setTimeout(() => {
+              location.reload();
+            }, 10000);
           }
-            
-        
-      
-       
-    
-        }
-        updateTime();
 
-      function ShowNotification(){
+          if (currentTime === notificationTimes[i]) {
+            callNotification(i);
+            break;
+          }
+        }
+      }
+      updateTime();
+
+      function ShowNotification() {
         var currTime = today.getHours() + ":" + today.getMinutes();
         const notificationObj = new Notification(notificationTxt, {
-          body: currTime
+          body: currTime,
         });
       }
-    
-    function callNotification(i){
+
+      function callNotification(i) {
         // var list = document.getElementById("notification-list");
         // var li = document.createElement("li");
-       
+
         notificationTxt = todaysTaskArray[i].title;
         // li.innerHTML = notificationTxt;
         // list.appendChild(li);
-        
-        if(Notification.permission === "granted"){
+
+        if (Notification.permission === "granted") {
           ShowNotification();
-
-          
         }
-        
       }
-
-  });
-
-  
-
+    });
   }
-
 });
 
-if(Notification.permission !== "denied"){
-  Notification.requestPermission().then( permission => {
+if (Notification.permission !== "denied") {
+  Notification.requestPermission().then((permission) => {
     console.log(permission);
   });
 }

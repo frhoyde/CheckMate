@@ -1,101 +1,154 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
-      crossorigin="anonymous"
-    />
-    <link id="pagestyle" 
-    href="https://bootswatch.com/4/lux/bootstrap.min.css"
-    rel="stylesheet"
-    type="text/css"
-  />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+  <link id="pagestyle" href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet" type="text/css" />
 
-   
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/Resources/CSS/alltask.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-    <!-- Fontawesome CSS -->
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
-      integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-      crossorigin="anonymous"
-    />
-    <!-- Nunito Google Font -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito:400,700"
-      rel="stylesheet"
-    />
-    <title>Archive</title>
-  </head>
+  <!-- select2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" />
 
-  <body onload="showUnfinishedTaskInArchive(), showCompletedTaskInArchive()">
-    <div class="container">
-      <nav class="navbar navbar-expand-md indigo mb-5">
-        
-        <!-- Breadcrumb-->
-        <div class="mr-auto">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb clearfix pt-0">
-              <li class="breadcrumb-item"><a href="home.html">Home</a></li>
-              <li class="breadcrumb-item active">Archive</li>
-            </ol>
-          </nav>
-        </div>
-        <div>
-        <form class="form-inline" >
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" style="background-color: transparent;">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/Resources/CSS/alltask.css" />
+  <link rel="stylesheet" href="/Resources/CSS/home.css" />
+
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous" />
+  <!-- Nunito Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet" />
+  <title>Archive</title>
+</head>
+
+<body onload="showUnfinishedTaskInArchive(), showCompletedTaskInArchive()">
+  <div class="container">
+    <nav class="navbar navbar-expand-md indigo mb-5">
+
+      <!-- Breadcrumb-->
+      <div class="mr-auto">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb clearfix pt-0">
+            <li class="breadcrumb-item"><a href="home.html">Home</a></li>
+            <li class="breadcrumb-item active">Archive</li>
+          </ol>
+        </nav>
+      </div>
+      <div>
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"
+            style="background-color: transparent;">
           <button class="btn btn-link btn-sm search-btn btn-icon-text">
-            <i class="bi bi-search"></i>                  
-          </button>              
+            <i class="bi bi-search"></i>
+          </button>
         </form>
       </div>
-      </nav>
-      <!-- /Breadcrumb -->
-    </div>
+    </nav>
+    <!-- /Breadcrumb -->
+  </div>
 
-    <div class="container unfinished-task" value = "show_unfinised_task_container">
-      <div class="unfinished-task-header">Unfinished Tasks</div>
-      <div class="row unfinished">
+  <!-- EDIT TASK FORM -->
+  <div class="modal edit_taskForm" id="editTaskModal">
+    <div class="modal-content" id="edit_popupForm">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddForm_edit()">
+          <i class=" bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Task title</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="edit-task" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Tags</label>
+            <div class="col-sm-9" id="tag-option">
 
-        
+              <select class="form-control select2" id="select_tag" name="data[]" multiple="multiple"
+                style="width: 100%;">
+                <option value="Important">Important</option>
+                <option value="In-Progress">In-Progress</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row row-sm">
+            <label class="col-sm-3 col-form-label">Deadline</label>
+            <div class="col-sm-5">
+              <input type="date" id="edit-date" class="form-control create-event-datepicker datepicker"
+                placeholder="Date" required>
+            </div>
+            <div class="col-sm-4 clock">
+              <input type="time" id="edit-time" class="form-control create-event-demo" placeholder="Time" required>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label">Description</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" id="edit-description" rows="6" style="height: 115px;"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3"></label>
+            <div class="col-sm-9" id="edit_btn_div">
+              <button type="submit" class="btn btn-primary" id="edit_btn">Edit</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+  </div>
 
-    <div class="container completed-task" value ="show_completed_task_container">
-      <div class="completed-task-header">Completed Tasks</div>
-      <div class="row finished">
+  <div class="container unfinished-task" value="show_unfinised_task_container">
+    <div class="unfinished-task-header">Unfinished Tasks</div>
+    <div class="row unfinished">
 
-        
-      </div>
+
     </div>
+  </div>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+  <div class="container completed-task" value="show_completed_task_container">
+    <div class="completed-task-header">Completed Tasks</div>
+    <div class="row finished">
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
+
+    </div>
+  </div>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
-    <script src="/JS/archive.js"> </script>
-    <script src="/JS/theme.js"> </script>
-  </body>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.5.0/firebase-firestore.js"></script>
+
+  <!--         ===JS CDN===          -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+    integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+  <!-- Select2 plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.min.js"></script>
+
+  <script src="/JS/archive.js"> </script>
+  <script src="/JS/theme.js"> </script>
+</body>
+
 </html>
