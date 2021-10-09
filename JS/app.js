@@ -1971,7 +1971,7 @@ var listItens = document.querySelectorAll(".draggable");
 /** tasklist js */
 
 var taskArrayTitle = [];
-
+var taskID = [];
 
 firebase.auth().onAuthStateChanged(function (user) {
   var firebaseRef = firebase.database().ref("users/" + user.uid + "/unfinished_task/").orderByChild("time"); // need for all task
@@ -1983,7 +1983,7 @@ firebase.auth().onAuthStateChanged(function (user) {
         var childkey = childSnapshot.key;
 
         taskArrayTitle.push(childSnapshot.val().title);
-      
+        taskID.push(childkey);
         
 
         
@@ -2063,7 +2063,7 @@ function showSuggestions(list) {
   let listData;
   if (!list.length) {
     userValue = SearchinputBox.value;
-    listData = `<li>${userValue}</li>`;
+    listData = `No Tasks Found`;
   } else {
     listData = list.join("");
   }
