@@ -87,23 +87,6 @@ function checkUserFullName() {
   }
 }
 
-// ******* User Surname Validation ********
-function checkUserSurname() {
-  var userSurname = document.getElementById("userSurname").value;
-  var flag = false;
-  if (userSurname === "") {
-    flag = true;
-  }
-  if (flag) {
-    document.getElementById("userSurnameError").style.display = "block";
-    document
-      .getElementById("userSurnameError")
-      .setAttribute("class", "text-danger");
-  } else {
-    document.getElementById("userSurnameError").style.display = "none";
-  }
-}
-
 // ****** Email Validation ******
 function checkUserEmail() {
   var userEmail = document.getElementById("userEmail");
@@ -247,11 +230,15 @@ function showEditProfileForm() {
   var userPfFullName = document.getElementById("userPfFullName").innerHTML;
   var userPfFb = document.getElementById("userPfFb").getAttribute("href");
   var userPfTw = document.getElementById("userPfTw").getAttribute("href");
-  //var userPfGp = document.getElementById("userPfGp").getAttribute("href");
+  var userPfLocation = document.getElementById("userLocation").innerHTML;
+  var userPfPhone = document.getElementById("userNumber").innerHTML;
   var userPfBio = document.getElementById("userPfBio").innerHTML;
+
   document.getElementById("userFullName").value = userPfFullName;
   document.getElementById("userFacebook").value = userPfFb;
   document.getElementById("userTwitter").value = userPfTw;
+  document.getElementById("userLocation").value = userPfLocation;
+  document.getElementById("userNumber").value = userPfPhone;
   document.getElementById("userBio").value = userPfBio;
 }
 
@@ -264,15 +251,14 @@ function hideEditProfileForm() {
 /****** Save profile and update database ********/
 function saveProfile() {
   let userFullName = document.getElementById("userFullName").value;
-  let userSurname = document.getElementById("userSurname").value;
   let userFacebook = document.getElementById("userFacebook").value;
   let userTwitter = document.getElementById("userTwitter").value;
+  let userLocation = document.getElementById("userLocation").value;
+  let userPhone = document.getElementById("userNumber").value;
   let userBio = document.getElementById("userBio").value;
 
   if (userFullName == "") {
     return checkUserFullName();
-  } else if (userSurname == "") {
-    return checkUserSurname();
   } else {
     let user = firebase.auth().currentUser;
     let uid;
@@ -283,9 +269,10 @@ function saveProfile() {
     var userData = {
       userUid: uid,
       userFullName: userFullName,
-      userSurname: userSurname,
       userFb: userFacebook,
       userTw: userTwitter,
+      userLocation: userLocation,
+      userPhone: userPhone,
       userBio: userBio,
     };
     firebaseRef.child(uid).update(userData);
