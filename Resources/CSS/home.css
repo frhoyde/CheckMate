@@ -1129,9 +1129,12 @@ ul.draggable:after {
 .pitchMode .header-upcoming{
   color: #dfdede;
 }
-.pitchMode .header-upcoming{
-  font-size: large;
+
+.header-upcoming{
+  padding-top: 1rem;
+  font-size: larger;
 }
+
 .pitchMode .category  {
   color: #aaaaaa;
 }
