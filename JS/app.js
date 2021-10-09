@@ -291,9 +291,9 @@ function create_important_task() {
           task_list.setAttribute("class", "drag-item");
           task_list.setAttribute("draggable", "true");
 
-          task_container = create_task_container(i, task_key, user.uid);
+          task_container = create_task_container_imp(i, task_key, user.uid);
 
-          task_details_imp = create_task_detail_card(
+          task_details_imp = create_task_detail_card_imp(
             i,
             task_key,
             user.uid,
@@ -419,9 +419,13 @@ function create_inProgress_task() {
           task_list.setAttribute("class", "drag-item");
           task_list.setAttribute("draggable", "true");
 
-          task_container = create_task_container(i, task_key, user.uid);
+          task_container = create_task_container_progress(
+            i,
+            task_key,
+            user.uid
+          );
 
-          task_details_imp = create_task_detail_card(
+          task_details_imp = create_task_detail_card_progress(
             i,
             task_key,
             user.uid,
@@ -622,24 +626,60 @@ function create_task_container(idNumber, key, userUid) {
   return task_container;
 }
 
-// Create Task Container for Tag Containers
-function create_task_container_tag(idNumber, key, userUid) {
-  task_container_tag = document.createElement("div");
-  task_container_tag.setAttribute("class", "task_container");
-  task_container_tag.setAttribute("id", "task_container_modal");
-  // task_container.setAttribute("data-toggle", "modal");
-  // task_container_tag.setAttribute("data-target", "#task_detail" + key);
-  id_string = "task_detail" + key;
-  // console.log(task_container.dataset.target);
-  task_container_tag.addEventListener("click", function () {
-    // document.getElementById(id_string).classList.remove("fade");
-    document.getElementById(id_string).style = "display: block";
-    console.log(document.getElementById(id_string));
-  });
+// Create Task Container for IMPORTANT tag Containers
+function create_task_container_imp(idNumber, key, userUid) {
+  task_container = document.createElement("div");
+  task_container.setAttribute("class", "task_container");
+  task_container.setAttribute("id", "task_container_modal");
+  task_container.setAttribute("data-toggle", "modal");
+  task_container.setAttribute("data-target", "#task_detail_imp" + key);
+  console.log(task_container.dataset.target);
 
-  task_container_tag.setAttribute("data-key", key);
-  task_container_tag.setAttribute("user-uid", userUid);
-  return task_container_tag;
+  task_container.setAttribute("data-key", key);
+  task_container.setAttribute("user-uid", userUid);
+  return task_container;
+}
+
+// Create Task Container for IMPORTANT tag Containers For Upcoming
+function create_task_container_imp_up(idNumber, key, userUid) {
+  task_container = document.createElement("div");
+  task_container.setAttribute("class", "task_container");
+  task_container.setAttribute("id", "task_container_modal");
+  task_container.setAttribute("data-toggle", "modal");
+  task_container.setAttribute("data-target", "#task_detail_imp_up" + key);
+  console.log(task_container.dataset.target);
+
+  task_container.setAttribute("data-key", key);
+  task_container.setAttribute("user-uid", userUid);
+  return task_container;
+}
+
+// Create Task Container for Progress tag Containers
+function create_task_container_progress(idNumber, key, userUid) {
+  task_container = document.createElement("div");
+  task_container.setAttribute("class", "task_container");
+  task_container.setAttribute("id", "task_container_modal");
+  task_container.setAttribute("data-toggle", "modal");
+  task_container.setAttribute("data-target", "#task_detail_progress" + key);
+  console.log(task_container.dataset.target);
+
+  task_container.setAttribute("data-key", key);
+  task_container.setAttribute("user-uid", userUid);
+  return task_container;
+}
+
+// Create Task Container for Progress tag Containers For Upcoming
+function create_task_container_progress_up(idNumber, key, userUid) {
+  task_container = document.createElement("div");
+  task_container.setAttribute("class", "task_container");
+  task_container.setAttribute("id", "task_container_modal");
+  task_container.setAttribute("data-toggle", "modal");
+  task_container.setAttribute("data-target", "#task_detail_progress_up" + key);
+  console.log(task_container.dataset.target);
+
+  task_container.setAttribute("data-key", key);
+  task_container.setAttribute("user-uid", userUid);
+  return task_container;
 }
 
 //Create Task Title
@@ -733,7 +773,7 @@ function task_edit(task) {
   taskKey = task.childNodes[0].childNodes[0].getAttribute("key");
 
   /** Close the modal manually **/
-  //document.getElementById("close_btn").click();
+  document.getElementById("close_btn").click();
   document.getElementById("task_detail" + taskKey).style.display = "none";
 
   /** Show the Edit Form */
@@ -1168,16 +1208,18 @@ function create_upcoming_important_task() {
           task_list.setAttribute("class", "drag-item");
           task_list.setAttribute("draggable", "true");
 
-          task_container = create_task_container(i, task_key, user.uid);
+          task_container = create_task_container_imp_up(i, task_key, user.uid);
 
-          task_details = create_task_detail_card(
+          task_details_up_imp = create_task_detail_card_imp_up(
             i,
             task_key,
             user.uid,
             task_date,
             task_title,
             task_time,
-            task_description
+            task_description,
+            "Important",
+            null
           );
 
           // TASK DATA
@@ -1244,6 +1286,7 @@ function create_upcoming_important_task() {
 
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
+          task_list.append(task_details_up_imp);
         }
       });
     }
@@ -1297,16 +1340,22 @@ function create_upcoming_inProgress_task() {
           task_list.setAttribute("class", "drag-item");
           task_list.setAttribute("draggable", "true");
 
-          task_container = create_task_container(i, task_key, user.uid);
+          task_container = create_task_container_progress_up(
+            i,
+            task_key,
+            user.uid
+          );
 
-          task_details = create_task_detail_card(
+          task_details_up_progress = create_task_detail_card_progress_up(
             i,
             task_key,
             user.uid,
             task_date,
             task_title,
             task_time,
-            task_description
+            task_description,
+            null,
+            "In-Progress"
           );
 
           // TASK DATA
@@ -1374,6 +1423,7 @@ function create_upcoming_inProgress_task() {
 
           task_tool.append(task_delete_button);
           task_delete_button.append(fa_delete);
+          task_list.append(task_details_up_progress);
         }
       });
     }
@@ -1680,6 +1730,7 @@ function create_task_detail_card(
 
   left_tag_time = document.createElement("div");
   left_tag_time.setAttribute("class", "ml-auto");
+  left_tag_time.style = "padding: 2.5rem";
 
   tag_span = document.createElement("span");
   tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
@@ -1745,6 +1796,825 @@ function create_task_detail_card(
   if (impTag == "Important") left_tag_time.append(tag_span);
 
   if (progressTag == "In-Progress") left_tag_time.append(tag_span_progress);
+
+  task_description_card.append(horizontalLine);
+
+  task_description_card.append(task_description_show);
+  task_description_show.append(task_description_span);
+
+  //console.log(task_card);
+
+  return task_card;
+}
+
+function create_task_detail_card_imp(
+  idNumber,
+  key,
+  userUid,
+  date,
+  title,
+  time,
+  description,
+  impTag,
+  progressTag
+) {
+  task_card = document.createElement("div");
+
+  let idNum = idNumber;
+
+  task_card.setAttribute("class", "modal fade task-detail");
+  task_card.id = "task_detail_imp";
+  task_card.id += key;
+
+  task_card.setAttribute("tabindex", "-1");
+  task_card.setAttribute("role", "dialog");
+  task_card.setAttribute("aria-hidden", "true");
+  // console.log("show task card");
+
+  task_card_center = document.createElement("div");
+  task_card_center.className =
+    "modal-dialog modal-dialog-centered modal-dialog-lg task-modal-card";
+
+  task_card_content = document.createElement("div");
+  task_card_content.className = "modal-content ";
+
+  task_header = document.createElement("div");
+  task_header.setAttribute("class", "card-header modal-header");
+
+  task_close = document.createElement("button");
+  task_close.setAttribute("class", "close task-detail-close-button");
+  task_close.setAttribute("id", "close_btn");
+  task_close.setAttribute("type", "button");
+  task_close.setAttribute("data-dismiss", "modal");
+  task_close.setAttribute("aria-label", "Close");
+
+  //task_close.setAttribute("href", "#");
+  //task_close.setAttribute("onclick", "closeTaskDetail()");
+
+  task_close_icon = document.createElement("i");
+  task_close_icon.setAttribute("class", "bi bi-x-lg");
+
+  task_title_detail = document.createElement("h3");
+  task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.setAttribute("key", key);
+  task_title_detail.innerHTML = title;
+  // console.log(key);
+
+  task_header_right = document.createElement("div");
+  task_header_right.setAttribute("class", "task-detail-action-right");
+
+  option_buttons = document.createElement("div");
+  option_buttons.setAttribute("class", "option_btns");
+
+  task_complete_btn = document.createElement("button");
+  task_complete_btn.setAttribute("class", "btn btn-success done-btn");
+  task_complete_btn.innerHTML = "Completed";
+  task_complete_btn.setAttribute(
+    "onclick",
+    "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_complete_icon = document.createElement("i");
+  task_complete_icon.setAttribute("class", "bi bi-check2");
+
+  task_edit_btn = document.createElement("button");
+  task_edit_btn.setAttribute("class", "btn btn-outline-primary ml-2");
+  task_edit_btn.setAttribute(
+    "onclick",
+    "task_edit(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+  );
+
+  task_edit_icon = document.createElement("i");
+  task_edit_icon.setAttribute("class", "bi bi-pen");
+
+  task_delete_btn = document.createElement("button");
+  task_delete_btn.setAttribute(
+    "class",
+    "btn btn-outline-danger ml-2 delete_btn"
+  );
+  task_delete_btn.setAttribute(
+    "onclick",
+    "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_delete_icon = document.createElement("i");
+  task_delete_icon.setAttribute("class", "bi bi-trash");
+
+  task_archive_btn = document.createElement("button");
+  task_archive_btn.setAttribute(
+    "class",
+    "btn btn-outline-info ml-2 dropdown-archive"
+  );
+  task_archive_btn.setAttribute("id", "dropdown_archive");
+  task_archive_btn.setAttribute(
+    "onclick",
+    "task_archive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_archive_icon = document.createElement("i");
+  task_archive_icon.setAttribute("class", "bi bi-journal-arrow-down");
+
+  task_description_detail = document.createElement("div");
+  task_description_detail.setAttribute("class", "task-detail-description");
+  // task_description_detail.setAttribute("tabindex", "9");
+
+  task_description_card = document.createElement("div");
+  task_description_card.setAttribute("class", "modal-body");
+
+  date_tag_div = document.createElement("div");
+  date_tag_div.setAttribute(
+    "class",
+    "d-flex align-items-center p-l-r-0 m-b-20 date-tag-div"
+  );
+
+  task_date_detail = document.createElement("div");
+  task_date_detail.setAttribute("class", "task-detail-date");
+
+  task_date_show = document.createElement("p");
+  task_date_show.style = "width: 100px";
+  task_date_show.innerHTML = date;
+
+  left_tag_time = document.createElement("div");
+  left_tag_time.setAttribute("class", "ml-auto");
+  left_tag_time.style = "padding: 2.5rem";
+
+  tag_span = document.createElement("span");
+  tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span.innerHTML = "Important";
+
+  tag_span_progress = document.createElement("span");
+  tag_span_progress.setAttribute("class", "badge bg-info badge-pill mr-2");
+  tag_span_progress.innerHTML = "In-Progress";
+
+  time_tag = document.createElement("div");
+  time_span = document.createElement("span");
+  time_span.setAttribute("class", "text-muted task-time-show");
+  time_span.innerHTML = time;
+
+  task_description_show = document.createElement("div");
+  task_description_show.setAttribute("class", "task-description-show");
+
+  task_description_span = document.createElement("span");
+  task_description_span.innerHTML = description;
+
+  horizontalLine = document.createElement("hr");
+  horizontalLine.setAttribute("class", "m-0");
+
+  /***************** Append Start *********************/
+
+  task_card.append(task_card_center);
+  task_card_center.append(task_card_content);
+  task_card_content.append(task_header);
+  task_card_content.append(task_description_detail);
+  task_description_detail.append(task_description_card);
+
+  task_header.append(task_title_detail);
+
+  //task_card_content.append(task_close);
+  task_header.appendChild(task_close);
+
+  task_close.append(task_close_icon);
+
+  task_description_card.append(task_header_right);
+  task_header_right.append(option_buttons);
+
+  option_buttons.append(task_complete_btn);
+  task_complete_btn.append(task_complete_icon);
+
+  option_buttons.append(task_edit_btn);
+  task_edit_btn.append(task_edit_icon);
+
+  option_buttons.append(task_delete_btn);
+  task_delete_btn.append(task_delete_icon);
+
+  option_buttons.append(task_archive_btn);
+  task_archive_btn.append(task_archive_icon);
+  /**  end card header div **/
+
+  task_description_card.append(date_tag_div);
+  date_tag_div.append(task_date_detail);
+  task_date_detail.append(task_date_show);
+
+  date_tag_div.append(left_tag_time);
+  left_tag_time.append(time_tag);
+  time_tag.append(time_span);
+
+  left_tag_time.append(tag_span);
+
+  // if (progressTag == "In-Progress") left_tag_time.append(tag_span_progress);
+
+  task_description_card.append(horizontalLine);
+
+  task_description_card.append(task_description_show);
+  task_description_show.append(task_description_span);
+
+  //console.log(task_card);
+
+  return task_card;
+}
+function create_task_detail_card_imp_up(
+  idNumber,
+  key,
+  userUid,
+  date,
+  title,
+  time,
+  description,
+  impTag,
+  progressTag
+) {
+  task_card = document.createElement("div");
+
+  let idNum = idNumber;
+
+  task_card.setAttribute("class", "modal fade task-detail");
+  task_card.id = "task_detail_imp_up";
+  task_card.id += key;
+
+  task_card.setAttribute("tabindex", "-1");
+  task_card.setAttribute("role", "dialog");
+  task_card.setAttribute("aria-hidden", "true");
+  // console.log("show task card");
+
+  task_card_center = document.createElement("div");
+  task_card_center.className =
+    "modal-dialog modal-dialog-centered modal-dialog-lg task-modal-card";
+
+  task_card_content = document.createElement("div");
+  task_card_content.className = "modal-content ";
+
+  task_header = document.createElement("div");
+  task_header.setAttribute("class", "card-header modal-header");
+
+  task_close = document.createElement("button");
+  task_close.setAttribute("class", "close task-detail-close-button");
+  task_close.setAttribute("id", "close_btn");
+  task_close.setAttribute("type", "button");
+  task_close.setAttribute("data-dismiss", "modal");
+  task_close.setAttribute("aria-label", "Close");
+
+  //task_close.setAttribute("href", "#");
+  //task_close.setAttribute("onclick", "closeTaskDetail()");
+
+  task_close_icon = document.createElement("i");
+  task_close_icon.setAttribute("class", "bi bi-x-lg");
+
+  task_title_detail = document.createElement("h3");
+  task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.setAttribute("key", key);
+  task_title_detail.innerHTML = title;
+  // console.log(key);
+
+  task_header_right = document.createElement("div");
+  task_header_right.setAttribute("class", "task-detail-action-right");
+
+  option_buttons = document.createElement("div");
+  option_buttons.setAttribute("class", "option_btns");
+
+  task_complete_btn = document.createElement("button");
+  task_complete_btn.setAttribute("class", "btn btn-success done-btn");
+  task_complete_btn.innerHTML = "Completed";
+  task_complete_btn.setAttribute(
+    "onclick",
+    "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_complete_icon = document.createElement("i");
+  task_complete_icon.setAttribute("class", "bi bi-check2");
+
+  task_edit_btn = document.createElement("button");
+  task_edit_btn.setAttribute("class", "btn btn-outline-primary ml-2");
+  task_edit_btn.setAttribute(
+    "onclick",
+    "task_edit(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+  );
+
+  task_edit_icon = document.createElement("i");
+  task_edit_icon.setAttribute("class", "bi bi-pen");
+
+  task_delete_btn = document.createElement("button");
+  task_delete_btn.setAttribute(
+    "class",
+    "btn btn-outline-danger ml-2 delete_btn"
+  );
+  task_delete_btn.setAttribute(
+    "onclick",
+    "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_delete_icon = document.createElement("i");
+  task_delete_icon.setAttribute("class", "bi bi-trash");
+
+  task_archive_btn = document.createElement("button");
+  task_archive_btn.setAttribute(
+    "class",
+    "btn btn-outline-info ml-2 dropdown-archive"
+  );
+  task_archive_btn.setAttribute("id", "dropdown_archive");
+  task_archive_btn.setAttribute(
+    "onclick",
+    "task_archive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_archive_icon = document.createElement("i");
+  task_archive_icon.setAttribute("class", "bi bi-journal-arrow-down");
+
+  task_description_detail = document.createElement("div");
+  task_description_detail.setAttribute("class", "task-detail-description");
+  // task_description_detail.setAttribute("tabindex", "9");
+
+  task_description_card = document.createElement("div");
+  task_description_card.setAttribute("class", "modal-body");
+
+  date_tag_div = document.createElement("div");
+  date_tag_div.setAttribute(
+    "class",
+    "d-flex align-items-center p-l-r-0 m-b-20 date-tag-div"
+  );
+
+  task_date_detail = document.createElement("div");
+  task_date_detail.setAttribute("class", "task-detail-date");
+
+  task_date_show = document.createElement("p");
+  task_date_show.style = "width: 100px";
+  task_date_show.innerHTML = date;
+
+  left_tag_time = document.createElement("div");
+  left_tag_time.setAttribute("class", "ml-auto");
+  left_tag_time.style = "padding: 2.5rem";
+
+  tag_span = document.createElement("span");
+  tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span.innerHTML = "Important";
+
+  tag_span_progress = document.createElement("span");
+  tag_span_progress.setAttribute("class", "badge bg-info badge-pill mr-2");
+  tag_span_progress.innerHTML = "In-Progress";
+
+  time_tag = document.createElement("div");
+  time_span = document.createElement("span");
+  time_span.setAttribute("class", "text-muted task-time-show");
+  time_span.innerHTML = time;
+
+  task_description_show = document.createElement("div");
+  task_description_show.setAttribute("class", "task-description-show");
+
+  task_description_span = document.createElement("span");
+  task_description_span.innerHTML = description;
+
+  horizontalLine = document.createElement("hr");
+  horizontalLine.setAttribute("class", "m-0");
+
+  /***************** Append Start *********************/
+
+  task_card.append(task_card_center);
+  task_card_center.append(task_card_content);
+  task_card_content.append(task_header);
+  task_card_content.append(task_description_detail);
+  task_description_detail.append(task_description_card);
+
+  task_header.append(task_title_detail);
+
+  //task_card_content.append(task_close);
+  task_header.appendChild(task_close);
+
+  task_close.append(task_close_icon);
+
+  task_description_card.append(task_header_right);
+  task_header_right.append(option_buttons);
+
+  option_buttons.append(task_complete_btn);
+  task_complete_btn.append(task_complete_icon);
+
+  option_buttons.append(task_edit_btn);
+  task_edit_btn.append(task_edit_icon);
+
+  option_buttons.append(task_delete_btn);
+  task_delete_btn.append(task_delete_icon);
+
+  option_buttons.append(task_archive_btn);
+  task_archive_btn.append(task_archive_icon);
+  /**  end card header div **/
+
+  task_description_card.append(date_tag_div);
+  date_tag_div.append(task_date_detail);
+  task_date_detail.append(task_date_show);
+
+  date_tag_div.append(left_tag_time);
+  left_tag_time.append(time_tag);
+  time_tag.append(time_span);
+
+  left_tag_time.append(tag_span);
+
+  // if (progressTag == "In-Progress") left_tag_time.append(tag_span_progress);
+
+  task_description_card.append(horizontalLine);
+
+  task_description_card.append(task_description_show);
+  task_description_show.append(task_description_span);
+
+  //console.log(task_card);
+
+  return task_card;
+}
+
+/** Create Progress Task detail card */
+function create_task_detail_card_progress(
+  idNumber,
+  key,
+  userUid,
+  date,
+  title,
+  time,
+  description,
+  impTag,
+  progressTag
+) {
+  task_card = document.createElement("div");
+
+  let idNum = idNumber;
+
+  task_card.setAttribute("class", "modal fade task-detail");
+  task_card.id = "task_detail_progress";
+  task_card.id += key;
+
+  task_card.setAttribute("tabindex", "-1");
+  task_card.setAttribute("role", "dialog");
+  task_card.setAttribute("aria-hidden", "true");
+  // console.log("show task card");
+
+  task_card_center = document.createElement("div");
+  task_card_center.className =
+    "modal-dialog modal-dialog-centered modal-dialog-lg task-modal-card";
+
+  task_card_content = document.createElement("div");
+  task_card_content.className = "modal-content ";
+
+  task_header = document.createElement("div");
+  task_header.setAttribute("class", "card-header modal-header");
+
+  task_close = document.createElement("button");
+  task_close.setAttribute("class", "close task-detail-close-button");
+  task_close.setAttribute("id", "close_btn");
+  task_close.setAttribute("type", "button");
+  task_close.setAttribute("data-dismiss", "modal");
+  task_close.setAttribute("aria-label", "Close");
+
+  //task_close.setAttribute("href", "#");
+  //task_close.setAttribute("onclick", "closeTaskDetail()");
+
+  task_close_icon = document.createElement("i");
+  task_close_icon.setAttribute("class", "bi bi-x-lg");
+
+  task_title_detail = document.createElement("h3");
+  task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.setAttribute("key", key);
+  task_title_detail.innerHTML = title;
+  // console.log(key);
+
+  task_header_right = document.createElement("div");
+  task_header_right.setAttribute("class", "task-detail-action-right");
+
+  option_buttons = document.createElement("div");
+  option_buttons.setAttribute("class", "option_btns");
+
+  task_complete_btn = document.createElement("button");
+  task_complete_btn.setAttribute("class", "btn btn-success done-btn");
+  task_complete_btn.innerHTML = "Completed";
+  task_complete_btn.setAttribute(
+    "onclick",
+    "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_complete_icon = document.createElement("i");
+  task_complete_icon.setAttribute("class", "bi bi-check2");
+
+  task_edit_btn = document.createElement("button");
+  task_edit_btn.setAttribute("class", "btn btn-outline-primary ml-2");
+  task_edit_btn.setAttribute(
+    "onclick",
+    "task_edit(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+  );
+
+  task_edit_icon = document.createElement("i");
+  task_edit_icon.setAttribute("class", "bi bi-pen");
+
+  task_delete_btn = document.createElement("button");
+  task_delete_btn.setAttribute(
+    "class",
+    "btn btn-outline-danger ml-2 delete_btn"
+  );
+  task_delete_btn.setAttribute(
+    "onclick",
+    "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_delete_icon = document.createElement("i");
+  task_delete_icon.setAttribute("class", "bi bi-trash");
+
+  task_archive_btn = document.createElement("button");
+  task_archive_btn.setAttribute(
+    "class",
+    "btn btn-outline-info ml-2 dropdown-archive"
+  );
+  task_archive_btn.setAttribute("id", "dropdown_archive");
+  task_archive_btn.setAttribute(
+    "onclick",
+    "task_archive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_archive_icon = document.createElement("i");
+  task_archive_icon.setAttribute("class", "bi bi-journal-arrow-down");
+
+  task_description_detail = document.createElement("div");
+  task_description_detail.setAttribute("class", "task-detail-description");
+  // task_description_detail.setAttribute("tabindex", "9");
+
+  task_description_card = document.createElement("div");
+  task_description_card.setAttribute("class", "modal-body");
+
+  date_tag_div = document.createElement("div");
+  date_tag_div.setAttribute(
+    "class",
+    "d-flex align-items-center p-l-r-0 m-b-20 date-tag-div"
+  );
+
+  task_date_detail = document.createElement("div");
+  task_date_detail.setAttribute("class", "task-detail-date");
+
+  task_date_show = document.createElement("p");
+  task_date_show.style = "width: 100px";
+  task_date_show.innerHTML = date;
+
+  left_tag_time = document.createElement("div");
+  left_tag_time.setAttribute("class", "ml-auto");
+  left_tag_time.style = "padding: 2.5rem";
+
+  tag_span = document.createElement("span");
+  tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span.innerHTML = "Important";
+
+  tag_span_progress = document.createElement("span");
+  tag_span_progress.setAttribute("class", "badge bg-info badge-pill mr-2");
+  tag_span_progress.innerHTML = "In-Progress";
+
+  time_tag = document.createElement("div");
+  time_span = document.createElement("span");
+  time_span.setAttribute("class", "text-muted task-time-show");
+  time_span.innerHTML = time;
+
+  task_description_show = document.createElement("div");
+  task_description_show.setAttribute("class", "task-description-show");
+
+  task_description_span = document.createElement("span");
+  task_description_span.innerHTML = description;
+
+  horizontalLine = document.createElement("hr");
+  horizontalLine.setAttribute("class", "m-0");
+
+  /***************** Append Start *********************/
+
+  task_card.append(task_card_center);
+  task_card_center.append(task_card_content);
+  task_card_content.append(task_header);
+  task_card_content.append(task_description_detail);
+  task_description_detail.append(task_description_card);
+
+  task_header.append(task_title_detail);
+
+  //task_card_content.append(task_close);
+  task_header.appendChild(task_close);
+
+  task_close.append(task_close_icon);
+
+  task_description_card.append(task_header_right);
+  task_header_right.append(option_buttons);
+
+  option_buttons.append(task_complete_btn);
+  task_complete_btn.append(task_complete_icon);
+
+  option_buttons.append(task_edit_btn);
+  task_edit_btn.append(task_edit_icon);
+
+  option_buttons.append(task_delete_btn);
+  task_delete_btn.append(task_delete_icon);
+
+  option_buttons.append(task_archive_btn);
+  task_archive_btn.append(task_archive_icon);
+  /**  end card header div **/
+
+  task_description_card.append(date_tag_div);
+  date_tag_div.append(task_date_detail);
+  task_date_detail.append(task_date_show);
+
+  date_tag_div.append(left_tag_time);
+  left_tag_time.append(time_tag);
+  time_tag.append(time_span);
+
+  left_tag_time.append(tag_span_progress);
+
+  task_description_card.append(horizontalLine);
+
+  task_description_card.append(task_description_show);
+  task_description_show.append(task_description_span);
+
+  //console.log(task_card);
+
+  return task_card;
+}
+function create_task_detail_card_progress_up(
+  idNumber,
+  key,
+  userUid,
+  date,
+  title,
+  time,
+  description,
+  impTag,
+  progressTag
+) {
+  task_card = document.createElement("div");
+
+  let idNum = idNumber;
+
+  task_card.setAttribute("class", "modal fade task-detail");
+  task_card.id = "task_detail_progress_up";
+  task_card.id += key;
+
+  task_card.setAttribute("tabindex", "-1");
+  task_card.setAttribute("role", "dialog");
+  task_card.setAttribute("aria-hidden", "true");
+  // console.log("show task card");
+
+  task_card_center = document.createElement("div");
+  task_card_center.className =
+    "modal-dialog modal-dialog-centered modal-dialog-lg task-modal-card";
+
+  task_card_content = document.createElement("div");
+  task_card_content.className = "modal-content ";
+
+  task_header = document.createElement("div");
+  task_header.setAttribute("class", "card-header modal-header");
+
+  task_close = document.createElement("button");
+  task_close.setAttribute("class", "close task-detail-close-button");
+  task_close.setAttribute("id", "close_btn");
+  task_close.setAttribute("type", "button");
+  task_close.setAttribute("data-dismiss", "modal");
+  task_close.setAttribute("aria-label", "Close");
+
+  //task_close.setAttribute("href", "#");
+  //task_close.setAttribute("onclick", "closeTaskDetail()");
+
+  task_close_icon = document.createElement("i");
+  task_close_icon.setAttribute("class", "bi bi-x-lg");
+
+  task_title_detail = document.createElement("h3");
+  task_title_detail.setAttribute("class", "task-title-detail modal-title");
+  task_title_detail.setAttribute("key", key);
+  task_title_detail.innerHTML = title;
+  // console.log(key);
+
+  task_header_right = document.createElement("div");
+  task_header_right.setAttribute("class", "task-detail-action-right");
+
+  option_buttons = document.createElement("div");
+  option_buttons.setAttribute("class", "option_btns");
+
+  task_complete_btn = document.createElement("button");
+  task_complete_btn.setAttribute("class", "btn btn-success done-btn");
+  task_complete_btn.innerHTML = "Completed";
+  task_complete_btn.setAttribute(
+    "onclick",
+    "task_done(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_complete_icon = document.createElement("i");
+  task_complete_icon.setAttribute("class", "bi bi-check2");
+
+  task_edit_btn = document.createElement("button");
+  task_edit_btn.setAttribute("class", "btn btn-outline-primary ml-2");
+  task_edit_btn.setAttribute(
+    "onclick",
+    "task_edit(this.parentElement.parentElement.parentElement.parentElement.parentElement, this)"
+  );
+
+  task_edit_icon = document.createElement("i");
+  task_edit_icon.setAttribute("class", "bi bi-pen");
+
+  task_delete_btn = document.createElement("button");
+  task_delete_btn.setAttribute(
+    "class",
+    "btn btn-outline-danger ml-2 delete_btn"
+  );
+  task_delete_btn.setAttribute(
+    "onclick",
+    "task_delete(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_delete_icon = document.createElement("i");
+  task_delete_icon.setAttribute("class", "bi bi-trash");
+
+  task_archive_btn = document.createElement("button");
+  task_archive_btn.setAttribute(
+    "class",
+    "btn btn-outline-info ml-2 dropdown-archive"
+  );
+  task_archive_btn.setAttribute("id", "dropdown_archive");
+  task_archive_btn.setAttribute(
+    "onclick",
+    "task_archive(this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)"
+  );
+
+  task_archive_icon = document.createElement("i");
+  task_archive_icon.setAttribute("class", "bi bi-journal-arrow-down");
+
+  task_description_detail = document.createElement("div");
+  task_description_detail.setAttribute("class", "task-detail-description");
+  // task_description_detail.setAttribute("tabindex", "9");
+
+  task_description_card = document.createElement("div");
+  task_description_card.setAttribute("class", "modal-body");
+
+  date_tag_div = document.createElement("div");
+  date_tag_div.setAttribute(
+    "class",
+    "d-flex align-items-center p-l-r-0 m-b-20 date-tag-div"
+  );
+
+  task_date_detail = document.createElement("div");
+  task_date_detail.setAttribute("class", "task-detail-date");
+
+  task_date_show = document.createElement("p");
+  task_date_show.style = "width: 100px";
+  task_date_show.innerHTML = date;
+
+  left_tag_time = document.createElement("div");
+  left_tag_time.setAttribute("class", "ml-auto");
+  left_tag_time.style = "padding: 2.5rem";
+
+  tag_span = document.createElement("span");
+  tag_span.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span.innerHTML = "Important";
+
+  tag_span_progress = document.createElement("span");
+  tag_span_progress.setAttribute("class", "badge bg-info badge-pill mr-2");
+  tag_span_progress.innerHTML = "In-Progress";
+
+  time_tag = document.createElement("div");
+  time_span = document.createElement("span");
+  time_span.setAttribute("class", "text-muted task-time-show");
+  time_span.innerHTML = time;
+
+  task_description_show = document.createElement("div");
+  task_description_show.setAttribute("class", "task-description-show");
+
+  task_description_span = document.createElement("span");
+  task_description_span.innerHTML = description;
+
+  horizontalLine = document.createElement("hr");
+  horizontalLine.setAttribute("class", "m-0");
+
+  /***************** Append Start *********************/
+
+  task_card.append(task_card_center);
+  task_card_center.append(task_card_content);
+  task_card_content.append(task_header);
+  task_card_content.append(task_description_detail);
+  task_description_detail.append(task_description_card);
+
+  task_header.append(task_title_detail);
+
+  //task_card_content.append(task_close);
+  task_header.appendChild(task_close);
+
+  task_close.append(task_close_icon);
+
+  task_description_card.append(task_header_right);
+  task_header_right.append(option_buttons);
+
+  option_buttons.append(task_complete_btn);
+  task_complete_btn.append(task_complete_icon);
+
+  option_buttons.append(task_edit_btn);
+  task_edit_btn.append(task_edit_icon);
+
+  option_buttons.append(task_delete_btn);
+  task_delete_btn.append(task_delete_icon);
+
+  option_buttons.append(task_archive_btn);
+  task_archive_btn.append(task_archive_icon);
+  /**  end card header div **/
+
+  task_description_card.append(date_tag_div);
+  date_tag_div.append(task_date_detail);
+  task_date_detail.append(task_date_show);
+
+  date_tag_div.append(left_tag_time);
+  left_tag_time.append(time_tag);
+  time_tag.append(time_span);
+
+  left_tag_time.append(tag_span_progress);
 
   task_description_card.append(horizontalLine);
 
@@ -1861,6 +2731,7 @@ function create_finished_task_detail_card(
 
   left_tag_time = document.createElement("div");
   left_tag_time.setAttribute("class", "ml-auto");
+  left_tag_time.style = "padding: 2.5rem";
 
   time_span = document.createElement("span");
   time_span.setAttribute("class", "text-muted task-time-show");
@@ -2012,7 +2883,6 @@ firebase.auth().onAuthStateChanged(function (user) {
     });
   }
 });
-
 /** Searchbar Js */
 // getting all required elements
 const searchWrapper = document.querySelector(".search-input");
@@ -2045,18 +2915,30 @@ SearchinputBox.onkeyup = (e) => {
     searchWrapper.classList.add("active"); //show autocomplete box
     showSuggestions(emptyArray);
     let allList = suggBox.querySelectorAll("a");
+    let allString = suggBox.querySelectorAll("li");
+
+    function hrefAdder(TitleString) {
+      for (let i = 0; i < todaysTaskArray.length; i++) {
+        if (TitleString == taskArrayTitle[i]) {
+          // console.log(i);
+          return i;
+        }
+      }
+    }
+
     for (let i = 0; i < allList.length; i++) {
       //adding onclick attribute in all li tag
+      taskTitleString = allString[i].innerHTML;
 
-      task_string = "cardId" + taskID[i];
+      task_string = "cardId" + taskID[hrefAdder(taskTitleString)];
       console.log(task_string);
       allList[i].setAttribute("href", "alltask.html#" + task_string);
       //allList[i].task_id += ;
 
       //allList[i].setAttribute("onclick", "OpenModal(this)");
 
-      console.log(allList[i]);
-      console.log(taskID[i]);
+      // console.log(allList[i]);
+      // console.log(taskID[i]);
     }
     // } else if (document.getElementById("searchbox-home").hasFocus() == false) {
     //   searchWrapper.classList.remove("active"); //hide autocomplete box
@@ -2078,7 +2960,7 @@ function showSuggestions(list) {
   let listData;
   if (!list.length) {
     userValue = SearchinputBox.value;
-    listData = `No Tasks Found`;
+    listData = `<li>No Tasks Found<li>`;
   } else {
     listData = list.join("");
   }
@@ -2183,9 +3065,31 @@ firebase.auth().onAuthStateChanged(function (user) {
             }, 10000);
           }
 
-          if (currentTime === notificationTimes[i]) {
-            callNotification(i);
-            break;
+          var currentTime = hour + ":" + min;
+
+          for (var i = 0; i < notificationTimes.length; i++) {
+            if (
+              stringToHour(currentTime) == stringToHour(notificationTimes[i]) &&
+              stringToMin(notificationTimes[i]) - stringToMin(currentTime) == 1
+            ) {
+              setTimeout(() => {
+                location.reload();
+              }, 10000);
+            } else if (
+              stringToHour(notificationTimes[i]) - stringToHour(currentTime) ==
+                1 &&
+              stringToMin(notificationTimes[i]) == 0 &&
+              stringToMin(currentTime) == 59
+            ) {
+              setTimeout(() => {
+                location.reload();
+              }, 10000);
+            }
+
+            if (currentTime === notificationTimes[i]) {
+              callNotification(i);
+              break;
+            }
           }
         }
       }
