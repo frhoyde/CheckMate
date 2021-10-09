@@ -37,17 +37,17 @@ if (window.localStorage.getItem("theme") === "pitch-dark") {
     document.getElementById("radios4").checked = true;
     swapStyleSheet("https://bootswatch.com/4/slate/bootstrap.min.css");
 }
-if (window.localStorage.getItem("theme") === "classic") {
-    document.getElementById("radios1").checked = true;
-    swapStyleSheet("https://bootswatch.com/4/lux/bootstrap.min.css");
-}
-if (window.localStorage.getItem("theme") === "nature") {
+else if (window.localStorage.getItem("theme") === "nature") {
     document.querySelector("body").style.background = "#FFFBE6";
     document.getElementById("radios2").checked = true;
     swapStyleSheet("https://bootswatch.com/4/minty/bootstrap.min.css");
     
 }
-if (localStorage.getItem("theme") === "midnight") {
+else if (localStorage.getItem("theme") === "midnight") {
     document.getElementById("radios3").checked = true;
     swapStyleSheet("https://bootswatch.com/4/superhero/bootstrap.min.css");
+}
+else{
+    document.getElementById("radios1").checked = true;
+    swapStyleSheet("https://bootswatch.com/4/lux/bootstrap.min.css");
 }
