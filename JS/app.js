@@ -1517,7 +1517,7 @@ function logOut() {
     .then(function () {
       // Sign-out successful.
       setTimeout(function () {
-        window.location.replace("signin.html");
+        window.location.replace("/index.html");
       }, 1000);
     })
     .catch((error) => {
@@ -1613,7 +1613,7 @@ function create_task_detail_card(
   task_delete_btn = document.createElement("button");
   task_delete_btn.setAttribute(
     "class",
-    "btn btn-outline-primary ml-2 delete_btn"
+    "btn btn-outline-danger ml-2 delete_btn"
   );
   task_delete_btn.setAttribute(
     "onclick",
@@ -1626,7 +1626,7 @@ function create_task_detail_card(
   task_archive_btn = document.createElement("button");
   task_archive_btn.setAttribute(
     "class",
-    "btn btn-outline-primary ml-2 dropdown-archive"
+    "btn btn-outline-info ml-2 dropdown-archive"
   );
   task_archive_btn.setAttribute("id", "dropdown_archive");
   task_archive_btn.setAttribute(
@@ -1665,7 +1665,7 @@ function create_task_detail_card(
   tag_span.innerHTML = "Important";
 
   tag_span_progress = document.createElement("span");
-  tag_span_progress.setAttribute("class", "badge bg-warning badge-pill mr-2");
+  tag_span_progress.setAttribute("class", "badge bg-info badge-pill mr-2");
   tag_span_progress.innerHTML = "In-Progress";
 
   time_tag = document.createElement("div");

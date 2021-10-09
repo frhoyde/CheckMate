@@ -26,7 +26,18 @@ $(document).ready(function () {
           // document.getElementById("fb-url").innerHTML = userData.userFb;
           // document.getElementById("tw-url").innerHTML = userData.userTw;
           document.getElementById("email-div").innerHTML = userData.userEmail;
-  
+          document
+          .getElementById("location")
+          .innerHTML= userData.userLocation;
+          document
+          .getElementById("address-div")
+          .innerHTML= userData.userLocation;
+          document
+          .getElementById("twitter")
+          .innerHTML= userData.userTw;
+          document
+          .getElementById("facebook")
+          .innerHTML= userData.userFb;
           
         });
       }
@@ -34,6 +45,7 @@ $(document).ready(function () {
   }
   
   show_user_info();
+
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();  
