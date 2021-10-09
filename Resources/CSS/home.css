@@ -66,12 +66,12 @@
   --page-content-bgColor: #283e50;
   --page-header-bgColor: #283e50;
   --page-header-bgColor-hover: #4e5d6c;
-  --tag-color-one: #58c2a9;
+  --tag-color-one: #51af99;
   --tag-color-text-one: #2b644d;
-  --tag-color-two: #f3969a;
+  --tag-color-two: #ca7d81;
   --tag-color-text-two: #8972f3;
-  --tag-color-three: #f89406;
-  --tag-color-text-three: #e77f89;
+  --tag-color-three: #bd6f03;
+  --tag-color-text-three: #96545a;
   --tag-color-four: #f7f8fc;
   --tag-color-text-four: #a0a6b5;
 }
@@ -1084,12 +1084,15 @@ ul.draggable:after {
   color: var(--blue);
   cursor: pointer;
 }
+.midnightMode .search-input .searchicon{
+  color: #285d88;
+}
 
 .search-input .autocom-box {
   padding: 0;
   opacity: 0;
   pointer-events: none;
-  max-height: 280px;
+  max-height: 200px;
   overflow-y: auto;
 }
 
@@ -1105,10 +1108,17 @@ ul.draggable:after {
 .autocom-box li:hover {
   background: #efefef;
 }
-.midnightMode.autocom-box li:hover,
-.midnightMode.wrapper .search-input ,
+.midnightMode .page-header .navsvgshow {
+  fill: #aaaaaa;
+}
+
+.midnightMode .autocom-box li:hover,
+.midnightMode .wrapper .search-input ,
 .midnightMode #searchbox-home {
   background: #283e50;
+}
+.wrapper .search-input {
+  width: auto;
 }
 .pitchMode .autocom-box li:hover,
 .pitchMode .wrapper .search-input,
