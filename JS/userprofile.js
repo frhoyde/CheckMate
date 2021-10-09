@@ -30,7 +30,7 @@ function show_user_info() {
         document.getElementById("location").innerHTML = userData.userLocation;
         document.getElementById("address-div").innerHTML =
           userData.userLocation;
-        document.getElementById("phone-div").innerHTML = userData.userNumber;
+        document.getElementById("phone-div").innerHTML = userData.userPhone;
         document.getElementById("twitter").innerHTML = userData.userTw;
         document.getElementById("facebook").innerHTML = userData.userFb;
       });
