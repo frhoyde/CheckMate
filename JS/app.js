@@ -724,8 +724,7 @@ function task_edit(task) {
   date = task.childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText;
   description = task.childNodes[1].childNodes[0].childNodes[3].innerText;
   time =
-    task.childNodes[1].childNodes[0].childNodes[1].childNodes[1].childNodes[1]
-      .innerText;
+    task.childNodes[1].childNodes[0].childNodes[1].childNodes[1].childNodes[1].innerText;
 
   edit_task = document.getElementById("edit-task");
   edit_task.setAttribute("value", title);

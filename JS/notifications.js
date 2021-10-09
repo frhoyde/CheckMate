@@ -19,6 +19,9 @@ firebase.initializeApp(firebaseConfig);
   var taskArrayTitle = [];
   var today = new Date();
   var notificationTimes = [];
+  var notificationTxt;
+  // Notification.permission = "granted";
+
 
 
 firebase.auth().onAuthStateChanged(function (user) {
@@ -97,7 +100,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     
     
     
-        setInterval(updateTime, 1000);
+        setInterval(updateTime, 60000);
    
         function updateTime() {
         let time = new Date();
@@ -105,7 +108,9 @@ firebase.auth().onAuthStateChanged(function (user) {
         let min = time.getMinutes();
         
         var currentTime = hour + ":" + min;
-    
+        if(time.getSeconds == 0){
+          location.reload();
+        }
         for(var i = 0; i < notificationTimes.length; i++){
             if(currentTime === notificationTimes[i]){
                 callNotification(i);
@@ -119,16 +124,28 @@ firebase.auth().onAuthStateChanged(function (user) {
     
         }
         updateTime();
-    
+
+      function ShowNotification(){
+        var currTime = today.getHours() + ":" + today.getMinutes();
+        const notificationObj = new Notification(notificationTxt, {
+          body: currTime
+        });
+      }
     
     function callNotification(i){
         var list = document.getElementById("notification-list");
-        newLI = document.createElementNS(null,"li");
-        var notificationTxt = document.createTextNode(todaysTaskArray[i].title);
-        newLI.appendChild(notificationTxt);
-        list.appendChild(newLI);
-        alert(notificationTxt);
-    }
+        var li = document.createElement("li");
+       
+        notificationTxt = todaysTaskArray[i].title;
+        li.innerHTML = notificationTxt;
+        list.appendChild(li);
+        
+        if(Notification.permission === "granted"){
+          ShowNotification();
+          
+        }
+        
+      }
 
   });
 
@@ -137,6 +154,15 @@ firebase.auth().onAuthStateChanged(function (user) {
   }
 
 });
+
+localStorage.setItem("notificationLocalVar", )
+
+if(Notification.permission !== "denied"){
+  Notification.requestPermission().then( permission => {
+    console.log(permission);
+  });
+}
+
 
 firebase.auth().onAuthStateChanged(function (user) {
 var firebaseRef = firebase.database().ref("users/" + user.uid + "/unfinished_task/").orderByChild("date"); // need for all task
@@ -168,74 +194,3 @@ if (user) {
 }
 
 });
-
-
-// console.log(todaysTaskArray);
-
-
-
-// var today = new Date();
-// var notificationTimes = [];
-
-// var today_month =
-//   today.getMonth() + 1 >= 10
-//     ? today.getMonth() + 1
-//     : "0" + (today.getMonth() + 1);
-
-// var today_date =
-//   today.getDate() >= 10 ? today.getDate() : "0" + today.getDate();
-
-// var today_string = today.getFullYear() + "-" + today_month + "-" + today_date;
-
-// function timeToString(a, b){
-//     return a + ":" + b;
-// }
-
-// function stringToHour(a){
-//     return parseInt(a[0] + a[1]);
-// }
-
-// function stringToMin(a){
-//     return parseInt(a[3]+a[4]);
-// }
-
-
-
-
-
-
-
-
-
-// // console.log(todaysTaskArray);
-
-
-
-
-// setInterval(updateTime, 1000);
-// function updateTime() {
-//     let time = new Date();
-//     let hour = time.getHours();
-//     let min = time.getMinutes();
-    
-//     var currentTime = hour + ":" + min;
-
-//     notificationTimes.forEach(function(i) {
-//         if(currentTime === notificationTimes[i]){
-//             callNotification(i);
-//         }
-    
-//     });
-   
-// }
-// updateTime();
-
-
-// function callNotification(i){
-//     var list = document.getElementById("notification-list");
-//     newLI = document.createElementNS(null,"li");
-//     notificationTxt = document.createTextNode(todaysTaskArray[i].title);
-//     newLI.appendChild(notificationTxt);
-//     list.appendChild(newLI);
-//     console.log(notificationTxt);
-// }
