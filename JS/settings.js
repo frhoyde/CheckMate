@@ -39,7 +39,7 @@ function show_user_info() {
         const userData = snapshot.val();
         //console.log(userData);
         document.getElementById("fullname-div").innerHTML =
-          userData.userFullName + " " + userData.userSurname;
+          userData.userFullName;
         //document.getElementById("fullname").style.display = "none";
 
         document.getElementById("bio").innerHTML = userData.userBio;

@@ -44,9 +44,9 @@ body {
   transition: all 0.3s ease-in-out;
 }
 
-.pitchMode .order-card{
-    border: 1px solid rgba(255,255,255,.4);
-} 
+.pitchMode .order-card {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
 
 .card .card-block {
   padding: 25px;
@@ -70,87 +70,99 @@ body {
   text-align: middle;
 }
 
+#user_profile {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background: #2ed8b6;
+  font-size: 3.5rem;
+  color: #fff;
+  text-align: center;
+  line-height: 10rem;
+  margin: 2rem 0;
+}
+
 .natureMode .bg-c-green {
-    background: linear-gradient(45deg, #78c2ad, #78c2ae);
-  }
+  background: linear-gradient(45deg, #78c2ad, #78c2ae);
+}
 
 .pitchMode .bg-c-blue {
-    background: transparent;
-  }
-
-  .pitchMode .bg-c-green {
-    background: transparent;
-  }
-
-  .pitchMode .bg-c-yellow {
-    background: transparent;
-  }
-
-  .pitchMode .bg-c-pink {
-    background: transparent;
-  }
-
-  .midnightMode .bg-c-blue {
-    background: transparent;
-  }
-
-  .midnightMode .bg-c-green {
-    background: transparent;
-  }
-
-  .midnightMode .bg-c-yellow {
-    background: transparent;
-  }
-
-  .midnightMode .bg-c-pink {
-    background: transparent;
-  }
-
-  #textMode{
-    text-decoration-color: red!important;
+  background: transparent;
 }
-  
-.midnightMode span{
-  color: rgba(255,255,255,.4)!important;
+
+.pitchMode .bg-c-green {
+  background: transparent;
 }
-  
+
+.pitchMode .bg-c-yellow {
+  background: transparent;
+}
+
+.pitchMode .bg-c-pink {
+  background: transparent;
+}
+
+.midnightMode .bg-c-blue {
+  background: transparent;
+}
+
+.midnightMode .bg-c-green {
+  background: transparent;
+}
+
+.midnightMode .bg-c-yellow {
+  background: transparent;
+}
+
+.midnightMode .bg-c-pink {
+  background: transparent;
+}
+
+#textMode {
+  text-decoration-color: red !important;
+}
+
+.midnightMode span {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
 .midnightMode p {
-    color: rgba(255,255,255,.4)!important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .midnightMode #fullname-div {
-    color: rgba(255,255,255,.4)!important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
 .midnightMode #email-div {
-    color: rgba(255,255,255,.4)!important;
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
-.midnightMode #phone-div  {
-    color: rgba(255,255,255,.4)!important;
+.midnightMode #phone-div {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
-.midnightMode #address-div  {
-    color: rgba(255,255,255,.4)!important;
+.midnightMode #address-div {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
 
-.pitchMode #show_trash  {
-    color: #aaaaaa!important;
+.pitchMode #show_trash {
+  color: #aaaaaa !important;
 }
 
-.pitchMode #show_unfin  {
-    color: #aaaaaa!important;
+.pitchMode #show_unfin {
+  color: #aaaaaa !important;
 }
-.pitchMode #show_fin  {
-    color: #aaaaaa!important;
+.pitchMode #show_fin {
+  color: #aaaaaa !important;
 }
-.pitchMode #show_all  {
-    color: #aaaaaa!important;
+.pitchMode #show_all {
+  color: #aaaaaa !important;
 }
-.pitchMode h6  {
-    color: rgba(255,255,255,.4)!important;
+.pitchMode h6 {
+  color: rgba(255, 255, 255, 0.4) !important;
 }
- 
- .pitchMode #showIcon  {
-    color: #aaaaaa!important;
+
+.pitchMode #showIcon {
+  color: #aaaaaa !important;
 }
