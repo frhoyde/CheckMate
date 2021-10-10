@@ -64,9 +64,13 @@
 
 <!-- ABOUT THE PROJECT -->
 ## Project Overview
-
-[![Product Name Screen Shot][product-screenshot]](/Resources/img/1.jpg)
-
+<br><br>
+<div align="center">
+  <a href="https://github.com/SazidAF/CheckMate">
+    <img src="/Resources/img/1.png" alt="1" width="800" height="500">
+  </a>
+</div>
+<br><br>
 This is a todo list to manage your tasks and events. You can create, edit or archive your tasks and also retrieve deleted ones from the 'Trash'. The website shows a brief analytics for your progress of the day. You can also choose between Four themes.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
