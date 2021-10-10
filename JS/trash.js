@@ -54,6 +54,13 @@ function showAllTrash() {
           card_margin = document.createElement("div");
           card_margin.setAttribute("class", "card card-margin");
 
+          card_margin.id = "cardId" + task_key;
+
+          card_margin.setAttribute("title", task_title);
+          card_margin.setAttribute("Tdate", task_date);
+          card_margin.setAttribute("Ttime", task_time);
+          card_margin.setAttribute("Tdescription", task_description);
+
           card_body = document.createElement("div");
           card_body.setAttribute("class", "card-body pt-0");
 
@@ -272,4 +279,112 @@ function closeTrashModal(){
  
   document.getElementById("delete-modal").style = "display: none";
 
+}
+
+
+/** tasklist js */
+
+var taskArrayTitle = [];
+var taskID = [];
+
+firebase.auth().onAuthStateChanged(function (user) {
+  var firebaseRef = firebase
+    .database()
+    .ref("users/" + user.uid + "/Trash/")
+    .orderByChild("time"); // need for all task
+  if (user) {
+    user = firebase.auth().currentUser;
+    // Retrieve new tasks as they are added to our database
+    firebaseRef.once("value", (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        var childkey = childSnapshot.key;
+
+        taskArrayTitle.push(childSnapshot.val().title);
+        taskID.push(childkey);
+      });
+    });
+  }
+});
+/** Searchbar Js */
+// getting all required elements
+const searchWrapper = document.querySelector(".search-input");
+const SearchinputBox = searchWrapper.querySelector("input");
+const suggBox = searchWrapper.querySelector(".autocom-box");
+// const searchicon = searchWrapper.querySelector(".searchicon");
+let linkTag = searchWrapper.querySelector("a");
+let webLink;
+
+// if user press any key and release
+SearchinputBox.onkeyup = (e) => {
+  let userData = e.target.value; //user enetered data
+  let emptyArray = [];
+  if (userData) {
+    // searchicon.onclick = () => {
+    //   webLink = `https://www.google.com/search?q=${userData}`;
+    //   linkTag.setAttribute("href", webLink);
+    //   linkTag.click();
+    // };
+    emptyArray = taskArrayTitle.filter((data) => {
+      //filtering array value and user characters to lowercase and return only those words which are start with user enetered chars
+      return data
+        ?.toLocaleLowerCase()
+        .startsWith(userData?.toLocaleLowerCase());
+    });
+    emptyArray = emptyArray.map((data) => {
+      // passing return data inside li tag
+      return (data = `<a><li>${data}</li></a>`);
+    });
+    searchWrapper.classList.add("active"); //show autocomplete box
+    showSuggestions(emptyArray);
+    let allList = suggBox.querySelectorAll("a");
+    let allString = suggBox.querySelectorAll("li");
+
+    function hrefAdder(TitleString) {
+      for (let i = 0; i < taskArrayTitle.length; i++) {
+        if (TitleString == taskArrayTitle[i]) {
+          // console.log(i);
+          return i;
+        }
+      }
+    }
+
+    for (let i = 0; i < allList.length; i++) {
+      //adding onclick attribute in all li tag
+      taskTitleString = allString[i].innerHTML;
+
+      task_string = "cardId" + taskID[hrefAdder(taskTitleString)];
+      console.log(task_string);
+      allList[i].setAttribute("href", "trash.html#" + task_string);
+      //allList[i].task_id += ;
+
+      //allList[i].setAttribute("onclick", "OpenModal(this)");
+
+      // console.log(allList[i]);
+      // console.log(taskID[i]);
+    }
+    // } else if (document.getElementById("searchbox-home").hasFocus() == false) {
+    //   searchWrapper.classList.remove("active"); //hide autocomplete box
+  } else searchWrapper.classList.remove("active"); //hide autocomplete box
+};
+
+function select(element) {
+  let selectData = element.textContent;
+  SearchinputBox.value = selectData;
+  // searchicon.onclick = () => {
+  //   webLink = `https://www.google.com/search?q=${selectData}`;
+  //   linkTag.setAttribute("href", webLink);
+  //   linkTag.click();
+  // };
+  searchWrapper.classList.remove("active");
+}
+
+function showSuggestions(list) {
+  let listData;
+  if (!list.length) {
+    userValue = SearchinputBox.value;
+    listData = `<li>No Tasks Found<li>`;
+  } else {
+    listData = list.join("");
+  }
+  suggBox.innerHTML = listData;
 }
