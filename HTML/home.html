@@ -23,7 +23,7 @@
 </head>
 
 <body
-  onload="create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task(), create_important_task(), create_upcoming_important_task(), create_inProgress_task(), create_upcoming_inProgress_task(), countAllTask() ">
+  onload="show_user_initial() ,create_unfinished_task(), create_finished_task(), create_upcoming_unfinished_task(), create_upcoming_finished_task(), create_important_task(), create_upcoming_important_task(), create_inProgress_task(), create_upcoming_inProgress_task(), countAllTask() ">
   <svg style=" display:none;">
     
     <symbol id="down" viewBox="0 0 16 16">
@@ -332,10 +332,8 @@
 
         </div>
         <span class="greeting"> </span>
-        <div class="user-notifications">
-          <a href="userprofile.html"><svg>
-              <use xlink:href="#user"></use>
-            </svg>
+        <div class="user-notifications" id="home_user_profile">
+          <a href="userprofile.html">
           </a>
         </div>
       </div>

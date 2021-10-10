@@ -102,18 +102,38 @@ function listUpcomingEvents() {
       timeMin: new Date().toISOString(),
       showDeleted: false,
       singleEvents: true,
-      maxResults: 100,
+      maxResults: 10,
       orderBy: "startTime",
     })
     .then(function (response) {
       var events = response.result.items;
 
-    
+      //appendPre("Upcoming events:");
 
       if (events.length > 0) {
-       
+        // for (var i, i = 0; i < taskArray.length; i++) {
+        //   task_date = taskArray[i].date;
+        //   task_key = taskArray[i].key;
+        //   task_title = taskArray[i].title;
+        //   task_description = taskArray[i].description;
+
+        //   var new_event = {
+        //     id: taskArray[i].key,
+        //     name: taskArray[i].title,
+        //     description: taskArray[i].description,
+        //     date: taskArray[i].date,
+        //     type: "event",
+        //     everyYear: !0,
+        //   };
+
+        //   event_array.push(new_event);
+        // }
         for (var i, i = 0; i < events.length; i++) {
-      
+          //  task_date2 = events[i].start.data;
+          // task_key2 = events[i].id;
+          // task_title2 = events[i].summary;
+          // task_description2 = events[i].summary;
+
           var temp_event = events[i];
           console.log(events[i]);
           var when = temp_event.start.dateTime;
@@ -134,15 +154,18 @@ function listUpcomingEvents() {
           google_events.push(new_event2);
         }
         console.log(google_events);
-       
+        appendPre("");
       } else {
-       
+        appendPre("No upcoming events found.");
       }
     });
- 
+  //  $("#demoEvoCalendar").evoCalendar({
+  //   format: "MM dd, yyyy",
+  //   titleFormat: "MM",
+  //   calendarEvents: google_events,
+
+  // });
 }
-
-
 
 // /*google api js*/
 
@@ -231,7 +254,59 @@ $(document).ready(function () {
         titleFormat: "MM",
         calendarEvents: $.merge(event_array, google_events),
       });
-     
+      //console.log(calendarEvents);
+
+      // calendarEvents : [
+      //   {
+      //         id: taskArray[i].key,
+      //         name: taskArray[i].title,
+      //         description: taskArray[i].description,
+      //         date: taskArray[i].date,
+      //         type: "birthday",
+      //         everyYear: !0,
+      //       },
+
+      // ],
+
+      // calendarEvents: [
+
+      //   {
+      //     id: "sKn89hi",
+      //     name: "1-Week Coding Bootcamp",
+      //     description: "Lorem ipsum dolor sit amet.",
+      //     badge: "5-day event",
+      //     date: [
+      //       today.getMonth() +
+      //         1 +
+      //         "/" +
+      //         week_date.start +
+      //         "/" +
+      //         today.getFullYear(),
+      //       today.getMonth() +
+      //         1 +
+      //         "/" +
+      //         week_date.end +
+      //         "/" +
+      //         today.getFullYear(),
+      //     ],
+      //     type: "event",
+      //     everyYear: !0,
+      //   },
+      //   {
+      //     id: "in8bha4",
+      //     name: "Holiday #2",
+      //     description:
+      //       "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      //     date: today,
+      //     type: "holiday",
+      //   },
+      //   {
+      //     id: "in8bha4",
+      //     name: "Event #2",
+      //     date: today,
+      //     type: "event",
+      //   },
+      // ],
 
       $("[data-set-theme]").click(function (b) {
         a(b.target);
