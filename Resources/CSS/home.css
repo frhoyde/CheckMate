@@ -1153,3 +1153,27 @@ ul.draggable:after {
   display: flex;
 }
 
+.natureMode #home_user_profile{
+  background: #78c2ad ;
+}
+.midnightMode #home_user_profile{
+  background: #Df691a ;
+}
+
+.classicMode #home_user_profile{
+  color: #fff ;
+  background: #000;
+}
+.pitchMode #home_user_profile{
+  background: #3f3a44 ;
+}
+#home_user_profile {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: center;
+  line-height: 2.5rem;
+  margin: 2rem 0;
+}

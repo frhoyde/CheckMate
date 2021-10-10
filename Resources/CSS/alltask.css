@@ -1,10 +1,9 @@
-<<<<<<< HEAD
+
 
 html { 
   scroll-behavior: smooth; 
 } 
-=======
->>>>>>> deb55ca207781fe1316f0fbb9a36637c046edc91
+
 body {
   margin-top: 20px;
 
@@ -478,4 +477,17 @@ body {
 
 .dropdown button:hover {
   transform: translatex(2px);
+}
+
+.tooltip-inner {
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.699);
+  color:  #536b8b;
+  border: #536b8b;
+}
+ .tooltip .arrow {
+  display: none;
+}
+.tooltip .tooltiptext{
+  color: #F95062;
 }

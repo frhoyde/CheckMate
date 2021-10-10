@@ -74,7 +74,6 @@ body {
   width: 10rem;
   height: 10rem;
   border-radius: 50%;
-  background: #2ed8b6;
   font-size: 3.5rem;
   color: #fff;
   text-align: center;
@@ -165,4 +164,18 @@ body {
 
 .pitchMode #showIcon {
   color: #aaaaaa !important;
+}
+
+.natureMode #user_profile{
+  background: #78c2ad ;
+}
+.midnightMode #user_profile{
+  background: #Df691a;
+}
+
+.classicMode #user_profile{
+  background: #fff ;
+}
+.pitchMode #user_profile{
+  background: #5a5a5a ;
 }

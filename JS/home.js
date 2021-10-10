@@ -46,6 +46,22 @@ for (const link of menuLinks) {
   });
 }
 
+function show_user_initial() {
+  firebase.auth().onAuthStateChanged(function (user) {
+    console.log(user.uid);
+    var firebaseRef = firebase.database().ref("users/" + user.uid);
+    if (user) {
+      user = firebase.auth().currentUser;
+      firebaseRef.once("value", (snapshot) => {
+        const userData = snapshot.val();
+        console.log(userData);
+        document.getElementById("home_user_profile").innerHTML =
+          userData.userFullName.charAt(0);
+      });
+    }
+  });
+}
+
 /*TOGGLE LIGHT/DARK MODE*/
 
 
