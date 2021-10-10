@@ -768,7 +768,11 @@ function task_done(task) {
   location.reload();
 
   // delete our task from unfinished
-  task_delete(task);
+
+  task_to_remove = firebase
+    .database()
+    .ref("users/" + user_uid + "/unfinished_task/" + key);
+  task_to_remove.remove();
 
   if (
     today.getDate() == date_given.getDate() &&
@@ -863,7 +867,7 @@ function task_archive(task) {
 
   time =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
-      .childNodes[1].childNodes[1].childNodes[1].innerHTML;
+      .childNodes[1].childNodes[1].childNodes[0].childNodes[0].innerHTML;
 
   description =
     task.childNodes[1].childNodes[0].childNodes[0].childNodes[1].childNodes[0]
